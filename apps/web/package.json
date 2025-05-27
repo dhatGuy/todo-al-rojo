@@ -24,6 +24,7 @@
     "@tanstack/react-router-devtools": "^1.117.1",
     "better-auth": "^1.2.7",
     "hono": "^4.7.8",
+    "lucide-react": "^0.511.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.56.1",
