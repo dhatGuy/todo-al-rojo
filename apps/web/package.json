@@ -23,6 +23,7 @@
     "@tanstack/react-router": "^1.117.1",
     "@tanstack/react-router-devtools": "^1.117.1",
     "better-auth": "^1.2.7",
+    "embla-carousel-auto-scroll": "^8.6.0",
     "embla-carousel-autoplay": "^8.6.0",
     "hono": "^4.7.8",
     "lucide-react": "^0.511.0",

@@ -1,6 +1,6 @@
 import { Card, CardDescription, CardHeader, CardTitle } from "@repo/ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "@repo/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
+import AutoScroll from "embla-carousel-auto-scroll";
 
 const casinos = [
   {
@@ -21,10 +21,10 @@ const casinos = [
 ];
 
 export function BookmarkerCarousel() {
-  const autoplay = Autoplay({
-    delay: 4000,
-    stopOnInteraction: true,
+  const autoScroll = AutoScroll({
+    speed: 1,
     stopOnMouseEnter: true,
+    stopOnInteraction: false,
   });
 
   return (
@@ -43,7 +43,7 @@ export function BookmarkerCarousel() {
             },
           },
         }}
-        plugins={[autoplay]}
+        plugins={[autoScroll]}
         className="w-full"
       >
         <CarouselContent className="-ml-2 md:-ml-4">

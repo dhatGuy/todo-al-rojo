@@ -1,14 +1,15 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/avatar";
 import { Card, CardContent } from "@repo/ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "@repo/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
+import AutoScroll from "embla-carousel-auto-scroll";
 import { Quote } from "lucide-react";
 
 export function TestimonialCarousel() {
-  const autoplay = Autoplay({
-    delay: 4000,
-    stopOnInteraction: true,
+  const autoScroll = AutoScroll({
+    speed: 1,
     stopOnMouseEnter: true,
+    stopOnInteraction: false,
+    direction: "backward",
   });
 
   return (
@@ -28,7 +29,7 @@ export function TestimonialCarousel() {
             },
           },
         }}
-        plugins={[autoplay]}
+        plugins={[autoScroll]}
         className="w-full"
       >
         <CarouselContent className="-ml-2 md:-ml-4 overflow-visible">
