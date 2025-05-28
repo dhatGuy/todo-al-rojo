@@ -5,11 +5,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@repo/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@repo/ui/carousel";
+import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 
 export const LatestArticles = () => {
   return (
     <div className="bg-gray-200">
-      <div className="mx-auto max-w-7xl flex-1 px-2 py-8">
+      <div className="mx-auto max-w-7xl flex-1 py-8">
         <div className="mb-8 text-center">
           <h2 className="mb-2 text-4xl font-black text-gray-900">
             Últimos Artículos
@@ -19,30 +27,48 @@ export const LatestArticles = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {Array.from({ length: 3 }).map((_, index) => (
-            <Card
-              key={index}
-              className="transform overflow-hidden rounded-xl bg-[#000014] shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-xl"
-            >
-              <CardContent className="relative h-32 overflow-hidden rounded-xl">
-                <img
-                  src="https://images.unsplash.com/photo-1605870445919-838d190e8e1b?w=600&auto=format&fit=crop&q=60&h=300"
-                  alt="Tablet mostrando juegos de casino online"
-                  className="h-full w-full rounded-xl object-cover"
-                />
-              </CardContent>
-              <CardHeader className="">
-                <CardTitle className="mb-2 text-xl font-bold">
-                  Por Qué Elegir Buenos Proveedores...?
-                </CardTitle>
-                <CardDescription className="mb-3 text-sm text-gray-300">
-                  Un proveedor confiable transforma tu experiencia: sin estrés,
-                  sin fraudes, pura diversión.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          ))}
+        <div className="w-full mx-auto">
+          <Carousel
+            opts={{
+              skipSnaps: true,
+              // align: "start",
+            }}
+            plugins={[WheelGesturesPlugin()]}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-2 md:-ml-4 px-4">
+              {Array.from({ length: 3 }).map((_, index) => (
+                <CarouselItem
+                  key={index}
+                  className="pl-2 md:pl-4 basis-[85%] sm:basis-[60%] md:basis-1/2 lg:basis-1/3"
+                >
+                  <Card
+                    key={index}
+                    className="transform overflow-hidden rounded-xl bg-[#000014] shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-xl"
+                  >
+                    <CardContent className="relative h-32 overflow-hidden rounded-xl">
+                      <img
+                        src="https://images.unsplash.com/photo-1605870445919-838d190e8e1b?w=600&auto=format&fit=crop&q=60&h=300"
+                        alt="Tablet mostrando juegos de casino online"
+                        className="h-full w-full rounded-xl object-cover"
+                      />
+                    </CardContent>
+                    <CardHeader className="">
+                      <CardTitle className="mb-2 text-xl font-bold text-white">
+                        Por Qué Elegir Buenos Proveedores...?
+                      </CardTitle>
+                      <CardDescription className="mb-3 text-sm text-gray-300">
+                        Un proveedor confiable transforma tu experiencia: sin
+                        estrés, sin fraudes, pura diversión.
+                      </CardDescription>
+                    </CardHeader>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-5 md:left-10 flex bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl" />
+            <CarouselNext className="right-5 md:right-10 flex bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl" />
+          </Carousel>
         </div>
       </div>
     </div>
