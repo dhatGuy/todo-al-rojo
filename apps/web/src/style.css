@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
 @config "../tailwind.config.ts";
 @source "../../../packages/ui/src";
@@ -10,6 +11,8 @@ body {
   --dark-yellow: #d77921;
   --lighter-yellow: #fff154;
   --dark-blue: #000017;
+
+  --font-sans: "Montserrat", sans-serif;
 }
 
 /*
