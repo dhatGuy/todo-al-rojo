@@ -12,7 +12,7 @@ import { CircleArrowRight } from "lucide-react";
 
 export const LeaderboardSection = () => {
   return (
-    <section className="bg-[#393B69] bg-gradient-to-b from-[#393B69] via-[#01000E] to-[#01000E] py-16">
+    <section className="bg-[#393B69] bg-gradient-to-b from-[#393B69] via-[#01000E] to-[#000017] py-16 overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <h2 className="mb-12 text-center text-4xl font-bold text-white md:text-5xl">
           Tablas de Clasificación
@@ -111,7 +111,7 @@ export const LeaderboardSection = () => {
                 style={{
                   backgroundImage: `url(${pokerImg})`,
                 }}
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-50"
+                className="absolute inset-0 bg-cover md:bg-contain bg-center bg-no-repeat opacity-50 md:opacity-100 md:aspect-square"
               />
             </div>
           </div>

@@ -37,7 +37,7 @@ export const LatestArticles = () => {
             className="w-full"
           >
             <CarouselContent className="-ml-2 md:-ml-4 px-4">
-              {Array.from({ length: 3 }).map((_, index) => (
+              {articles.map((item, index) => (
                 <CarouselItem
                   key={index}
                   className="pl-2 md:pl-4 basis-[85%] sm:basis-[60%] md:basis-1/2 lg:basis-1/3"
@@ -48,18 +48,17 @@ export const LatestArticles = () => {
                   >
                     <CardContent className="relative h-32 overflow-hidden rounded-xl">
                       <img
-                        src="https://images.unsplash.com/photo-1605870445919-838d190e8e1b?w=600&auto=format&fit=crop&q=60&h=300"
+                        src={`https://picsum.photos/seed/${index}/300/200`}
                         alt="Tablet mostrando juegos de casino online"
                         className="h-full w-full rounded-xl object-cover"
                       />
                     </CardContent>
                     <CardHeader className="">
                       <CardTitle className="mb-2 text-xl font-bold text-white">
-                        Por Qué Elegir Buenos Proveedores...?
+                        {item.title}
                       </CardTitle>
                       <CardDescription className="mb-3 text-sm text-gray-300">
-                        Un proveedor confiable transforma tu experiencia: sin
-                        estrés, sin fraudes, pura diversión.
+                        {item.description}
                       </CardDescription>
                     </CardHeader>
                   </Card>
@@ -74,3 +73,31 @@ export const LatestArticles = () => {
     </div>
   );
 };
+
+const articles = [
+  {
+    title: "¿Por Qué Elegir Buenos Proveedores...?",
+    description:
+      "Un proveedor confiable transforma tu experiencia: sin estrés, sin fraudes, pura diversión.",
+  },
+  {
+    title: "Los Mejores Casinos Online en Chile en 2025",
+    description:
+      "Conoce las plataformas top para jugar desde Chile en 2025 con grandes bonos y soporte confiable.",
+  },
+  {
+    title: "¿Cómo Elegir el Mejor Casino Online en Chile?",
+    description:
+      "Aprende qué factores son clave al momento de elegir un casino seguro, justo y completo en Chile.",
+  },
+  {
+    title: "Bonos de Bienvenida en Casinos Online en Chile",
+    description:
+      "Te mostramos cuáles son los bonos más generosos, cómo funcionan y qué casino los ofrece en 2025.",
+  },
+  {
+    title: "Juegos de Casino Más Populares en Chile",
+    description:
+      "Explora los juegos más jugados: tragamonedas, ruleta, blackjack y apuestas deportivas.",
+  },
+];

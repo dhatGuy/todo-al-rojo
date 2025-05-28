@@ -5,6 +5,13 @@ body {
   @apply bg-zinc-950 text-zinc-50;
 }
 
+@theme {
+  --rojo-gradient: linear-gradient(135deg, #d77921, #fff154);
+  --dark-yellow: #d77921;
+  --lighter-yellow: #fff154;
+  --dark-blue: #000017;
+}
+
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still

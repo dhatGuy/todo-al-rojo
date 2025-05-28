@@ -1,5 +1,7 @@
 import { Button } from "@repo/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@repo/ui/sheet";
 import { Link } from "@tanstack/react-router";
+import { Menu } from "lucide-react";
 
 const navItems = [
   { name: "Inicio", path: "/" },
@@ -13,22 +15,83 @@ const navItems = [
 
 export const Header = () => {
   return (
-    <header className="relative z-10 w-full px-6 py-4">
+    <header className="relative z-10 w-full px-6 py-4 bg-[#000017]">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
-        {/* Logo */}
-        <div className="flex items-center">
-          <div className="rounded bg-white px-3 py-2 text-xl font-bold text-red-600">
-            TODO AL
-            <br />
-            <span className="text-2xl">ROJO</span>
+        {/* Logo - Hidden on mobile, shown on desktop */}
+        <div className="hidden lg:flex items-center">
+          <img
+            src="/todoalrojo-logo.png"
+            alt="Logo"
+            className="object-contain w-24 h-24"
+          />
+        </div>
+
+        {/* Centered Logo on Mobile */}
+        <div className="flex lg:hidden justify-between w-full items-center">
+          <img
+            src="/todoalrojo-logo.png"
+            alt="Logo"
+            className="object-contain w-24 h-24"
+          />
+
+          {/* Mobile Menu Trigger */}
+          <div>
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-white hover:bg-white/10"
+                >
+                  <Menu className="h-6 w-6" />
+                  <span className="sr-only">Abrir menú</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent className="w-80 bg-[#000017] border-none">
+                <div className="flex flex-col h-full">
+                  {/* Logo in Sidebar */}
+                  <div className="flex items-center mb-8 mt-4">
+                    <img
+                      src="/todoalrojo-logo.png"
+                      alt="Logo"
+                      className="object-contain w-24 h-24"
+                    />
+                  </div>
+
+                  {/* Navigation Links */}
+                  <nav className="flex-1">
+                    <div className="space-y-2 pl-4">
+                      {navItems.map((item, index) => (
+                        <Link
+                          key={`mobile-${item.name}-${item.path}`}
+                          to={item.path}
+                          className={`block w-fit pr-4 py-3 font-medium text-white transition-colors duration-200 hover:bg-white/10 ${
+                            index === 0 ? "border-b-2 border-red-500 pb-1" : ""
+                          }`}
+                        >
+                          {item.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </nav>
+
+                  {/* Login Button in Sidebar */}
+                  <div className="mt-auto mb-6 mx-auto">
+                    <Button className="rounded-full bg-gradient-to-br from-[#D77921] to-[#FFF154] px-6 py-3 font-semibold text-black transition-all duration-200 hover:scale-105 hover:bg-yellow-300">
+                      Iniciar sesión / Registrarse
+                    </Button>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
 
-        {/* Navigation */}
+        {/* Desktop Navigation */}
         <nav className="hidden items-center space-x-8 lg:flex">
           {navItems.map((item, index) => (
             <Link
-              id={`${item.name}-${item.path}`}
+              key={`desktop-${item.name}-${item.path}`}
               to={item.path}
               className={`font-medium text-white transition-colors duration-200 hover:text-yellow-300 ${
                 index === 0 ? "border-b-2 border-red-500 pb-1" : ""
@@ -39,8 +102,8 @@ export const Header = () => {
           ))}
         </nav>
 
-        {/* Login Button */}
-        <Button className="rounded-full bg-yellow-400 px-6 py-2 font-semibold text-black transition-all duration-200 hover:scale-105 hover:bg-yellow-300">
+        {/* Desktop Login Button */}
+        <Button className="hidden lg:block rounded-full  bg-gradient-to-br from-[#D77921] to-[#FFF154] px-6 py-2 font-semibold text-black transition-all duration-200 hover:scale-105 hover:bg-yellow-300 mx-10">
           Iniciar sesión / Registrarse
         </Button>
       </div>
