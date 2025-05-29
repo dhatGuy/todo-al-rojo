@@ -47,7 +47,7 @@ export const Header = () => {
                   <span className="sr-only">Abrir menú</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent className="w-80 bg-[#000017] border-none">
+              <SheetContent className="w-80 bg-[#000017] border-none overflow-scroll">
                 <div className="flex flex-col h-full">
                   {/* Logo in Sidebar */}
                   <div className="flex items-center mb-8 mt-4">
