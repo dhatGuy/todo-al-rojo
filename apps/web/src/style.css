@@ -7,10 +7,11 @@ body {
 }
 
 @theme {
-  --rojo-gradient: linear-gradient(135deg, #d77921, #fff154);
-  --dark-yellow: #d77921;
-  --lighter-yellow: #fff154;
-  --dark-blue: #000017;
+  --color-regal-blue: #243c5a;
+  --color-rojo-gradient: linear-gradient(135deg, #d77921, #fff154);
+  --color-dark-yellow: #d77921;
+  --color-lighter-yellow: #fff154;
+  --color-dark-blue: #000017;
 
   --font-sans: "Montserrat", sans-serif;
 }

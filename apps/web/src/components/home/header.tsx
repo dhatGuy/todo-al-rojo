@@ -4,7 +4,7 @@ import { Link } from "@tanstack/react-router";
 import { Menu } from "lucide-react";
 
 const navItems = [
-  { name: "Inicio", path: "/" },
+  { name: "Inicio", path: "/", activeOptions: { exact: true } },
   { name: "Recompensas", path: "/recompensas" },
   { name: "Promociones", path: "/promociones" },
   { name: "Tareas", path: "/tareas" },
@@ -61,13 +61,15 @@ export const Header = () => {
                   {/* Navigation Links */}
                   <nav className="flex-1">
                     <div className="space-y-2 pl-4">
-                      {navItems.map((item, index) => (
+                      {navItems.map((item) => (
                         <Link
                           key={`mobile-${item.name}-${item.path}`}
                           to={item.path}
-                          className={`block w-fit pr-4 py-3 font-medium text-white transition-colors duration-200 hover:bg-white/10 ${
-                            index === 0 ? "border-b-2 border-red-500 pb-1" : ""
-                          }`}
+                          activeOptions={item.activeOptions}
+                          activeProps={{
+                            className: "border-b-2 border-red-500 pb-1",
+                          }}
+                          className={`block w-fit pr-4 py-3 font-medium text-white transition-colors duration-200 hover:bg-white/1`}
                         >
                           {item.name}
                         </Link>
@@ -89,13 +91,13 @@ export const Header = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden items-center space-x-8 lg:flex">
-          {navItems.map((item, index) => (
+          {navItems.map((item) => (
             <Link
               key={`desktop-${item.name}-${item.path}`}
               to={item.path}
-              className={`font-medium text-white transition-colors duration-200 hover:text-yellow-300 ${
-                index === 0 ? "border-b-2 border-red-500 pb-1" : ""
-              }`}
+              activeProps={{ className: "border-b-2 border-red-500 pb-1" }}
+              activeOptions={item.activeOptions}
+              className={`font-medium text-white transition-all duration-200 hover:text-lighter-yellow`}
             >
               {item.name}
             </Link>
