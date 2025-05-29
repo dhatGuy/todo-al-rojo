@@ -40,24 +40,24 @@ export const LatestArticles = () => {
               {articles.map((item, index) => (
                 <CarouselItem
                   key={index}
-                  className="pl-2 md:pl-4 basis-[85%] sm:basis-[60%] md:basis-1/2 lg:basis-1/3"
+                  className="pl-2 h-full md:pl-4 basis-[85%] sm:basis-[60%] md:basis-1/2 lg:basis-1/3 flex"
                 >
                   <Card
                     key={index}
-                    className="transform overflow-hidden rounded-xl bg-[#000014] shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-xl"
+                    className="transform overflow-hidden rounded-xl bg-[#000014] shadow-lg transition-transform duration-300 hover:shadow-xl h-full w-full flex flex-col"
                   >
-                    <CardContent className="relative h-32 overflow-hidden rounded-xl">
+                    <CardContent className="relative aspect-square h-40 overflow-hidden rounded-xl flex-shrink-0">
                       <img
                         src={`https://picsum.photos/seed/${index}/300/200`}
                         alt="Tablet mostrando juegos de casino online"
                         className="h-full w-full rounded-xl object-cover"
                       />
                     </CardContent>
-                    <CardHeader className="">
+                    <CardHeader className="flex-1 flex flex-col">
                       <CardTitle className="mb-2 text-xl font-bold text-white">
                         {item.title}
                       </CardTitle>
-                      <CardDescription className="mb-3 text-sm text-gray-300">
+                      <CardDescription className="mb-3 text-sm text-gray-300 flex-1 wrap-break-word hyphens-auto">
                         {item.description}
                       </CardDescription>
                     </CardHeader>

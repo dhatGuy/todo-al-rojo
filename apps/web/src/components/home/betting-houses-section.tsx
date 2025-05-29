@@ -24,7 +24,7 @@ export const BettingHousesSection = () => {
             >
               <div className="flex flex-col items-center md:flex-row md:items-stretch">
                 {/* Left - Logo */}
-                <div className="flex h-32 w-full items-stretch justify-stretch rounded-2xl bg-[#0d0c1e] p-6 md:w-1/4">
+                <div className="flex h-36 max-h-full w-full items-stretch justify-stretch rounded-2xl bg-[#0d0c1e] p-6 md:w-1/4">
                   <img
                     src={house.logo}
                     alt={house.name}
@@ -33,7 +33,7 @@ export const BettingHousesSection = () => {
                 </div>
 
                 {/* Middle - Bonus Info */}
-                <div className="flex w-full flex-col justify-center p-6 md:w-1/2">
+                <div className="flex w-full flex-col justify-center p-6 flex-1">
                   <h3 className="mb-2 text-xl font-bold text-white md:text-lg">
                     {house.bonusTitle}
                   </h3>
@@ -41,7 +41,7 @@ export const BettingHousesSection = () => {
                 </div>
 
                 {/* Right - CTA Button */}
-                <div className="flex w-full items-center justify-center p-6 md:w-1/4">
+                <div className="flex items-center justify-center px-6">
                   <Button className="w-full rounded-xl bg-[#e01f21] px-6 py-3 font-bold text-white transition-all duration-200 hover:bg-red-700 md:w-auto">
                     Apostar Ahora
                   </Button>

@@ -22,7 +22,7 @@ export const Header = () => {
           <img
             src="/todoalrojo-logo.png"
             alt="Logo"
-            className="object-contain w-24 h-24"
+            className="object-contain w-40 h-24"
           />
         </div>
 
@@ -31,7 +31,7 @@ export const Header = () => {
           <img
             src="/todoalrojo-logo.png"
             alt="Logo"
-            className="object-contain w-24 h-24"
+            className="object-contain w-32 sm:w-36 h-24"
           />
 
           {/* Mobile Menu Trigger */}
@@ -54,7 +54,7 @@ export const Header = () => {
                     <img
                       src="/todoalrojo-logo.png"
                       alt="Logo"
-                      className="object-contain w-24 h-24"
+                      className="object-contain w-32 sm:w-36 h-24"
                     />
                   </div>
 
@@ -67,9 +67,10 @@ export const Header = () => {
                           to={item.path}
                           activeOptions={item.activeOptions}
                           activeProps={{
-                            className: "border-b-2 border-red-500 pb-1",
+                            className:
+                              "border-b-4 font-semibold border-red-500 pb-1",
                           }}
-                          className={`block w-fit pr-4 py-3 font-medium text-white transition-colors duration-200 hover:bg-white/1`}
+                          className={`block w-fit pr-4 py-3 text-white transition-colors duration-200 hover:bg-white/1`}
                         >
                           {item.name}
                         </Link>
@@ -95,9 +96,11 @@ export const Header = () => {
             <Link
               key={`desktop-${item.name}-${item.path}`}
               to={item.path}
-              activeProps={{ className: "border-b-2 border-red-500 pb-1" }}
+              activeProps={{
+                className: "font-semibold border-b-4 border-red-500 pb-1",
+              }}
               activeOptions={item.activeOptions}
-              className={`font-medium text-white transition-all duration-200 hover:text-lighter-yellow`}
+              className={`text-white transition-all duration-200 hover:text-lighter-yellow`}
             >
               {item.name}
             </Link>

@@ -1,7 +1,6 @@
 import { Button } from "@repo/ui/button";
 import bgHero from "../../assets/images/hero-bg.png";
-
-import { Header } from "./header";
+import { Header } from "../header";
 
 export const HeroSection = () => {
   return (
@@ -21,23 +20,23 @@ export const HeroSection = () => {
         />
 
         {/* Content Container */}
-        <div className="relative z-10 mx-auto max-w-7xl px-6 pt-20 pb-16">
+        <div className="relative z-10 mx-auto max-w-7xl px-6 pt-10 pb-16">
           <div className="text-center">
             {/* Main Headline */}
-            <h1 className="mb-6 text-4xl leading-tight font-bold text-white md:text-6xl lg:text-7xl">
+            <h1 className="mb-2 text-4xl leading-12 font-bold text-white md:text-5xl">
               ¡Mejores programas de afiliados de
               <br />
-              <span className="text-yellow-300">casinos para todos!</span>
+              <span className="">casinos para todos!</span>
             </h1>
 
             {/* Subheadline */}
-            <p className="mx-auto mb-8 max-w-4xl text-lg leading-relaxed text-gray-200 md:text-xl">
+            <p className="mx-auto mb-4 max-w-4xl text-lg leading-tight text-gray-200 md:text-xl">
               Descubre promociones exclusivas, plataformas de confianza
               <br />y reseñas de expertos - ¡todo en un solo lugar!
             </p>
 
             {/* CTA Button */}
-            <Button className="rounded-full bg-yellow-400 px-8 py-4 text-lg font-bold text-black shadow-lg transition-all duration-200 hover:scale-105 hover:bg-yellow-300">
+            <Button className="rounded-xl bg-gradient-to-br from-[#D77921] to-[#FFF154] px-4 py-4 text-lg font-bold text-black shadow-lg transition-all duration-200 hover:scale-105 hover:bg-yellow-300">
               Ver casinos
             </Button>
           </div>

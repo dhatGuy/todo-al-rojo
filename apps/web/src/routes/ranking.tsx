@@ -8,8 +8,8 @@ import goldCrown from "../assets/images/gold.png";
 import LeaderboardsBg from "../assets/images/leaderboards-bg.png";
 import chipImg from "../assets/images/rj-chips.png";
 import silverCrown from "../assets/images/silver.png";
-import { Footer } from "../components/home/footer";
-import { Header } from "../components/home/header";
+import { Footer } from "../components/footer";
+import { Header } from "../components/header";
 import { TimePeriodFilter } from "../components/ranking/TimePeriodFilter";
 import { RankingTable } from "../components/ranking/ranking-table";
 
