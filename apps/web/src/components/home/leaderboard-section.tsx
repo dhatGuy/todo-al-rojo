@@ -145,9 +145,9 @@ export const LeaderboardSection = () => {
                 comunidad y ganar EN GRANDE!
               </p>
 
-              <div className="flex flex-col gap-4 sm:flex-row justify-end md:justify-start">
+              <div className="flex gap-4 flex-row flex-wrap justify-start">
                 <a href="https://link.todoalrojo.cl/whatsapp" target="_blank">
-                  <Button className="flex items-center justify-center gap-2 rounded-full bg-green-500 px-6 py-5 font-semibold text-white hover:bg-green-600">
+                  <Button className="flex items-center justify-center gap-2 rounded-2xl bg-green-500 px-2 py-5 font-semibold text-white hover:bg-green-600">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -164,7 +164,7 @@ export const LeaderboardSection = () => {
                 </a>
 
                 <a href="https://link.todoalrojo.cl/telegram" target="_blank">
-                  <Button className="flex items-center justify-center gap-2 rounded-full bg-blue-500 px-6 py-5 font-semibold text-white hover:bg-blue-600">
+                  <Button className="flex items-center justify-center gap-2 rounded-2xl bg-blue-500 px-2 py-5 font-semibold text-white hover:bg-blue-600">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 14 14"

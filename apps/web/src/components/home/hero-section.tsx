@@ -20,10 +20,10 @@ export const HeroSection = () => {
         />
 
         {/* Content Container */}
-        <div className="relative z-10 mx-auto max-w-7xl px-6 pt-10 pb-16">
+        <div className="relative z-10 mx-auto max-w-7xl px-6 pt-5 md:pt-10 pb-16">
           <div className="text-center">
             {/* Main Headline */}
-            <h1 className="mb-2 text-4xl leading-12 font-bold text-white md:text-5xl">
+            <h1 className="mb-2 md:leading-12 font-bold text-white text-2xl md:text-5xl">
               ¡Mejores programas de afiliados de
               <br />
               <span className="">casinos para todos!</span>

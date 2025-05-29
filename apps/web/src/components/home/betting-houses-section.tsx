@@ -41,7 +41,7 @@ export const BettingHousesSection = () => {
                 </div>
 
                 {/* Right - CTA Button */}
-                <div className="flex items-center justify-center px-6">
+                <div className="flex items-center justify-center px-6 w-full md:w-auto mb-6 md:mb-0">
                   <Button className="w-full rounded-xl bg-[#e01f21] px-6 py-3 font-bold text-white transition-all duration-200 hover:bg-red-700 md:w-auto">
                     Apostar Ahora
                   </Button>
