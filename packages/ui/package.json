@@ -16,7 +16,9 @@
     "./carousel": "./src/carousel.tsx",
     "./sheet": "./src/sheet.tsx",
     "./toggle-group": "./src/toggle-group.tsx",
-    "./toggle": "./src/toggle.tsx"
+    "./toggle": "./src/toggle.tsx",
+    "./table": "./src/table.tsx",
+    "./pagination": "./src/pagination.tsx"
   },
   "type": "module",
   "license": "MIT",

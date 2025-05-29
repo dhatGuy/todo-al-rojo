@@ -12,10 +12,8 @@ export const TimePeriodFilter = ({
 }: TimePeriodFilterProps) => {
   const periods = ["Diario", "Semanal", "Mensual"];
 
-  console.log(activePeriod);
-
   return (
-    <div className="flex justify-center mb-8 bg-white">
+    <div className="flex justify-center mb-8 bg-white rounded-xl">
       <ToggleGroup
         type="single"
         onValueChange={onPeriodChange}
@@ -25,11 +23,11 @@ export const TimePeriodFilter = ({
           <ToggleGroupItem
             key={period}
             value={period}
-            aria-label="Toggle bold"
+            aria-label={`Toggle ${period}`}
             className={cn(
-              "px-8 py-2 !rounded-xl font-medium transition-all duration-200",
+              "flex-1 px-2 sm:px-4 md:px-8 py-2 !rounded-xl font-medium transition-all duration-200 text-sm sm:text-base",
               activePeriod === period
-                ? "!bg-red-500 !text-white shadow-lg"
+                ? "!bg-red-500 !text-white shadow-lg font-semibold"
                 : "text-gray-600 hover:text-gray-800",
             )}
           >

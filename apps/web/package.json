@@ -11,6 +11,7 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
+    "@faker-js/faker": "^9.8.0",
     "@hookform/resolvers": "^5.0.1",
     "@reno-stack/hono-react-query": "^0.0.2",
     "@repo/server": "workspace:*",
@@ -22,6 +23,7 @@
     "@tanstack/react-query-devtools": "5.0.0-alpha.91",
     "@tanstack/react-router": "^1.117.1",
     "@tanstack/react-router-devtools": "^1.117.1",
+    "@tanstack/react-table": "^8.21.3",
     "better-auth": "^1.2.7",
     "embla-carousel-auto-scroll": "^8.6.0",
     "embla-carousel-autoplay": "^8.6.0",
