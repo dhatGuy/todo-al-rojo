@@ -1,5 +1,14 @@
-import { Card, CardDescription, CardHeader, CardTitle } from "@repo/ui/card";
-import { Carousel, CarouselContent, CarouselItem } from "@repo/ui/carousel";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@repo/ui/components/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@repo/ui/components/carousel";
 import AutoScroll from "embla-carousel-auto-scroll";
 
 const casinos = [

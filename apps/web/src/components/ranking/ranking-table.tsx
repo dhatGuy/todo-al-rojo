@@ -7,7 +7,7 @@ import {
   PaginationItem,
   PaginationLink,
   PaginationNext,
-} from "@repo/ui/pagination";
+} from "@repo/ui/components/pagination";
 import {
   Table,
   TableBody,
@@ -15,7 +15,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@repo/ui/table";
+} from "@repo/ui/components/table";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import chipImg from "../../assets/images/rj-chips.png";
 
@@ -27,7 +27,11 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/avatar";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@repo/ui/components/avatar";
 import { fetchData, Person } from "../../utils/fetch-data";
 
 export function RankingTable() {

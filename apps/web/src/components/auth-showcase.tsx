@@ -1,6 +1,6 @@
 import { useSession } from "../utils/auth-client";
 
-import { Button } from "@repo/ui/button";
+import { Button } from "@repo/ui/components/button";
 
 import { authClient } from "../utils/auth-client";
 

@@ -1,4 +1,4 @@
-import { SidebarProvider, SidebarTrigger } from "@repo/ui/sidebar";
+import { SidebarProvider, SidebarTrigger } from "@repo/ui/components/sidebar";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard")({

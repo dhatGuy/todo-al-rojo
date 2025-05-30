@@ -1,6 +1,14 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/avatar";
-import { Card, CardContent } from "@repo/ui/card";
-import { Carousel, CarouselContent, CarouselItem } from "@repo/ui/carousel";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@repo/ui/components/avatar";
+import { Card, CardContent } from "@repo/ui/components/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@repo/ui/components/carousel";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { Quote } from "lucide-react";
 

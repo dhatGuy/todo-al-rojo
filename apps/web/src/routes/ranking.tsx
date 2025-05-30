@@ -1,6 +1,6 @@
-import { cn } from "@repo/ui";
-import { Avatar, AvatarImage } from "@repo/ui/avatar";
-import { Card } from "@repo/ui/card";
+import { Avatar, AvatarImage } from "@repo/ui/components/avatar";
+import { Card } from "@repo/ui/components/card";
+import { cn } from "@repo/ui/utils";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import bronzeCrown from "../assets/images/bronze.png";

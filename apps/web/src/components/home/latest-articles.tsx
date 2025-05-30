@@ -4,14 +4,14 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@repo/ui/card";
+} from "@repo/ui/components/card";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@repo/ui/carousel";
+} from "@repo/ui/components/carousel";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 
 export const LatestArticles = () => {

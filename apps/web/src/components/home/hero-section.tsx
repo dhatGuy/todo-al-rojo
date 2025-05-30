@@ -1,4 +1,4 @@
-import { Button } from "@repo/ui/button";
+import { Button } from "@repo/ui/components/button";
 import bgHero from "../../assets/images/hero-bg.png";
 import { Header } from "../header";
 

@@ -16,7 +16,7 @@ import {
 } from "react-hook-form";
 import type { ZodType, ZodTypeDef } from "zod";
 
-import { cn } from "@repo/ui";
+import { cn } from "@repo/ui/utils";
 
 import { useId } from "react";
 
@@ -31,7 +31,7 @@ export function useForm<
 >(
   props: Omit<UseFormProps<TIn, unknown, TOut>, "resolver"> & {
     schema: ZodType<TOut, TDef, TIn>;
-  }
+  },
 ) {
   const form = __useForm<TIn, unknown, TOut>({
     ...props,
@@ -49,7 +49,7 @@ interface FormFieldContextValue<
 }
 
 const FormFieldContext = React.createContext<FormFieldContextValue | null>(
-  null
+  null,
 );
 
 export function FormField<
@@ -91,7 +91,7 @@ interface FormItemContextValue {
 }
 
 const FormItemContext = React.createContext<FormItemContextValue>(
-  {} as FormItemContextValue
+  {} as FormItemContextValue,
 );
 
 export function FormItem({ className, ...props }: React.ComponentProps<"div">) {

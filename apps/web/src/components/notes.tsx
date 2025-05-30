@@ -4,7 +4,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@repo/ui/card";
+} from "@repo/ui/components/card";
 import { InferResponseType } from "hono";
 import { client } from "../utils/hono-client";
 

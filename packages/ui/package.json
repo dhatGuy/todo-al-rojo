@@ -2,34 +2,18 @@
   "name": "@repo/ui",
   "version": "1.0.0",
   "exports": {
-    ".": "./src/index.ts",
-    "./button": "./src/button.tsx",
-    "./dropdown-menu": "./src/dropdown-menu.tsx",
-    "./form": "./src/form.tsx",
-    "./input": "./src/input.tsx",
-    "./label": "./src/label.tsx",
-    "./theme": "./src/theme.tsx",
-    "./toast": "./src/toast.tsx",
-    "./alert": "./src/alert.tsx",
-    "./card": "./src/card.tsx",
-    "./avatar": "./src/avatar.tsx",
-    "./carousel": "./src/carousel.tsx",
-    "./sheet": "./src/sheet.tsx",
-    "./toggle-group": "./src/toggle-group.tsx",
-    "./toggle": "./src/toggle.tsx",
-    "./table": "./src/table.tsx",
-    "./pagination": "./src/pagination.tsx",
-    "./separator": "./src/separator.tsx",
-    "./sidebar": "./src/sidebar.tsx",
-    "./skeleton": "./src/skeleton.tsx",
-    "./tooltip": "./src/tooltip.tsx"
+    "./globals.css": "./src/styles/globals.css",
+    "./postcss.config": "./postcss.config.mjs",
+    "./utils": "./src/lib/utils.ts",
+    "./lib/*": "./src/lib/*.ts",
+    "./components/*": "./src/components/*.tsx",
+    "./hooks/*": "./src/hooks/*.ts",
+    ".": "./src/components/*.tsx"
   },
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint \"**/*.ts\"",
-    "ui-add": "pnpm dlx shadcn@latest add && pnpm update-exports",
-    "update-exports": "node update-exports.js"
+    "lint": "eslint \"**/*.ts\""
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
@@ -48,11 +32,13 @@
     "radix-ui": "^1.3.4",
     "react-hook-form": "^7.56.1",
     "sonner": "^2.0.1",
-    "tailwind-merge": "^3.2.0"
+    "tailwind-merge": "^3.2.0",
+    "tw-animate-css": "^1.3.2"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@tailwindcss/postcss": "^4.1.8",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.2",
     "eslint": "^9.25.1",

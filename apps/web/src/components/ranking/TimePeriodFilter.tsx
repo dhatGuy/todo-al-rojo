@@ -1,5 +1,5 @@
-import { cn } from "@repo/ui";
-import { ToggleGroup, ToggleGroupItem } from "@repo/ui/toggle-group";
+import { ToggleGroup, ToggleGroupItem } from "@repo/ui/components/toggle-group";
+import { cn } from "@repo/ui/utils";
 
 interface TimePeriodFilterProps {
   activePeriod: string;

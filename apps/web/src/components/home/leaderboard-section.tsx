@@ -1,7 +1,7 @@
-import { cn } from "@repo/ui";
-import { Avatar, AvatarImage } from "@repo/ui/avatar";
-import { Button } from "@repo/ui/button";
-import { Card } from "@repo/ui/card";
+import { Avatar, AvatarImage } from "@repo/ui/components/avatar";
+import { Button } from "@repo/ui/components/button";
+import { Card } from "@repo/ui/components/card";
+import { cn } from "@repo/ui/utils";
 import bronzeCrown from "../../assets/images/bronze.png";
 import goldCrown from "../../assets/images/gold.png";
 import chipImg from "../../assets/images/rj-chips.png";

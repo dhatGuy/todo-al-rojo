@@ -1,5 +1,5 @@
-import { Button } from "@repo/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@repo/ui/sheet";
+import { Button } from "@repo/ui/components/button";
+import { Sheet, SheetContent, SheetTrigger } from "@repo/ui/components/sheet";
 import { Link } from "@tanstack/react-router";
 import { Menu } from "lucide-react";
 

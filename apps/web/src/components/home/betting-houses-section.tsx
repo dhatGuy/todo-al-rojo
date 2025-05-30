@@ -1,5 +1,5 @@
-import { Button } from "@repo/ui/button";
-import { Card } from "@repo/ui/card";
+import { Button } from "@repo/ui/components/button";
+import { Card } from "@repo/ui/components/card";
 import betssonImg from "../../assets/images/betsson.png";
 import pinup from "../../assets/images/pinup.png";
 import thunderpickImg from "../../assets/images/thunderpick.png";

@@ -9,7 +9,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@repo/ui/sidebar";
+} from "@repo/ui/components/sidebar";
 
 import { Home, ListTodo, LogOut } from "lucide-react";
 import PokerChip from "../assets/icons/poker-chip";

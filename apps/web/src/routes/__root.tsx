@@ -1,4 +1,4 @@
-import { Toaster } from "@repo/ui/toast";
+import { Toaster } from "@repo/ui/components/toast";
 import type { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
