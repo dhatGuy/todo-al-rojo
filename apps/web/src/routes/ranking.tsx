@@ -118,16 +118,17 @@ function RouteComponent() {
           </div>
         </div>
       </div>
+      <div className="bg-[#00021c]">
+        <div className="max-w-7xl w-full mx-auto p-4 space-y-6">
+          {/* Time Period Filter */}
+          <TimePeriodFilter
+            activePeriod={activePeriod}
+            onPeriodChange={setActivePeriod}
+          />
 
-      <div className="max-w-7xl w-full mx-auto p-4 space-y-6">
-        {/* Time Period Filter */}
-        <TimePeriodFilter
-          activePeriod={activePeriod}
-          onPeriodChange={setActivePeriod}
-        />
-
-        {/* Ranking Table */}
-        <RankingTable />
+          {/* Ranking Table */}
+          <RankingTable />
+        </div>
       </div>
 
       <Footer />

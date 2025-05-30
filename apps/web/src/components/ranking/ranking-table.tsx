@@ -135,7 +135,7 @@ export function RankingTable() {
   });
 
   return (
-    <div className="bg-[#00021c] flex flex-col gap-8 mb-8">
+    <div className="flex flex-col gap-8 mb-8">
       <div className="bg-[#111129] p-4 rounded-xl">
         <Table>
           <TableHeader className="">
