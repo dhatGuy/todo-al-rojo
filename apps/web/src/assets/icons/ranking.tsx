@@ -10,7 +10,7 @@ export function Ranking(props: SVGProps<SVGSVGElement>) {
       {...props}
     >
       <path
-        fill="none"
+        // fill={props.color ?? "none"}
         stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"

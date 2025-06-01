@@ -15,6 +15,8 @@ import { Route as RankingImport } from './routes/ranking'
 import { Route as DashboardRouteImport } from './routes/dashboard/route'
 import { Route as IndexImport } from './routes/index'
 import { Route as DashboardIndexImport } from './routes/dashboard/index'
+import { Route as DashboardTasksImport } from './routes/dashboard/tasks'
+import { Route as DashboardShopImport } from './routes/dashboard/shop'
 
 // Create/Update Routes
 
@@ -39,6 +41,18 @@ const IndexRoute = IndexImport.update({
 const DashboardIndexRoute = DashboardIndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
+const DashboardTasksRoute = DashboardTasksImport.update({
+  id: '/tasks',
+  path: '/tasks',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
+const DashboardShopRoute = DashboardShopImport.update({
+  id: '/shop',
+  path: '/shop',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 
@@ -67,6 +81,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RankingImport
       parentRoute: typeof rootRoute
     }
+    '/dashboard/shop': {
+      id: '/dashboard/shop'
+      path: '/shop'
+      fullPath: '/dashboard/shop'
+      preLoaderRoute: typeof DashboardShopImport
+      parentRoute: typeof DashboardRouteImport
+    }
+    '/dashboard/tasks': {
+      id: '/dashboard/tasks'
+      path: '/tasks'
+      fullPath: '/dashboard/tasks'
+      preLoaderRoute: typeof DashboardTasksImport
+      parentRoute: typeof DashboardRouteImport
+    }
     '/dashboard/': {
       id: '/dashboard/'
       path: '/'
@@ -80,10 +108,14 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface DashboardRouteRouteChildren {
+  DashboardShopRoute: typeof DashboardShopRoute
+  DashboardTasksRoute: typeof DashboardTasksRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
+  DashboardShopRoute: DashboardShopRoute,
+  DashboardTasksRoute: DashboardTasksRoute,
   DashboardIndexRoute: DashboardIndexRoute,
 }
 
@@ -95,12 +127,16 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/ranking': typeof RankingRoute
+  '/dashboard/shop': typeof DashboardShopRoute
+  '/dashboard/tasks': typeof DashboardTasksRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/ranking': typeof RankingRoute
+  '/dashboard/shop': typeof DashboardShopRoute
+  '/dashboard/tasks': typeof DashboardTasksRoute
   '/dashboard': typeof DashboardIndexRoute
 }
 
@@ -109,15 +145,30 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/ranking': typeof RankingRoute
+  '/dashboard/shop': typeof DashboardShopRoute
+  '/dashboard/tasks': typeof DashboardTasksRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/ranking' | '/dashboard/'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/ranking'
+    | '/dashboard/shop'
+    | '/dashboard/tasks'
+    | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/ranking' | '/dashboard'
-  id: '__root__' | '/' | '/dashboard' | '/ranking' | '/dashboard/'
+  to: '/' | '/ranking' | '/dashboard/shop' | '/dashboard/tasks' | '/dashboard'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/ranking'
+    | '/dashboard/shop'
+    | '/dashboard/tasks'
+    | '/dashboard/'
   fileRoutesById: FileRoutesById
 }
 
@@ -154,11 +205,21 @@ export const routeTree = rootRoute
     "/dashboard": {
       "filePath": "dashboard/route.tsx",
       "children": [
+        "/dashboard/shop",
+        "/dashboard/tasks",
         "/dashboard/"
       ]
     },
     "/ranking": {
       "filePath": "ranking.tsx"
+    },
+    "/dashboard/shop": {
+      "filePath": "dashboard/shop.tsx",
+      "parent": "/dashboard"
+    },
+    "/dashboard/tasks": {
+      "filePath": "dashboard/tasks.tsx",
+      "parent": "/dashboard"
     },
     "/dashboard/": {
       "filePath": "dashboard/index.tsx",

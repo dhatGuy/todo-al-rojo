@@ -1,9 +1,4 @@
-import { Separator } from "@repo/ui/components/separator";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@repo/ui/components/sidebar";
+import { SidebarInset, SidebarProvider } from "@repo/ui/components/sidebar";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { AppSidebar } from "../../components/app-sidebar";
 
@@ -15,10 +10,9 @@ function RouteComponent() {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-          <SidebarTrigger className="-ml-1" />
-          <Separator orientation="vertical" className="mr-2 h-4" />
+      <SidebarInset className="bg-[#141A2D]">
+        <header className="flex h-16 shrink-0 items-center gap-2 px-4">
+          {/* <SidebarTrigger className="-ml-1" /> */}
           <div className="flex items-center gap-2">
             <h1 className="font-semibold text-lg">Pulse Admin</h1>
           </div>
