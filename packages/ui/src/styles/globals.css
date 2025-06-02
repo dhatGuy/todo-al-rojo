@@ -172,4 +172,8 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .rojo-gradient {
+    @apply bg-gradient-to-br from-[#D77921] to-[#FFF154];
+  }
 }

@@ -27,7 +27,7 @@ function RouteComponent() {
 
       <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-3 h-auto gap-4 sm:gap-6">
         {/* Chips Balance */}
-        <div className="md:col-span-2 bg-dark-blue backdrop-blur-lg border border-white/10 rounded-2xl p-4 sm:p-6 flex flex-col justify-center hover:transform hover:-translate-y-1 transition-all duration-200">
+        <div className="row-span-full md:row-span-1 md:col-span-2 bg-dark-blue backdrop-blur-lg border border-white/10 rounded-2xl p-4 sm:p-6 flex flex-col justify-center hover:transform hover:-translate-y-1 transition-all duration-200">
           <h2 className="text-gray-400 text-lg sm:text-xl font-medium mb-3 sm:mb-4">
             Chips Balance
           </h2>
@@ -76,7 +76,7 @@ function RouteComponent() {
 
         {/* Buttons Grid */}
         <div className="md:col-span-2 grid grid-cols-2 gap-3 sm:gap-4">
-          <button className="bg-card-blue/80 backdrop-blur-lg border border-white/10 rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center gap-3 sm:gap-4 text-white hover:bg-card-blue/90 hover:transform hover:-translate-y-1 transition-all duration-200">
+          <button className="bg-[#1e203a] backdrop-blur-lg rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center gap-3 sm:gap-4 text-white hover:bg-card-blue/90 hover:transform hover:-translate-y-1 transition-all duration-200">
             <div className="w-10 h-10 sm:w-12 sm:h-12 bg-red-600 rounded-full flex items-center justify-center text-xl sm:text-2xl">
               🎁
             </div>
@@ -85,7 +85,7 @@ function RouteComponent() {
             </span>
           </button>
 
-          <button className="bg-card-blue/80 backdrop-blur-lg border border-white/10 rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center gap-3 sm:gap-4 text-white hover:bg-card-blue/90 hover:transform hover:-translate-y-1 transition-all duration-200">
+          <button className="bg-[#1e203a] backdrop-blur-lg rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center gap-3 sm:gap-4 text-white hover:bg-card-blue/90 hover:transform hover:-translate-y-1 transition-all duration-200">
             <div className="w-10 h-10 sm:w-12 sm:h-12 bg-red-600 rounded-full flex items-center justify-center text-xl sm:text-2xl">
               🛍️
             </div>
@@ -103,7 +103,7 @@ function RouteComponent() {
             </span>
           </button>
 
-          <button className="bg-card-blue/80 backdrop-blur-lg border border-white/10 rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center gap-3 sm:gap-4 text-white hover:bg-card-blue/90 hover:transform hover:-translate-y-1 transition-all duration-200">
+          <button className="bg-[#1e203a] backdrop-blur-lg rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center gap-3 sm:gap-4 text-white hover:bg-card-blue/90 hover:transform hover:-translate-y-1 transition-all duration-200">
             <div className="w-10 h-10 sm:w-12 sm:h-12 bg-red-600 rounded-full flex items-center justify-center text-xl sm:text-2xl">
               👥
             </div>
@@ -114,7 +114,7 @@ function RouteComponent() {
         </div>
 
         {/* Weekly Chips */}
-        <div className="md:col-span-2 md:col-start-3 bg-card-blue/80 backdrop-blur-lg border border-white/10 rounded-2xl p-4 sm:p-6 flex flex-col justify-center hover:transform hover:-translate-y-1 transition-all duration-200">
+        <div className="md:col-span-2 md:col-start-3 backdrop-blur-lg bg-[#1e203a] rounded-2xl p-4 sm:p-6 flex flex-col justify-center hover:transform hover:-translate-y-1 transition-all duration-200">
           <h2 className="text-white text-2xl sm:text-4xl font-bold mb-2">
             +450 red chips
           </h2>
