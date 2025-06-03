@@ -13,13 +13,10 @@ function RouteComponent() {
       <SidebarProvider>
         <AppSidebar />
         <SidebarInset className="bg-[#141A2D]">
-          <header className="flex h-16 shrink-0 items-center gap-2 px-4">
-            {/* <SidebarTrigger className="-ml-1" /> */}
-            {/* <div className="flex items-center gap-2">
-            <h1 className="font-semibold text-lg">Pulse Admin</h1>
-          </div> */}
-            {/* <Header /> */}
-          </header>
+          {/* <header className="flex h-16 shrink-0 items-center gap-2 px-4">
+          <SidebarTrigger className="-ml-1" />
+          <Header />
+        </header> */}
           <div className="flex flex-1 flex-col gap-4 p-4">
             <Outlet />
           </div>
