@@ -41,7 +41,7 @@ export function AppSidebar() {
                         className: "font-semibold text-white !bg-[#141A2D]",
                       }}
                     >
-                      {({ isActive }) => {
+                      {({}) => {
                         return (
                           <>
                             <item.icon

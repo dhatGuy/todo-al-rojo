@@ -1,7 +1,6 @@
 import { Card, CardContent } from "@repo/ui/components/card";
 import { Progress } from "@repo/ui/components/progress";
 import { createFileRoute } from "@tanstack/react-router";
-import { Gift, TrendingUp, Users } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard/")({
   component: RouteComponent,
@@ -140,13 +139,6 @@ function RouteComponent() {
     </div>
   );
 }
-
-const quickActions = [
-  { title: "Reclamar Bono", icon: Gift, color: "bg-casino-red" },
-  { title: "Tienda", icon: Gift, color: "bg-casino-dark-light" },
-  { title: "Invitar Retos", icon: TrendingUp, color: "bg-casino-red" },
-  { title: "Invitar Amigos", icon: Users, color: "bg-casino-dark-light" },
-];
 
 const activeTasks = [
   {
