@@ -1,7 +1,6 @@
 import { SidebarInset, SidebarProvider } from "@repo/ui/components/sidebar";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { Footer } from "src/components/footer";
-import { Header } from "src/components/header";
 import { AppSidebar } from "../../components/app-sidebar";
 
 export const Route = createFileRoute("/dashboard")({
@@ -19,7 +18,7 @@ function RouteComponent() {
             {/* <div className="flex items-center gap-2">
             <h1 className="font-semibold text-lg">Pulse Admin</h1>
           </div> */}
-            <Header />
+            {/* <Header /> */}
           </header>
           <div className="flex flex-1 flex-col gap-4 p-4">
             <Outlet />
