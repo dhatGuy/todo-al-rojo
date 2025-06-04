@@ -20,7 +20,7 @@ function RouteComponent() {
           <div className="flex flex-1 flex-col gap-4 p-4 mb-20">
             <Outlet />
           </div>
-          <div className="fixed bottom-0 w-full">
+          <div className="sticky bottom-0 w-full">
             <Footer />
           </div>
         </SidebarInset>
