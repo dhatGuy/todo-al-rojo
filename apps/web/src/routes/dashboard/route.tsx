@@ -34,7 +34,7 @@ const Header = () => {
 
   return (
     <header
-      className={cn("flex shrink-0 items-center gap-2 px-4", {
+      className={cn("flex shrink-0 items-center gap-2 px-4 pt-4", {
         "pl-10": sidebarState.openMobile || sidebarState.open,
       })}
     >

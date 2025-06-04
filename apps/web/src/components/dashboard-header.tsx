@@ -56,7 +56,7 @@ export default function DashboardNavigation() {
                 Felipe
               </span>
             </div>
-            <div className="relative w-12 h-12 md:w-24 md:h-24">
+            <div className="relative size-12 md:size-24">
               {/* Golden Crown Frame Background */}
               <img
                 src={goldCrown}
@@ -65,11 +65,11 @@ export default function DashboardNavigation() {
               />
               {/* User Profile Picture Centered */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-6 h-6 md:w-12 md:h-12 rounded-full overflow-hidden">
+                <div className="size-6 md:size-12 rounded-full overflow-hidden">
                   <img
                     src="https://picsum.photos/seed/picsum/200/300.webp"
                     alt="Felipe's profile"
-                    className="w-full h-full object-cover"
+                    className="size-full object-cover"
                   />
                 </div>
               </div>
@@ -85,7 +85,7 @@ export default function DashboardNavigation() {
                   size="sm"
                   className="text-gray-300 hover:text-white hover:bg-slate-800"
                 >
-                  <Menu className="h-6 w-6" />
+                  <Menu className="size-6" />
                 </Button>
               </SheetTrigger>
               <SheetContent
