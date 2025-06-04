@@ -43,7 +43,7 @@ export function RankingTable() {
         id: "rank",
         cell: ({ getValue }) => (
           <div className="min-w-6">
-            <p className="text-center text-[#535587]">{getValue()}</p>
+            <p className="text-left text-[#535587]">{getValue()}</p>
           </div>
         ),
         header: () => "#",
@@ -54,7 +54,7 @@ export function RankingTable() {
         header: () => "Avatar",
         footer: (props) => props.column.id,
         cell: (info) => (
-          <Avatar className="mx-auto">
+          <Avatar className="mr-auto">
             <AvatarImage
               src={info.getValue()}
               alt={info.row.original.user.name}
@@ -70,7 +70,7 @@ export function RankingTable() {
         header: () => "Usuario",
         footer: (props) => props.column.id,
         cell: ({ getValue }) => (
-          <div className="flex items-center justify-center gap-2">
+          <div className="flex items-center justify-start gap-2">
             <div>
               <div className="text-white text-lg font-medium">{getValue()}</div>
             </div>
@@ -82,7 +82,7 @@ export function RankingTable() {
         header: () => "Fichas Rojas",
         footer: (props) => props.column.id,
         cell: ({ getValue }) => (
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex items-center justify-start gap-4">
             <img src={chipImg} alt="Chips" className="w-6 h-6" />
             <p className="text-white text-lg font-medium">{getValue()}</p>
           </div>
@@ -92,14 +92,16 @@ export function RankingTable() {
         id: "ftd",
         header: () => "FTDs",
         footer: (props) => props.column.id,
-        cell: ({ getValue }) => <div className="text-center">{getValue()}</div>,
+        cell: ({ getValue }) => (
+          <div className="text-left text-gray-100">{getValue()}</div>
+        ),
       }),
       columnHelper.accessor("insignia", {
         id: "insignia",
         header: () => "Insignias",
         footer: (props) => props.column.id,
         cell: ({ getValue }) => (
-          <p className="text-center text-[#535587]">{getValue()}</p>
+          <p className="text-left text-[#535587]">{getValue()}</p>
         ),
       }),
     ],
@@ -145,7 +147,7 @@ export function RankingTable() {
                   return (
                     <TableHead key={header.id} colSpan={header.colSpan}>
                       {header.isPlaceholder ? null : (
-                        <div className="text-[#535587] text-center min-w-10 font-bold text-lg">
+                        <div className="text-[#535587] text-left min-w-10 font-bold text-lg">
                           {flexRender(
                             header.column.columnDef.header,
                             header.getContext(),

@@ -17,10 +17,12 @@ function RouteComponent() {
           <SidebarTrigger className="-ml-1" />
           <Header />
         </header> */}
-          <div className="flex flex-1 flex-col gap-4 p-4">
+          <div className="flex flex-1 flex-col gap-4 p-4 mb-20">
             <Outlet />
           </div>
-          <Footer />
+          <div className="fixed bottom-0 w-full">
+            <Footer />
+          </div>
         </SidebarInset>
       </SidebarProvider>
     </>

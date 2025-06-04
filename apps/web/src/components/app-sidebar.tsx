@@ -86,7 +86,7 @@ const items = [
   },
   {
     title: "Leaderboard",
-    href: "/leaderboard",
+    href: "/dashboard/leaderboard",
     icon: Ranking,
   },
 ];
