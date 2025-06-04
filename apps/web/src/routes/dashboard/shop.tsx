@@ -12,16 +12,14 @@ function RouteComponent() {
   return (
     <div className="space-y-6">
       {/* Chips Balance Header */}
-      <Card className="bg-dark-blue w-fit h-fit">
-        <CardContent className="px-6">
-          <div className="text-center">
-            <div className="text-gray-400 text-sm mb-2">Chips Balance</div>
-            <div className="flex items-center justify-center space-x-3">
-              <div className="rounded-full flex items-center justify-center">
-                <PokerChip color="red" width={32} height={32} />
-              </div>
-              <span className="text-white font-bold text-3xl">300</span>
+      <Card className="bg-dark-blue sm:w-fit py-4 rounded-3xl px-6">
+        <CardContent className="p-0">
+          <div className="text-gray-400 text-sm mb-2">Chips Balance</div>
+          <div className="flex items-center justify-center space-x-3">
+            <div className="rounded-full flex items-center justify-center">
+              <PokerChip color="red" width={32} height={32} />
             </div>
+            <span className="text-white font-bold text-3xl">3000</span>
           </div>
         </CardContent>
       </Card>

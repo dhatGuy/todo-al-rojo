@@ -15,7 +15,7 @@ import { Ranking } from "../assets/icons/ranking";
 
 export function AppSidebar() {
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar collapsible="offcanvas">
       <SidebarHeader>
         <img
           src="/todoalrojo-logo.png"
