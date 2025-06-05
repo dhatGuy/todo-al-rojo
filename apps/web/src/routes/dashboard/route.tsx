@@ -31,7 +31,6 @@ function RouteComponent() {
 
 const Header = () => {
   const sidebarState = useSidebar();
-  console.log(sidebarState);
 
   return (
     <header
