@@ -31,11 +31,14 @@ function RouteComponent() {
 
 const Header = () => {
   const sidebarState = useSidebar();
+  console.log(sidebarState);
 
   return (
     <header
       className={cn("flex shrink-0 items-center gap-2 px-4 pt-4", {
-        "pl-10": sidebarState.openMobile || sidebarState.open,
+        "pl-10":
+          !sidebarState.isMobile &&
+          (sidebarState.openMobile || sidebarState.open),
       })}
     >
       <SidebarTrigger className="-ml-1 text-gray-200" />
@@ -50,7 +53,9 @@ const Content = () => {
   return (
     <div
       className={cn("flex flex-1 flex-col gap-4 p-4 mb-20", {
-        "pl-10": sidebarState.openMobile || sidebarState.open,
+        "pl-10":
+          !sidebarState.isMobile &&
+          (sidebarState.openMobile || sidebarState.open),
       })}
     >
       <Outlet />
