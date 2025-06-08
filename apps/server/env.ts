@@ -8,7 +8,12 @@ export const env = createEnv({
     WEB_URL:
       process.env.NODE_ENV === "production"
         ? z.string().min(1)
-        : z.string().min(1).optional().default("http://localhost:5173"),
+        : z
+            .string()
+            .min(1)
+
+            .default("http://localhost:5173")
+            .optional(),
     VITE_SERVER_URL: z.string().min(1),
   },
 
