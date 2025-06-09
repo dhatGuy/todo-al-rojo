@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as SignupImport } from './routes/signup'
+import { Route as SigninImport } from './routes/signin'
 import { Route as RankingImport } from './routes/ranking'
 import { Route as DashboardRouteImport } from './routes/dashboard/route'
 import { Route as IndexImport } from './routes/index'
@@ -25,6 +26,12 @@ import { Route as DashboardLeaderboardImport } from './routes/dashboard/leaderbo
 const SignupRoute = SignupImport.update({
   id: '/signup',
   path: '/signup',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SigninRoute = SigninImport.update({
+  id: '/signin',
+  path: '/signin',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -95,6 +102,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RankingImport
       parentRoute: typeof rootRoute
     }
+    '/signin': {
+      id: '/signin'
+      path: '/signin'
+      fullPath: '/signin'
+      preLoaderRoute: typeof SigninImport
+      parentRoute: typeof rootRoute
+    }
     '/signup': {
       id: '/signup'
       path: '/signup'
@@ -157,6 +171,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/ranking': typeof RankingRoute
+  '/signin': typeof SigninRoute
   '/signup': typeof SignupRoute
   '/dashboard/leaderboard': typeof DashboardLeaderboardRoute
   '/dashboard/shop': typeof DashboardShopRoute
@@ -167,6 +182,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/ranking': typeof RankingRoute
+  '/signin': typeof SigninRoute
   '/signup': typeof SignupRoute
   '/dashboard/leaderboard': typeof DashboardLeaderboardRoute
   '/dashboard/shop': typeof DashboardShopRoute
@@ -179,6 +195,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/ranking': typeof RankingRoute
+  '/signin': typeof SigninRoute
   '/signup': typeof SignupRoute
   '/dashboard/leaderboard': typeof DashboardLeaderboardRoute
   '/dashboard/shop': typeof DashboardShopRoute
@@ -192,6 +209,7 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/ranking'
+    | '/signin'
     | '/signup'
     | '/dashboard/leaderboard'
     | '/dashboard/shop'
@@ -201,6 +219,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/ranking'
+    | '/signin'
     | '/signup'
     | '/dashboard/leaderboard'
     | '/dashboard/shop'
@@ -211,6 +230,7 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/ranking'
+    | '/signin'
     | '/signup'
     | '/dashboard/leaderboard'
     | '/dashboard/shop'
@@ -223,6 +243,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
   RankingRoute: typeof RankingRoute
+  SigninRoute: typeof SigninRoute
   SignupRoute: typeof SignupRoute
 }
 
@@ -230,6 +251,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
   RankingRoute: RankingRoute,
+  SigninRoute: SigninRoute,
   SignupRoute: SignupRoute,
 }
 
@@ -246,6 +268,7 @@ export const routeTree = rootRoute
         "/",
         "/dashboard",
         "/ranking",
+        "/signin",
         "/signup"
       ]
     },
@@ -263,6 +286,9 @@ export const routeTree = rootRoute
     },
     "/ranking": {
       "filePath": "ranking.tsx"
+    },
+    "/signin": {
+      "filePath": "signin.tsx"
     },
     "/signup": {
       "filePath": "signup.tsx"

@@ -52,7 +52,7 @@ function RouteComponent() {
   };
 
   return (
-    <section className="bg-[#2a2e43] min-h-screen">
+    <section className="bg-[#2a2e43] min-svh-screen">
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
         <main className="flex flex-col px-0 py-0 lg:col-span-5 xl:col-span-4 overflow-y-auto pb-10">
           <div className="flex flex-col gap-10 size-full lg:max-w-3xl">
@@ -166,7 +166,7 @@ function RouteComponent() {
                 />
 
                 <div className="col-span-6 sm:flex flex-col sm:gap-4">
-                  <Button className="w-full rojo-gradient font-bold h-11 rounded-lg">
+                  <Button className="w-full rojo-gradient font-bold h-12 rounded-lg">
                     Sign Up
                   </Button>
 
