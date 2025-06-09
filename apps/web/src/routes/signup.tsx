@@ -26,11 +26,23 @@ export const Route = createFileRoute("/signup")({
 
 const formSchema = z
   .object({
-    fullName: z.string().trim().min(2).max(50),
+    fullName: z
+      .string()
+      .trim()
+      .min(2, "Full name must be at least 2 characters")
+      .max(50),
     email: z.string().email(),
-    phoneNumber: z.string().trim().min(10).max(15),
-    password: z.string().trim().min(8).max(50),
-    confirmPassword: z.string().trim().min(8).max(50),
+    phoneNumber: z
+      .string()
+      .trim()
+      .min(10, "Phone number must be at least 10 characters")
+      .max(15),
+    password: z
+      .string()
+      .trim()
+      .min(8, "Password must be at least 8 characters")
+      .max(50, "Password must be at most 50 characters"),
+    confirmPassword: z.string(),
     termsAccepted: z.boolean().refine((value) => value, {
       message: "You must accept the terms and conditions",
     }),

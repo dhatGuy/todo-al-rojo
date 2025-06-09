@@ -23,7 +23,11 @@ export const Route = createFileRoute("/signin")({
 
 const formSchema = z.object({
   email: z.string().email(),
-  password: z.string().trim().min(8).max(50),
+  password: z
+    .string()
+    .trim()
+    .min(8, "Password must be at least 8 characters")
+    .max(50, "Password must be at most 50 characters"),
 });
 
 type FormData = z.infer<typeof formSchema>;
