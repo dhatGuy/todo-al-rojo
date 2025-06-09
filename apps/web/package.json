@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^9.8.0",
-    "@hookform/resolvers": "^5.0.1",
+    "@hookform/resolvers": "^5.1.0",
     "@reno-stack/hono-react-query": "^0.0.2",
     "@repo/server": "workspace:*",
     "@repo/ui": "workspace:*",

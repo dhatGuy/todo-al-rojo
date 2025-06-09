@@ -1,0 +1,197 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@repo/ui/components/button";
+import { Checkbox } from "@repo/ui/components/checkbox";
+import { FloatingLabelInput } from "@repo/ui/components/floating-label-input";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@repo/ui/components/form";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowLeft } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import bgSignup from "../assets/images/signup-bg.png";
+
+export const Route = createFileRoute("/signup")({
+  component: RouteComponent,
+});
+
+const formSchema = z
+  .object({
+    fullName: z.string().trim().min(2).max(50),
+    email: z.string().email(),
+    phoneNumber: z.string().trim().min(10).max(15),
+    password: z.string().trim().min(8).max(50),
+    confirmPassword: z.string().trim().min(8).max(50),
+    termsAccepted: z.boolean().refine((value) => value, {
+      message: "You must accept the terms and conditions",
+    }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+  });
+type FormData = z.infer<typeof formSchema>;
+
+function RouteComponent() {
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {},
+  });
+
+  const onSubmit = async (data: FormData) => {
+    try {
+      // await axios.post("/api/signup", data);
+      // toast.success("Account created successfully!");
+      // router.push("/login");
+    } catch (error) {
+      // toast.error("Failed to create account");
+    }
+  };
+
+  return (
+    <section className="bg-[#2a2e43] min-h-screen">
+      <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
+        <main className="flex flex-col px-0 py-0 lg:col-span-5 xl:col-span-4 overflow-y-auto pb-10">
+          <div className="flex flex-col gap-10 size-full lg:max-w-3xl">
+            <div className="bg-red-700 rounded-bl-4xl px-8 py-10">
+              <Button className="" size="icon" variant="ghost">
+                <ArrowLeft color="white" />
+              </Button>
+
+              <h1 className="mt-6 text-gray-50 text-2xl font-bold sm:text-3xl md:text-4xl">
+                Create <br /> Account.
+              </h1>
+            </div>
+
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                action="#"
+                className="grid grid-cols-6 gap-8 px-8"
+              >
+                <FormField
+                  control={form.control}
+                  name="fullName"
+                  render={({ field }) => (
+                    <FormItem className="col-span-6">
+                      <FloatingLabelInput
+                        {...field}
+                        label="Full Name"
+                        id="fullName"
+                      />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem className="col-span-6">
+                      <FloatingLabelInput {...field} label="Email" id="email" />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="phoneNumber"
+                  render={({ field }) => (
+                    <FormItem className="col-span-6">
+                      <FloatingLabelInput
+                        {...field}
+                        label="Phone Number"
+                        id="phoneNumber"
+                      />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem className="col-span-6">
+                      <FloatingLabelInput
+                        {...field}
+                        label="Password"
+                        id="password"
+                      />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <FormItem className="col-span-6">
+                      <FloatingLabelInput
+                        {...field}
+                        label="Confirm Password"
+                        id="confirmPassword"
+                      />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="termsAccepted"
+                  render={({ field }) => (
+                    <FormItem className="col-span-6">
+                      <div className="flex gap-3 items-center">
+                        <Checkbox
+                          className="bg-white data-[state=checked]:bg-white"
+                          id="termsAccepted"
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                        <FormLabel
+                          htmlFor="termsAccepted"
+                          className="text-sm text-gray-200"
+                        >
+                          Agree to terms and conditions
+                        </FormLabel>
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <div className="col-span-6 sm:flex flex-col sm:gap-4">
+                  <Button className="w-full rojo-gradient font-bold h-11 rounded-lg">
+                    Sign Up
+                  </Button>
+
+                  <p className="flex justify-between font-semibold mt-4 text-sm text-white sm:mt-0">
+                    <span>Already have an account?</span>
+                    <Link to="/signin" className="underline">
+                      Sign in
+                    </Link>
+                  </p>
+                </div>
+              </form>
+            </Form>
+
+            <img
+              src="/todoalrojo-logo.png"
+              className="w-32 sm:w-44 mx-auto mt-8"
+            />
+          </div>
+        </main>
+
+        <aside
+          className="sticky right-0 top-0 h-screen lg:col-span-7 xl:col-span-8 w-full bg-cover bg-no-repeat bg-right"
+          style={{ backgroundImage: `url(${bgSignup})` }}
+        ></aside>
+      </div>
+    </section>
+  );
+}
