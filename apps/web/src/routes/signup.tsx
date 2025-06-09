@@ -9,7 +9,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@repo/ui/components/form";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  Link,
+  useCanGoBack,
+  useRouter,
+} from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -36,6 +41,8 @@ const formSchema = z
 type FormData = z.infer<typeof formSchema>;
 
 function RouteComponent() {
+  const router = useRouter();
+  const canGoBack = useCanGoBack();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {},
@@ -57,7 +64,18 @@ function RouteComponent() {
         <main className="flex flex-col px-0 py-0 lg:col-span-5 xl:col-span-4 overflow-y-auto pb-10">
           <div className="flex flex-col gap-10 size-full lg:max-w-3xl">
             <div className="bg-red-700 rounded-bl-4xl px-8 py-10">
-              <Button className="" size="icon" variant="ghost">
+              <Button
+                className=""
+                size="icon"
+                variant="ghost"
+                onClick={() =>
+                  canGoBack
+                    ? router.history.back()
+                    : router.navigate({
+                        to: "/",
+                      })
+                }
+              >
                 <ArrowLeft color="white" />
               </Button>
 
