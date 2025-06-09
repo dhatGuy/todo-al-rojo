@@ -30,7 +30,7 @@ function RouteComponent() {
     defaultValues: {},
   });
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (_data: FormData) => {
     try {
       // await axios.post("/api/signup", data);
       // toast.success("Account created successfully!");
@@ -41,7 +41,7 @@ function RouteComponent() {
   };
 
   return (
-    <section className="bg-[#2a2e43] min-svh-screen">
+    <section className="bg-[#2a2e43] min-h-svh">
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
         <main className="flex flex-col px-0 py-0 lg:col-span-5 xl:col-span-4 overflow-y-auto pb-10">
           <div className="flex flex-col justify-between gap-10 size-full lg:max-w-3xl">
@@ -113,7 +113,7 @@ function RouteComponent() {
         </main>
 
         <aside
-          className="sticky right-0 top-0 h-screen lg:col-span-7 xl:col-span-8 w-full bg-cover bg-no-repeat bg-right"
+          className="hidden sticky right-0 top-0 h-screen lg:block lg:col-span-7 xl:col-span-8 w-full bg-cover bg-no-repeat bg-right"
           style={{ backgroundImage: `url(${bgSignup})` }}
         ></aside>
       </div>
