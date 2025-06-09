@@ -1,7 +1,4 @@
-import {
-  createHonoMutationOptions,
-  createHonoQueryOptions,
-} from "@reno-stack/hono-react-query";
+import { createHonoQueryOptions } from "@reno-stack/hono-react-query";
 import { client } from "../utils/hono-client";
 
 /**
@@ -22,15 +19,15 @@ import { client } from "../utils/hono-client";
 
 export const notesQueryOptions = createHonoQueryOptions(
   ["notes"],
-  client.notes.$get
+  client.notes.$get,
 );
 
 // This is not used in the example app, however it's to demonstrate how you could pass parameters to the query key
 export const noteByIdQueryOptions = createHonoQueryOptions(
   ({ param: { id } }) => ["notes", id],
-  client.notes[":id"].$get
+  client.notes[":id"].$get,
 );
 
-export const createNoteMutationOptions = createHonoMutationOptions(
-  client.notes.$post
-);
+// export const createNoteMutationOptions = createHonoMutationOptions(
+//   client.notes.$post
+// );
