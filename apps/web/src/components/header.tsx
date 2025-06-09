@@ -3,14 +3,18 @@ import { Sheet, SheetContent, SheetTrigger } from "@repo/ui/components/sheet";
 import { Link } from "@tanstack/react-router";
 import { Menu } from "lucide-react";
 
-const navItems = [
-  { name: "Inicio", path: "/", activeOptions: { exact: true } },
-  { name: "Recompensas", path: "/recompensas" },
-  { name: "Promociones", path: "/promociones" },
-  { name: "Tareas", path: "/tareas" },
-  { name: "Ranking", path: "/ranking" },
-  { name: "Afiliados", path: "/afiliados" },
-  { name: "Soporte", path: "/soporte" },
+const navItems: {
+  name: string;
+  path: string;
+  activeOptions?: { exact: boolean };
+}[] = [
+  // { name: "Inicio", path: "/", activeOptions: { exact: true } },
+  // { name: "Recompensas", path: "/recompensas" },
+  // { name: "Promociones", path: "/promociones" },
+  // { name: "Tareas", path: "/tareas" },
+  // { name: "Ranking", path: "/ranking" },
+  // { name: "Afiliados", path: "/afiliados" },
+  // { name: "Soporte", path: "/soporte" },
 ];
 
 export const Header = () => {
@@ -18,21 +22,23 @@ export const Header = () => {
     <header className="relative z-10 w-full px-6 py-4 bg-[#000017]">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         {/* Logo - Hidden on mobile, shown on desktop */}
-        <div className="hidden lg:flex items-center">
+        <Link to="/" className="hidden lg:flex items-center">
           <img
             src="/todoalrojo-logo.png"
             alt="Logo"
             className="object-contain w-40 h-24"
           />
-        </div>
+        </Link>
 
         {/* Centered Logo on Mobile */}
         <div className="flex lg:hidden justify-between w-full items-center">
-          <img
-            src="/todoalrojo-logo.png"
-            alt="Logo"
-            className="object-contain w-32 sm:w-36 h-24"
-          />
+          <Link to="/">
+            <img
+              src="/todoalrojo-logo.png"
+              alt="Logo"
+              className="object-contain w-32 sm:w-36 h-24"
+            />
+          </Link>
 
           {/* Mobile Menu Trigger */}
           <div>
@@ -80,8 +86,13 @@ export const Header = () => {
 
                   {/* Login Button in Sidebar */}
                   <div className="mt-auto mb-6 mx-auto">
-                    <Button className="rounded-full bg-gradient-to-br from-[#D77921] to-[#FFF154] px-6 py-3 font-semibold text-black transition-all duration-200 hover:scale-105 hover:bg-yellow-300">
-                      Iniciar sesión / Registrarse
+                    <Button
+                      className="rounded-full bg-gradient-to-br from-[#D77921] to-[#FFF154] px-6 py-3 font-semibold text-black transition-all duration-200 hover:scale-105 hover:bg-yellow-300"
+                      asChild
+                    >
+                      <Link to="/signin" className="text-black">
+                        Iniciar sesión / Registrarse
+                      </Link>
                     </Button>
                   </div>
                 </div>
@@ -108,8 +119,11 @@ export const Header = () => {
         </nav>
 
         {/* Desktop Login Button */}
-        <Button className="hidden lg:block rounded-full  bg-gradient-to-br from-[#D77921] to-[#FFF154] px-6 py-2 font-semibold text-black transition-all duration-200 hover:scale-105 hover:bg-yellow-300 mx-10">
-          Iniciar sesión / Registrarse
+        <Button
+          className="hidden lg:block rounded-full  bg-gradient-to-br from-[#D77921] to-[#FFF154] px-6 py-2 font-semibold text-black transition-all duration-200 hover:scale-105 hover:bg-yellow-300 mx-10"
+          asChild
+        >
+          <Link to="/signin">Iniciar sesión / Registrarse</Link>
         </Button>
       </div>
     </header>

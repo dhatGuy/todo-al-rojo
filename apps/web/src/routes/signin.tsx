@@ -42,7 +42,7 @@ function RouteComponent() {
 
   return (
     <section className="bg-[#2a2e43] min-h-svh">
-      <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
+      <div className="grid min-h-svh lg:grid-cols-12">
         <main className="flex flex-col px-0 py-0 lg:col-span-5 xl:col-span-4 overflow-y-auto pb-10">
           <div className="flex flex-col justify-between gap-10 size-full lg:max-w-3xl">
             <div className="bg-red-700 rounded-bl-4xl px-8 py-10">
