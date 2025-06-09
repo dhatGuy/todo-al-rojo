@@ -12,7 +12,7 @@ export const auth = betterAuth({
     provider: "pg",
     schema,
   }),
-  trustedOrigins: [env.WEB_URL],
+  trustedOrigins: [env.WEB_URL!],
 });
 
 /**

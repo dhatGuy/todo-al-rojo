@@ -41,35 +41,35 @@ export const notes = new Hono<HonoAppContext>()
     // We always set the status to ensure that type inferences are correct on the client side
     return c.json(notes, 200);
   })
-  .post("/", zValidator("json", createNotesSchema), withAuth, async (c) => {
-    // However here since we have withAuth middleware, the user is always garaunteed to be defined
-    const user = c.var.user;
+  // .post("/", zValidator("json", createNotesSchema), withAuth, async (c) => {
+  //   // However here since we have withAuth middleware, the user is always garaunteed to be defined
+  //   const user = c.var.user;
 
-    const { title, content } = await c.req.valid("json");
+  //   const { title, content } = await c.req.valid("json");
 
-    if (title === "error" && content === "error") {
-      // This is how you would ideally want to throw an error in a route
-      // The shape of the error is up to you and will get inferred by the client's useMutation hook
-      return c.json(
-        { message: "Sample Error", forField: "content" } as {
-          message: string;
-          forField: keyof z.infer<typeof createNotesSchema>;
-        },
-        400
-      );
-    }
+  //   if (title === "error" && content === "error") {
+  //     // This is how you would ideally want to throw an error in a route
+  //     // The shape of the error is up to you and will get inferred by the client's useMutation hook
+  //     return c.json(
+  //       { message: "Sample Error", forField: "content" } as {
+  //         message: string;
+  //         forField: keyof z.infer<typeof createNotesSchema>;
+  //       },
+  //       400
+  //     );
+  //   }
 
-    const note = await db
-      .insert(schema.note)
-      .values({
-        title,
-        content,
-        userId: user.id,
-      })
-      .returning();
+  //   const note = await db
+  //     .insert(schema.note)
+  //     .values({
+  //       title,
+  //       content,
+  //       userId: user.id,
+  //     })
+  //     .returning();
 
-    return c.json(note, 200);
-  })
+  //   return c.json(note, 200);
+  // })
   .get("/:id", async (c) => {
     const { id } = c.req.param();
 

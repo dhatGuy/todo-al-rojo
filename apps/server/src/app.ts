@@ -12,13 +12,13 @@ const app = new Hono<HonoAppContext>()
   .use(
     "*",
     cors({
-      origin: [env.WEB_URL],
+      origin: [env.WEB_URL!],
       allowHeaders: ["Content-Type", "Authorization"],
       allowMethods: ["POST", "GET", "OPTIONS"],
       exposeHeaders: ["Content-Length"],
       maxAge: 600,
       credentials: true,
-    })
+    }),
   )
   // ------------------------------------------------------------
   // AUTH
