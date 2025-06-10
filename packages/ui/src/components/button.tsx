@@ -63,8 +63,10 @@ export function Button({
       disabled={loading || disabled}
       {...props}
     >
-      {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-      {children}
+      <>
+        {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+        {children}
+      </>
     </Comp>
   );
 }

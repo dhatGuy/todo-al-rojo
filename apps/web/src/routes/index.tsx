@@ -11,10 +11,8 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  // const notesQuery = useQuery(notesQueryOptions());
-
   return (
-    <div className="min-h-screen">
+    <div className="min-h-svh">
       <HeroSection />
 
       <LeaderboardSection />
