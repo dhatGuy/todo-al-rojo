@@ -3,9 +3,9 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import { prettyJSON } from "hono/pretty-json";
-import { env } from "../env";
-import { auth, type HonoAppContext } from "./auth";
-import { notes } from "./routes/notes";
+import { env } from "../env.js";
+import { auth, type HonoAppContext } from "./auth.js";
+import { notes } from "./routes/notes.js";
 
 const app = new Hono<HonoAppContext>()
   .use(logger())

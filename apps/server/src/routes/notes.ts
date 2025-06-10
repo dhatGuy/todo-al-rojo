@@ -1,8 +1,8 @@
 import { desc, eq } from "drizzle-orm";
 import { Hono } from "hono";
-import { type HonoAppContext } from "../auth";
-import { db } from "../db/index";
-import * as schema from "../db/schema";
+import { type HonoAppContext } from "../auth.js";
+import { db } from "../db/index.js";
+import * as schema from "../db/schema.js";
 
 export const notes = new Hono<HonoAppContext>()
   .get("/", async (c) => {

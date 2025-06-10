@@ -1,5 +1,5 @@
 import { hc } from "hono/client";
-import app from "./app";
+import app from "./app.js";
 
 // assign the client to a variable to calculate the type when compiling
 const client = hc<typeof app>("");

@@ -3,9 +3,9 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { APIError } from "better-auth/api";
 import { admin } from "better-auth/plugins";
 import { count, eq } from "drizzle-orm";
-import { env } from "../env";
-import { db } from "./db/index";
-import * as schema from "./db/schema";
+import { env } from "../env.js";
+import { db } from "./db/index.js";
+import * as schema from "./db/schema.js";
 
 export const auth = betterAuth({
   emailAndPassword: {

@@ -3,7 +3,7 @@
 // ------------------------------------------------------------
 
 import { serve } from "@hono/node-server";
-import app from "./app";
+import app from "./app.js";
 
 serve(
   {
@@ -12,5 +12,5 @@ serve(
   },
   (info) => {
     console.log(`Server is running on http://localhost:${info.port}`);
-  }
+  },
 );

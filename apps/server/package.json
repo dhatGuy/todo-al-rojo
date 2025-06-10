@@ -20,7 +20,8 @@
     "db:studio": "pnpm with-env drizzle-kit studio",
     "db:push": "pnpm with-env drizzle-kit push",
     "generate": "pnpm dlx @better-auth/cli generate",
-    "start": "pnpm node --env-file=../../.env dist/src/index.js",
+    "start": "pnpm node --env-file=.env dist/src/index.js",
+    "start:dev": "pnpm node --env-file=../../.env dist/src/index.js",
     "with-env": "dotenv -e ../../.env --",
     "create:route": "node ./new-route.js"
   },
