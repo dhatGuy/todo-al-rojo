@@ -12,14 +12,14 @@ import { Crown, Menu } from "lucide-react";
 import { useSession } from "src/utils/auth-client";
 import goldCrown from "../assets/images/gold.png";
 
-const navigationItems = [
-  { name: "Inicio", href: "#" },
-  { name: "Recompensas", href: "#" },
-  { name: "Promociones", href: "#" },
-  { name: "Tareas", href: "#" },
-  { name: "Ranking", href: "#" },
-  { name: "Afiliados", href: "#" },
-  { name: "Soporte", href: "#" },
+const navigationItems: any[] = [
+  // { name: "Inicio", href: "#" },
+  // { name: "Recompensas", href: "#" },
+  // { name: "Promociones", href: "#" },
+  // { name: "Tareas", href: "#" },
+  // { name: "Ranking", href: "#" },
+  // { name: "Afiliados", href: "#" },
+  // { name: "Soporte", href: "#" },
 ];
 
 export default function DashboardNavigation() {

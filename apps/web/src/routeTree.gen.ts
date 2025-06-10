@@ -10,16 +10,17 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as RankingImport } from './routes/ranking'
-import { Route as DashboardRouteImport ./routes/(auth)/signins/dashboard/route'
+import { Route as rootRoute } from './route./routes/_auth/signin
+import { Route as RankingImport } from './r./routes/_auth/signup
+import { Route as DashboardRouteImport } from './routes/dashboard/route'
+import { Route as AuthRouteImport } from './routes/_auth/route'
 import { Route as IndexImport } from './routes/index'
 import { Route as DashboardIndexImport } from './routes/dashboard/index'
 import { Route as DashboardTasksImport } from './routes/dashboard/tasks'
 import { Route as DashboardShopImport } from './routes/dashboard/shop'
 import { Route as DashboardLeaderboardImport } from './routes/dashboard/leaderboard'
-import { Route as authSignupImport } from './routes/(auth)/signup'
-import { Route as authSigninImport } from './routes/(auth)/signin'
+import { Route as AuthSignupImport } from './routes/_auth/signup'
+import { Route as AuthSigninImport } from './routes/_auth/signin'
 
 // Create/Update Routes
 
@@ -32,6 +33,11 @@ const RankingRoute = RankingImport.update({
 const DashboardRouteRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthRouteRoute = AuthRouteImport.update({
+  id: '/_auth',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -65,16 +71,16 @@ const DashboardLeaderboardRoute = DashboardLeaderboardImport.update({
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 
-const authSignupRoute = authSignupImport.update({
-  id: '/(auth)/signup',
+const AuthSignupRoute = AuthSignupImport.update({
+  id: '/signup',
   path: '/signup',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AuthRouteRoute,
 } as any)
 
-const authSigninRoute = authSigninImport.update({
-  id: '/(auth)/signin',
+const AuthSigninRoute = AuthSigninImport.update({
+  id: '/signin',
   path: '/signin',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AuthRouteRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -86,6 +92,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRoute
     }
     '/dashboard': {
@@ -102,19 +115,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RankingImport
       parentRoute: typeof rootRoute
     }
-    '/(auth)/signin': {
-      id: '/(auth)/signin'
+    '/_auth/signin': {
+      id: '/_auth/signin'
       path: '/signin'
       fullPath: '/signin'
-      preLoaderRoute: typeof authSigninImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthSigninImport
+      parentRoute: typeof AuthRouteImport
     }
-    '/(auth)/signup': {
-      id: '/(auth)/signup'
+    '/_auth/signup': {
+      id: '/_auth/signup'
       path: '/signup'
       fullPath: '/signup'
-      preLoaderRoute: typeof authSignupImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthSignupImport
+      parentRoute: typeof AuthRouteImport
     }
     '/dashboard/leaderboard': {
       id: '/dashboard/leaderboard'
@@ -149,6 +162,20 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
+interface AuthRouteRouteChildren {
+  AuthSigninRoute: typeof AuthSigninRoute
+  AuthSignupRoute: typeof AuthSignupRoute
+}
+
+const AuthRouteRouteChildren: AuthRouteRouteChildren = {
+  AuthSigninRoute: AuthSigninRoute,
+  AuthSignupRoute: AuthSignupRoute,
+}
+
+const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
+  AuthRouteRouteChildren,
+)
+
 interface DashboardRouteRouteChildren {
   DashboardLeaderboardRoute: typeof DashboardLeaderboardRoute
   DashboardShopRoute: typeof DashboardShopRoute
@@ -169,10 +196,11 @@ const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '': typeof AuthRouteRouteWithChildren
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/ranking': typeof RankingRoute
-  '/signin': typeof authSigninRoute
-  '/signup': typeof authSignupRoute
+  '/signin': typeof AuthSigninRoute
+  '/signup': typeof AuthSignupRoute
   '/dashboard/leaderboard': typeof DashboardLeaderboardRoute
   '/dashboard/shop': typeof DashboardShopRoute
   '/dashboard/tasks': typeof DashboardTasksRoute
@@ -181,9 +209,10 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '': typeof AuthRouteRouteWithChildren
   '/ranking': typeof RankingRoute
-  '/signin': typeof authSigninRoute
-  '/signup': typeof authSignupRoute
+  '/signin': typeof AuthSigninRoute
+  '/signup': typeof AuthSignupRoute
   '/dashboard/leaderboard': typeof DashboardLeaderboardRoute
   '/dashboard/shop': typeof DashboardShopRoute
   '/dashboard/tasks': typeof DashboardTasksRoute
@@ -193,10 +222,11 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/_auth': typeof AuthRouteRouteWithChildren
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/ranking': typeof RankingRoute
-  '/(auth)/signin': typeof authSigninRoute
-  '/(auth)/signup': typeof authSignupRoute
+  '/_auth/signin': typeof AuthSigninRoute
+  '/_auth/signup': typeof AuthSignupRoute
   '/dashboard/leaderboard': typeof DashboardLeaderboardRoute
   '/dashboard/shop': typeof DashboardShopRoute
   '/dashboard/tasks': typeof DashboardTasksRoute
@@ -207,6 +237,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | ''
     | '/dashboard'
     | '/ranking'
     | '/signin'
@@ -218,6 +249,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | ''
     | '/ranking'
     | '/signin'
     | '/signup'
@@ -228,10 +260,11 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_auth'
     | '/dashboard'
     | '/ranking'
-    | '/(auth)/signin'
-    | '/(auth)/signup'
+    | '/_auth/signin'
+    | '/_auth/signup'
     | '/dashboard/leaderboard'
     | '/dashboard/shop'
     | '/dashboard/tasks'
@@ -241,18 +274,16 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRouteRoute: typeof AuthRouteRouteWithChildren
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
   RankingRoute: typeof RankingRoute
-  authSigninRoute: typeof authSigninRoute
-  authSignupRoute: typeof authSignupRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRouteRoute: AuthRouteRouteWithChildren,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
   RankingRoute: RankingRoute,
-  authSigninRoute: authSigninRoute,
-  authSignupRoute: authSignupRoute,
 }
 
 export const routeTree = rootRoute
@@ -266,14 +297,20 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/_auth",
         "/dashboard",
-        "/ranking",
-        "/(auth)/signin",
-        "/(auth)/signup"
+        "/ranking"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/_auth": {
+      "filePath": "_auth/route.tsx",
+      "children": [
+        "/_auth/signin",
+        "/_auth/signup"
+      ]
     },
     "/dashboard": {
       "filePath": "dashboard/route.tsx",
@@ -287,11 +324,13 @@ export const routeTree = rootRoute
     "/ranking": {
       "filePath": "ranking.tsx"
     },
-    "/(auth)/signin": {
-      "filePath": "(auth)/signin.tsx"
+    "/_auth/signin": {
+      "filePath": "_auth/signin.tsx",
+      "parent": "/_auth"
     },
-    "/(auth)/signup": {
-      "filePath": "(auth)/signup.tsx"
+    "/_auth/signup": {
+      "filePath": "_auth/signup.tsx",
+      "parent": "/_auth"
     },
     "/dashboard/leaderboard": {
       "filePath": "dashboard/leaderboard.tsx",

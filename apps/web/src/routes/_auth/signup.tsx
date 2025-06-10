@@ -24,7 +24,7 @@ import { SignupSchema, signupSchema } from "src/schemas/auth.schema";
 import { getErrorMessage } from "src/utils/auth-client";
 import bgSignup from "../../assets/images/signup-bg.png";
 
-export const Route = createFileRoute("/(auth)/signup")({
+export const Route = createFileRoute("/_auth/signup")({
   component: RouteComponent,
 });
 

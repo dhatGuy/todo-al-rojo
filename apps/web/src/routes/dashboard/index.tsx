@@ -1,9 +1,19 @@
 import { Card, CardContent } from "@repo/ui/components/card";
 import { Progress } from "@repo/ui/components/progress";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
+import { authClient } from "src/utils/auth-client";
 
 export const Route = createFileRoute("/dashboard/")({
   component: RouteComponent,
+  beforeLoad: async () => {
+    const { data } = await authClient.getSession();
+
+    if (!data?.session) {
+      throw redirect({
+        to: "/signin",
+      });
+    }
+  },
 });
 
 function RouteComponent() {

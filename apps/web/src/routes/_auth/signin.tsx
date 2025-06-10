@@ -23,7 +23,7 @@ import { SigninSchema } from "src/schemas/auth.schema";
 import { mutationOptions } from "src/utils/mutationOptions";
 import bgSignup from "../../assets/images/signup-bg.png";
 
-export const Route = createFileRoute("/(auth)/signin")({
+export const Route = createFileRoute("/_auth/signin")({
   component: RouteComponent,
 });
 
