@@ -10,177 +10,177 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './route./routes/_auth/signin
-import { Route as RankingImport } from './r./routes/_auth/signup
-import { Route as DashboardRouteImport } from './routes/dashboard/route'
-import { Route as AuthRouteImport } from './routes/_auth/route'
-import { Route as IndexImport } from './routes/index'
-import { Route as DashboardIndexImport } from './routes/dashboard/index'
-import { Route as DashboardTasksImport } from './routes/dashboard/tasks'
-import { Route as DashboardShopImport } from './routes/dashboard/shop'
-import { Route as DashboardLeaderboardImport } from './routes/dashboard/leaderboard'
-import { Route as AuthSignupImport } from './routes/_auth/signup'
-import { Route as AuthSigninImport } from './routes/_auth/signin'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as AuthRouteImport } from "./routes/_auth/route";
+import { Route as AuthSigninImport } from "./routes/_auth/signin";
+import { Route as AuthSignupImport } from "./routes/_auth/signup";
+import { Route as DashboardIndexImport } from "./routes/dashboard/index";
+import { Route as DashboardLeaderboardImport } from "./routes/dashboard/leaderboard";
+import { Route as DashboardRouteImport } from "./routes/dashboard/route";
+import { Route as DashboardShopImport } from "./routes/dashboard/shop";
+import { Route as DashboardTasksImport } from "./routes/dashboard/tasks";
+import { Route as IndexImport } from "./routes/index";
+import { Route as RankingImport } from "./routes/ranking";
 
 // Create/Update Routes
 
 const RankingRoute = RankingImport.update({
-  id: '/ranking',
-  path: '/ranking',
+  id: "/ranking",
+  path: "/ranking",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const DashboardRouteRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+  id: "/dashboard",
+  path: "/dashboard",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const AuthRouteRoute = AuthRouteImport.update({
-  id: '/_auth',
+  id: "/_auth",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const IndexRoute = IndexImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const DashboardIndexRoute = DashboardIndexImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => DashboardRouteRoute,
-} as any)
+} as any);
 
 const DashboardTasksRoute = DashboardTasksImport.update({
-  id: '/tasks',
-  path: '/tasks',
+  id: "/tasks",
+  path: "/tasks",
   getParentRoute: () => DashboardRouteRoute,
-} as any)
+} as any);
 
 const DashboardShopRoute = DashboardShopImport.update({
-  id: '/shop',
-  path: '/shop',
+  id: "/shop",
+  path: "/shop",
   getParentRoute: () => DashboardRouteRoute,
-} as any)
+} as any);
 
 const DashboardLeaderboardRoute = DashboardLeaderboardImport.update({
-  id: '/leaderboard',
-  path: '/leaderboard',
+  id: "/leaderboard",
+  path: "/leaderboard",
   getParentRoute: () => DashboardRouteRoute,
-} as any)
+} as any);
 
 const AuthSignupRoute = AuthSignupImport.update({
-  id: '/signup',
-  path: '/signup',
+  id: "/signup",
+  path: "/signup",
   getParentRoute: () => AuthRouteRoute,
-} as any)
+} as any);
 
 const AuthSigninRoute = AuthSigninImport.update({
-  id: '/signin',
-  path: '/signin',
+  id: "/signin",
+  path: "/signin",
   getParentRoute: () => AuthRouteRoute,
-} as any)
+} as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/_auth': {
-      id: '/_auth'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRoute
-    }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
-      parentRoute: typeof rootRoute
-    }
-    '/ranking': {
-      id: '/ranking'
-      path: '/ranking'
-      fullPath: '/ranking'
-      preLoaderRoute: typeof RankingImport
-      parentRoute: typeof rootRoute
-    }
-    '/_auth/signin': {
-      id: '/_auth/signin'
-      path: '/signin'
-      fullPath: '/signin'
-      preLoaderRoute: typeof AuthSigninImport
-      parentRoute: typeof AuthRouteImport
-    }
-    '/_auth/signup': {
-      id: '/_auth/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof AuthSignupImport
-      parentRoute: typeof AuthRouteImport
-    }
-    '/dashboard/leaderboard': {
-      id: '/dashboard/leaderboard'
-      path: '/leaderboard'
-      fullPath: '/dashboard/leaderboard'
-      preLoaderRoute: typeof DashboardLeaderboardImport
-      parentRoute: typeof DashboardRouteImport
-    }
-    '/dashboard/shop': {
-      id: '/dashboard/shop'
-      path: '/shop'
-      fullPath: '/dashboard/shop'
-      preLoaderRoute: typeof DashboardShopImport
-      parentRoute: typeof DashboardRouteImport
-    }
-    '/dashboard/tasks': {
-      id: '/dashboard/tasks'
-      path: '/tasks'
-      fullPath: '/dashboard/tasks'
-      preLoaderRoute: typeof DashboardTasksImport
-      parentRoute: typeof DashboardRouteImport
-    }
-    '/dashboard/': {
-      id: '/dashboard/'
-      path: '/'
-      fullPath: '/dashboard/'
-      preLoaderRoute: typeof DashboardIndexImport
-      parentRoute: typeof DashboardRouteImport
-    }
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/_auth": {
+      id: "/_auth";
+      path: "";
+      fullPath: "";
+      preLoaderRoute: typeof AuthRouteImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/dashboard": {
+      id: "/dashboard";
+      path: "/dashboard";
+      fullPath: "/dashboard";
+      preLoaderRoute: typeof DashboardRouteImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/ranking": {
+      id: "/ranking";
+      path: "/ranking";
+      fullPath: "/ranking";
+      preLoaderRoute: typeof RankingImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/_auth/signin": {
+      id: "/_auth/signin";
+      path: "/signin";
+      fullPath: "/signin";
+      preLoaderRoute: typeof AuthSigninImport;
+      parentRoute: typeof AuthRouteImport;
+    };
+    "/_auth/signup": {
+      id: "/_auth/signup";
+      path: "/signup";
+      fullPath: "/signup";
+      preLoaderRoute: typeof AuthSignupImport;
+      parentRoute: typeof AuthRouteImport;
+    };
+    "/dashboard/leaderboard": {
+      id: "/dashboard/leaderboard";
+      path: "/leaderboard";
+      fullPath: "/dashboard/leaderboard";
+      preLoaderRoute: typeof DashboardLeaderboardImport;
+      parentRoute: typeof DashboardRouteImport;
+    };
+    "/dashboard/shop": {
+      id: "/dashboard/shop";
+      path: "/shop";
+      fullPath: "/dashboard/shop";
+      preLoaderRoute: typeof DashboardShopImport;
+      parentRoute: typeof DashboardRouteImport;
+    };
+    "/dashboard/tasks": {
+      id: "/dashboard/tasks";
+      path: "/tasks";
+      fullPath: "/dashboard/tasks";
+      preLoaderRoute: typeof DashboardTasksImport;
+      parentRoute: typeof DashboardRouteImport;
+    };
+    "/dashboard/": {
+      id: "/dashboard/";
+      path: "/";
+      fullPath: "/dashboard/";
+      preLoaderRoute: typeof DashboardIndexImport;
+      parentRoute: typeof DashboardRouteImport;
+    };
   }
 }
 
 // Create and export the route tree
 
 interface AuthRouteRouteChildren {
-  AuthSigninRoute: typeof AuthSigninRoute
-  AuthSignupRoute: typeof AuthSignupRoute
+  AuthSigninRoute: typeof AuthSigninRoute;
+  AuthSignupRoute: typeof AuthSignupRoute;
 }
 
 const AuthRouteRouteChildren: AuthRouteRouteChildren = {
   AuthSigninRoute: AuthSigninRoute,
   AuthSignupRoute: AuthSignupRoute,
-}
+};
 
 const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
   AuthRouteRouteChildren,
-)
+);
 
 interface DashboardRouteRouteChildren {
-  DashboardLeaderboardRoute: typeof DashboardLeaderboardRoute
-  DashboardShopRoute: typeof DashboardShopRoute
-  DashboardTasksRoute: typeof DashboardTasksRoute
-  DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardLeaderboardRoute: typeof DashboardLeaderboardRoute;
+  DashboardShopRoute: typeof DashboardShopRoute;
+  DashboardTasksRoute: typeof DashboardTasksRoute;
+  DashboardIndexRoute: typeof DashboardIndexRoute;
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
@@ -188,95 +188,95 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardShopRoute: DashboardShopRoute,
   DashboardTasksRoute: DashboardTasksRoute,
   DashboardIndexRoute: DashboardIndexRoute,
-}
+};
 
 const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
   DashboardRouteRouteChildren,
-)
+);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '': typeof AuthRouteRouteWithChildren
-  '/dashboard': typeof DashboardRouteRouteWithChildren
-  '/ranking': typeof RankingRoute
-  '/signin': typeof AuthSigninRoute
-  '/signup': typeof AuthSignupRoute
-  '/dashboard/leaderboard': typeof DashboardLeaderboardRoute
-  '/dashboard/shop': typeof DashboardShopRoute
-  '/dashboard/tasks': typeof DashboardTasksRoute
-  '/dashboard/': typeof DashboardIndexRoute
+  "/": typeof IndexRoute;
+  "": typeof AuthRouteRouteWithChildren;
+  "/dashboard": typeof DashboardRouteRouteWithChildren;
+  "/ranking": typeof RankingRoute;
+  "/signin": typeof AuthSigninRoute;
+  "/signup": typeof AuthSignupRoute;
+  "/dashboard/leaderboard": typeof DashboardLeaderboardRoute;
+  "/dashboard/shop": typeof DashboardShopRoute;
+  "/dashboard/tasks": typeof DashboardTasksRoute;
+  "/dashboard/": typeof DashboardIndexRoute;
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '': typeof AuthRouteRouteWithChildren
-  '/ranking': typeof RankingRoute
-  '/signin': typeof AuthSigninRoute
-  '/signup': typeof AuthSignupRoute
-  '/dashboard/leaderboard': typeof DashboardLeaderboardRoute
-  '/dashboard/shop': typeof DashboardShopRoute
-  '/dashboard/tasks': typeof DashboardTasksRoute
-  '/dashboard': typeof DashboardIndexRoute
+  "/": typeof IndexRoute;
+  "": typeof AuthRouteRouteWithChildren;
+  "/ranking": typeof RankingRoute;
+  "/signin": typeof AuthSigninRoute;
+  "/signup": typeof AuthSignupRoute;
+  "/dashboard/leaderboard": typeof DashboardLeaderboardRoute;
+  "/dashboard/shop": typeof DashboardShopRoute;
+  "/dashboard/tasks": typeof DashboardTasksRoute;
+  "/dashboard": typeof DashboardIndexRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/_auth': typeof AuthRouteRouteWithChildren
-  '/dashboard': typeof DashboardRouteRouteWithChildren
-  '/ranking': typeof RankingRoute
-  '/_auth/signin': typeof AuthSigninRoute
-  '/_auth/signup': typeof AuthSignupRoute
-  '/dashboard/leaderboard': typeof DashboardLeaderboardRoute
-  '/dashboard/shop': typeof DashboardShopRoute
-  '/dashboard/tasks': typeof DashboardTasksRoute
-  '/dashboard/': typeof DashboardIndexRoute
+  __root__: typeof rootRoute;
+  "/": typeof IndexRoute;
+  "/_auth": typeof AuthRouteRouteWithChildren;
+  "/dashboard": typeof DashboardRouteRouteWithChildren;
+  "/ranking": typeof RankingRoute;
+  "/_auth/signin": typeof AuthSigninRoute;
+  "/_auth/signup": typeof AuthSignupRoute;
+  "/dashboard/leaderboard": typeof DashboardLeaderboardRoute;
+  "/dashboard/shop": typeof DashboardShopRoute;
+  "/dashboard/tasks": typeof DashboardTasksRoute;
+  "/dashboard/": typeof DashboardIndexRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    | '/'
-    | ''
-    | '/dashboard'
-    | '/ranking'
-    | '/signin'
-    | '/signup'
-    | '/dashboard/leaderboard'
-    | '/dashboard/shop'
-    | '/dashboard/tasks'
-    | '/dashboard/'
-  fileRoutesByTo: FileRoutesByTo
+    | "/"
+    | ""
+    | "/dashboard"
+    | "/ranking"
+    | "/signin"
+    | "/signup"
+    | "/dashboard/leaderboard"
+    | "/dashboard/shop"
+    | "/dashboard/tasks"
+    | "/dashboard/";
+  fileRoutesByTo: FileRoutesByTo;
   to:
-    | '/'
-    | ''
-    | '/ranking'
-    | '/signin'
-    | '/signup'
-    | '/dashboard/leaderboard'
-    | '/dashboard/shop'
-    | '/dashboard/tasks'
-    | '/dashboard'
+    | "/"
+    | ""
+    | "/ranking"
+    | "/signin"
+    | "/signup"
+    | "/dashboard/leaderboard"
+    | "/dashboard/shop"
+    | "/dashboard/tasks"
+    | "/dashboard";
   id:
-    | '__root__'
-    | '/'
-    | '/_auth'
-    | '/dashboard'
-    | '/ranking'
-    | '/_auth/signin'
-    | '/_auth/signup'
-    | '/dashboard/leaderboard'
-    | '/dashboard/shop'
-    | '/dashboard/tasks'
-    | '/dashboard/'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/"
+    | "/_auth"
+    | "/dashboard"
+    | "/ranking"
+    | "/_auth/signin"
+    | "/_auth/signup"
+    | "/dashboard/leaderboard"
+    | "/dashboard/shop"
+    | "/dashboard/tasks"
+    | "/dashboard/";
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AuthRouteRoute: typeof AuthRouteRouteWithChildren
-  DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
-  RankingRoute: typeof RankingRoute
+  IndexRoute: typeof IndexRoute;
+  AuthRouteRoute: typeof AuthRouteRouteWithChildren;
+  DashboardRouteRoute: typeof DashboardRouteRouteWithChildren;
+  RankingRoute: typeof RankingRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -284,11 +284,11 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRouteRoute: AuthRouteRouteWithChildren,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
   RankingRoute: RankingRoute,
-}
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* ROUTE_MANIFEST_START
 {
