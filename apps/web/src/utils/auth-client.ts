@@ -1,11 +1,62 @@
+import { inferAdditionalFields } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
 import { useEffect, useState } from "react";
 
-export const authClient: ReturnType<typeof createAuthClient> = createAuthClient(
-  {
-    baseURL: import.meta.env.VITE_SERVER_URL, // The base URL of your auth server
+export const authClient = createAuthClient({
+  baseURL: import.meta.env.VITE_SERVER_URL, // The base URL of your auth server
+  plugins: [
+    inferAdditionalFields({
+      user: {
+        firstName: {
+          type: "string",
+          required: true,
+          fieldName: "first_name",
+        },
+        lastName: {
+          type: "string",
+          required: true,
+          fieldName: "last_name",
+        },
+        phoneNumber: {
+          type: "string",
+          required: true,
+          fieldName: "phone_number",
+        },
+      },
+    }),
+  ],
+});
+
+type ErrorTypes = Partial<
+  Record<
+    keyof typeof authClient.$ERROR_CODES & "PHONE_NUMBER_ALREADY_EXISTS",
+    {
+      en: string;
+      es: string;
+    }
+  >
+>;
+
+export const errorCodes = {
+  USER_ALREADY_EXISTS: {
+    en: "user already registered",
+    es: "usuario ya registrado",
+  },
+  PHONE_NUMBER_ALREADY_EXISTS: {
+    en: "phone number already registered",
+    es: "numero de telefono ya registrado",
+  },
+} satisfies ErrorTypes;
+
+export const getErrorMessage = (
+  code: string | undefined,
+  lang: "en" | "es" = "en",
+) => {
+  if (code && code in errorCodes) {
+    return errorCodes[code as keyof typeof errorCodes][lang];
   }
-);
+  return "";
+};
 
 /**
  * This hook is a simple abstraction over the better-auth's useSession hook.

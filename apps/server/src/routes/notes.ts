@@ -1,12 +1,8 @@
-import { zValidator } from "@hono/zod-validator";
-import { createNotesSchema } from "@repo/validators";
 import { desc, eq } from "drizzle-orm";
 import { Hono } from "hono";
-import type { z } from "zod";
 import { type HonoAppContext } from "../auth";
 import { db } from "../db/index";
 import * as schema from "../db/schema";
-import { withAuth } from "../middlewares/auth.middleware";
 
 export const notes = new Hono<HonoAppContext>()
   .get("/", async (c) => {
@@ -74,7 +70,7 @@ export const notes = new Hono<HonoAppContext>()
     const { id } = c.req.param();
 
     const note = await db.query.note.findFirst({
-      where: eq(schema.note.id, Number(id)),
+      where: eq(schema.note.id, id),
     });
 
     return c.json(note, 200);

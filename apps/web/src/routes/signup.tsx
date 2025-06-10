@@ -9,6 +9,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@repo/ui/components/form";
+import { toast } from "@repo/ui/components/toast";
+import { useMutation } from "@tanstack/react-query";
 import {
   createFileRoute,
   Link,
@@ -17,57 +19,77 @@ import {
 } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { signupMutationOptions } from "src/queries/auth.queries";
+import { SignupSchema, signupSchema } from "src/schemas/auth.schema";
+import { getErrorMessage } from "src/utils/auth-client";
 import bgSignup from "../assets/images/signup-bg.png";
 
 export const Route = createFileRoute("/signup")({
   component: RouteComponent,
 });
 
-const formSchema = z
-  .object({
-    fullName: z
-      .string()
-      .trim()
-      .min(2, "Full name must be at least 2 characters")
-      .max(50),
-    email: z.string().email(),
-    phoneNumber: z
-      .string()
-      .trim()
-      .min(10, "Phone number must be at least 10 characters")
-      .max(15),
-    password: z
-      .string()
-      .trim()
-      .min(8, "Password must be at least 8 characters")
-      .max(50, "Password must be at most 50 characters"),
-    confirmPassword: z.string(),
-    termsAccepted: z.boolean().refine((value) => value, {
-      message: "You must accept the terms and conditions",
-    }),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-  });
-type FormData = z.infer<typeof formSchema>;
-
 function RouteComponent() {
   const router = useRouter();
   const canGoBack = useCanGoBack();
+
+  const mutation = useMutation(signupMutationOptions());
+
   const form = useForm({
-    resolver: zodResolver(formSchema),
-    defaultValues: {},
+    resolver: zodResolver(signupSchema),
+    defaultValues: {
+      termsAccepted: false,
+      firstName: "",
+      lastName: "",
+      email: "",
+      phoneNumber: "",
+      confirmPassword: "",
+      password: "",
+    },
   });
 
-  const onSubmit = async (_data: FormData) => {
-    try {
-      // await axios.post("/api/signup", data);
-      // toast.success("Account created successfully!");
-      // router.push("/login");
-    } catch (error) {
-      // toast.error("Failed to create account");
-    }
+  const onSubmit = async (data: SignupSchema) => {
+    mutation.mutate(data, {
+      onSuccess: (data) => {
+        if (data.error) {
+          const errorCode = data.error.code;
+          if (errorCode === "USER_ALREADY_EXISTS") {
+            form.setError("email", {
+              type: "custom",
+              message: "User already exists",
+            });
+          }
+          if (errorCode === "PHONE_NUMBER_ALREADY_EXISTS") {
+            form.setError("phoneNumber", {
+              type: "custom",
+              message: "Phone number already exists",
+            });
+          }
+
+          const errorMessage = getErrorMessage(errorCode);
+          if (errorMessage) {
+            toast.error(errorMessage, {
+              position: "bottom-left",
+            });
+          } else {
+            toast.error("An unknown error occurred.", {
+              position: "bottom-left",
+            });
+          }
+          return;
+        }
+
+        toast.success("Account created successfully!");
+        router.navigate({
+          to: "/dashboard",
+        });
+      },
+      onError: (error) => {
+        console.error(error);
+        toast.error("An unknown error occurred.", {
+          position: "bottom-left",
+        });
+      },
+    });
   };
 
   return (
@@ -104,13 +126,27 @@ function RouteComponent() {
               >
                 <FormField
                   control={form.control}
-                  name="fullName"
+                  name="firstName"
                   render={({ field }) => (
-                    <FormItem className="col-span-6">
+                    <FormItem className="col-span-full">
                       <FloatingLabelInput
                         {...field}
-                        label="Full Name"
-                        id="fullName"
+                        label="First Name"
+                        id="firstName"
+                      />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="lastName"
+                  render={({ field }) => (
+                    <FormItem className="col-span-full">
+                      <FloatingLabelInput
+                        {...field}
+                        label="Last name"
+                        id="lastName"
                       />
                       <FormMessage />
                     </FormItem>
@@ -121,7 +157,7 @@ function RouteComponent() {
                   control={form.control}
                   name="email"
                   render={({ field }) => (
-                    <FormItem className="col-span-6">
+                    <FormItem className="col-span-full">
                       <FloatingLabelInput {...field} label="Email" id="email" />
                       <FormMessage />
                     </FormItem>
@@ -132,7 +168,7 @@ function RouteComponent() {
                   control={form.control}
                   name="phoneNumber"
                   render={({ field }) => (
-                    <FormItem className="col-span-6">
+                    <FormItem className="col-span-full">
                       <FloatingLabelInput
                         {...field}
                         label="Phone Number"
@@ -146,11 +182,12 @@ function RouteComponent() {
                   control={form.control}
                   name="password"
                   render={({ field }) => (
-                    <FormItem className="col-span-6">
+                    <FormItem className="col-span-full">
                       <FloatingLabelInput
                         {...field}
                         label="Password"
                         id="password"
+                        type="password"
                       />
                       <FormMessage />
                     </FormItem>
@@ -160,11 +197,12 @@ function RouteComponent() {
                   control={form.control}
                   name="confirmPassword"
                   render={({ field }) => (
-                    <FormItem className="col-span-6">
+                    <FormItem className="col-span-full">
                       <FloatingLabelInput
                         {...field}
                         label="Confirm Password"
                         id="confirmPassword"
+                        type="password"
                       />
                       <FormMessage />
                     </FormItem>
@@ -175,7 +213,7 @@ function RouteComponent() {
                   control={form.control}
                   name="termsAccepted"
                   render={({ field }) => (
-                    <FormItem className="col-span-6">
+                    <FormItem className="col-span-full">
                       <div className="flex gap-3 items-center">
                         <Checkbox
                           className="bg-white data-[state=checked]:bg-white"
@@ -196,7 +234,10 @@ function RouteComponent() {
                 />
 
                 <div className="col-span-6 sm:flex flex-col sm:gap-4">
-                  <Button className="w-full rojo-gradient font-bold h-12 rounded-lg">
+                  <Button
+                    loading={mutation.isPending}
+                    className="w-full rojo-gradient font-bold h-12 rounded-lg"
+                  >
                     Sign Up
                   </Button>
 

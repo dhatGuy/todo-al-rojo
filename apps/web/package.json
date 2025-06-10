@@ -27,6 +27,7 @@
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-wheel-gestures": "^8.0.2",
     "hono": "^4.7.8",
+    "ky": "^1.8.1",
     "lucide-react": "^0.511.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

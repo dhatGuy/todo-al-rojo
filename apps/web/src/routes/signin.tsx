@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@repo/ui/components/button";
+import { Checkbox } from "@repo/ui/components/checkbox";
 import { FloatingLabelInput } from "@repo/ui/components/floating-label-input";
 import {
   Form,
@@ -7,6 +8,9 @@ import {
   FormItem,
   FormMessage,
 } from "@repo/ui/components/form";
+import { Label } from "@repo/ui/components/label";
+import { toast } from "@repo/ui/components/toast";
+import { useMutation } from "@tanstack/react-query";
 import {
   createFileRoute,
   useCanGoBack,
@@ -14,40 +18,50 @@ import {
 } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { signinMutationOptions } from "src/queries/auth.queries";
+import { SigninSchema } from "src/schemas/auth.schema";
+import { mutationOptions } from "src/utils/mutationOptions";
 import bgSignup from "../assets/images/signup-bg.png";
 
 export const Route = createFileRoute("/signin")({
   component: RouteComponent,
 });
 
-const formSchema = z.object({
-  email: z.string().email(),
-  password: z
-    .string()
-    .trim()
-    .min(8, "Password must be at least 8 characters")
-    .max(50, "Password must be at most 50 characters"),
-});
-
-type FormData = z.infer<typeof formSchema>;
-
 function RouteComponent() {
   const router = useRouter();
   const canGoBack = useCanGoBack();
+  const mutation = useMutation(mutationOptions(signinMutationOptions()));
+
   const form = useForm({
-    resolver: zodResolver(formSchema),
-    defaultValues: {},
+    resolver: zodResolver(SigninSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+      rememberMe: false,
+    },
   });
 
-  const onSubmit = async (_data: FormData) => {
-    try {
-      // await axios.post("/api/signup", data);
-      // toast.success("Account created successfully!");
-      // router.push("/login");
-    } catch (error) {
-      // toast.error("Failed to create account");
-    }
+  const onSubmit = async (data: SigninSchema) => {
+    mutation.mutate(data, {
+      onSuccess: (data) => {
+        if (data.error) {
+          toast.error(data.error.message, {
+            position: "bottom-left",
+          });
+          return;
+        }
+        toast.success("Logged in successfully!");
+        router.navigate({
+          to: "/dashboard",
+        });
+      },
+      onError: (error) => {
+        console.log(error);
+        toast.error("Failed to login", {
+          position: "bottom-left",
+        });
+      },
+    });
   };
 
   return (
@@ -102,14 +116,40 @@ function RouteComponent() {
                         {...field}
                         label="Password"
                         id="password"
+                        type="password"
                       />
                       <FormMessage />
                     </FormItem>
                   )}
                 />
 
+                <FormField
+                  control={form.control}
+                  name="rememberMe"
+                  render={({ field }) => (
+                    <FormItem className="col-span-6 flex items-center gap-3">
+                      <Checkbox
+                        id="rememberMe"
+                        className="bg-white data-[state=checked]:bg-white my-auto"
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+
+                      <Label
+                        htmlFor="rememberMe"
+                        className="text-sm font-medium text-gray-200"
+                      >
+                        Remember me
+                      </Label>
+                    </FormItem>
+                  )}
+                />
+
                 <div className="col-span-6 sm:flex flex-col sm:gap-4">
-                  <Button className="w-full rojo-gradient font-bold h-12 rounded-lg">
+                  <Button
+                    className="w-full rojo-gradient font-bold h-12 rounded-lg"
+                    loading={mutation.isPending}
+                  >
                     Sign In
                   </Button>
 

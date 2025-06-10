@@ -1,5 +1,8 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { APIError } from "better-auth/api";
+import { admin } from "better-auth/plugins";
+import { count, eq } from "drizzle-orm";
 import { env } from "../env";
 import { db } from "./db/index";
 import * as schema from "./db/schema";
@@ -8,11 +11,61 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
+  plugins: [admin()],
   database: drizzleAdapter(db, {
     provider: "pg",
-    schema,
+    schema: {
+      user: schema.userTable,
+      verification: schema.verificationTable,
+      session: schema.sessionTable,
+      account: schema.accountTable,
+    },
+    debugLogs: true,
   }),
+  advanced: {
+    database: {
+      generateId: false,
+    },
+  },
   trustedOrigins: [env.WEB_URL!],
+  user: {
+    additionalFields: {
+      firstName: {
+        type: "string",
+        required: true,
+      },
+      lastName: {
+        type: "string",
+        required: true,
+      },
+      phoneNumber: {
+        type: "string",
+        required: true,
+      },
+    },
+  },
+  databaseHooks: {
+    user: {
+      create: {
+        before: async (user, ctx) => {
+          const [phoneExist] = await db
+            .select({ count: count() })
+            .from(schema.userTable)
+            // @ts-expect-error
+            .where(eq(schema.userTable.phoneNumber, ctx.body.phoneNumber));
+          if (phoneExist.count > 0) {
+            throw new APIError("UNPROCESSABLE_ENTITY", {
+              message: "Phone number already exists.",
+              code: "PHONE_NUMBER_ALREADY_EXISTS",
+            });
+          }
+          return {
+            data: user,
+          };
+        },
+      },
+    },
+  },
 });
 
 /**

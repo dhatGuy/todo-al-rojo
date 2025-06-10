@@ -9,6 +9,7 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from "@repo/ui/components/sheet";
 import { Link } from "@tanstack/react-router";
 import { Crown, Menu } from "lucide-react";
+import { useSession } from "src/utils/auth-client";
 import goldCrown from "../assets/images/gold.png";
 
 const navigationItems = [
@@ -22,6 +23,8 @@ const navigationItems = [
 ];
 
 export default function DashboardNavigation() {
+  const { data } = useSession();
+
   return (
     <nav className="text-white w-full overflow-hidden">
       <div className="">
@@ -53,7 +56,7 @@ export default function DashboardNavigation() {
                 Bienvenido
               </span>
               <span className="text-white text-2xl font-semibold hidden sm:block">
-                Felipe
+                {data?.user.firstName}
               </span>
             </div>
             <div className="relative size-12 md:size-24">
@@ -68,7 +71,7 @@ export default function DashboardNavigation() {
                 <div className="size-6 md:size-12 rounded-full overflow-hidden">
                   <img
                     src="https://picsum.photos/seed/picsum/200/300.webp"
-                    alt="Felipe's profile"
+                    alt={`${data?.user.firstName}'s profile picture`}
                     className="size-full object-cover"
                   />
                 </div>
@@ -111,7 +114,7 @@ export default function DashboardNavigation() {
                           <div className="w-full h-full rounded-full overflow-hidden">
                             <img
                               src="/placeholder.svg?height=32&width=32"
-                              alt="Felipe's profile"
+                              alt={`${data?.user.firstName}'s Avatar`}
                               width={32}
                               height={32}
                               className="w-full h-full object-cover"
@@ -121,7 +124,9 @@ export default function DashboardNavigation() {
                       </div>
                       <div>
                         <div className="text-gray-300 text-sm">Bienvenido</div>
-                        <div className="text-white font-semibold">Felipe</div>
+                        <div className="text-white font-semibold">
+                          {data?.user.firstName}
+                        </div>
                       </div>
                     </div>
                   </div>

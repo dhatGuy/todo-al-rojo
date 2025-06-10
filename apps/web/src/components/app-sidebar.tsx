@@ -9,15 +9,21 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@repo/ui/components/sidebar";
+import { toast } from "@repo/ui/components/toast";
 import { cn } from "@repo/ui/lib/utils";
-import { Link, useRouterState } from "@tanstack/react-router";
-import { Home, ListTodo, LogOut } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { Link, useRouter, useRouterState } from "@tanstack/react-router";
+import { Home, ListTodo, Loader2, LogOut } from "lucide-react";
 import { useMemo } from "react";
+import { logoutMutationOptions } from "src/queries/auth.queries";
+import { mutationOptions } from "src/utils/mutationOptions";
 import PokerChip from "../assets/icons/poker-chip";
 import { Ranking } from "../assets/icons/ranking";
 
 export function AppSidebar() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const router = useRouter();
+  const mutation = useMutation(mutationOptions(logoutMutationOptions()));
 
   const items = useMemo(
     () => [
@@ -45,6 +51,18 @@ export function AppSidebar() {
     ],
     [],
   );
+
+  const onLogout = () => {
+    mutation.mutate(undefined, {
+      onSuccess: () => {
+        router.navigate({ to: "/signin" });
+        toast.success("Logged out successfully");
+      },
+      onError: () => {
+        toast.error("Failed to logout");
+      },
+    });
+  };
 
   return (
     <Sidebar collapsible="offcanvas">
@@ -124,9 +142,22 @@ export function AppSidebar() {
       </SidebarContent>
 
       <SidebarFooter className="border-t border-gray-700 mx-8 pb-10">
-        <SidebarMenuButton className="w-full h-auto font-bold text-base text-red-600 gap-4">
-          <LogOut className="!size-8 text-white" />
-          Logout
+        <SidebarMenuButton
+          disabled={mutation.isPending}
+          className="w-full h-auto font-bold text-base text-red-600 gap-4"
+          onClick={onLogout}
+        >
+          {mutation.isPending ? (
+            <>
+              <Loader2 className="mr-2 animate-spin" />
+              Logging out...
+            </>
+          ) : (
+            <>
+              <LogOut className="!size-8 text-white" />
+              Logout
+            </>
+          )}
         </SidebarMenuButton>
       </SidebarFooter>
     </Sidebar>

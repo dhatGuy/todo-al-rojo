@@ -4,6 +4,7 @@ import { Slot } from "radix-ui";
 import * as React from "react";
 
 import { cn } from "@repo/ui/utils";
+import { Loader2 } from "lucide-react";
 
 export const buttonVariants = cva(
   "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
@@ -39,6 +40,7 @@ export interface ButtonProps
   extends React.ComponentProps<"button">,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
+  loading?: boolean;
 }
 
 export function Button({
@@ -46,13 +48,23 @@ export function Button({
   variant,
   size,
   asChild = false,
+  loading = false,
+  children,
+  disabled,
   ...props
 }: ButtonProps) {
   const Comp = asChild ? Slot.Slot : "button";
   return (
     <Comp
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(
+        buttonVariants({ variant, size, className }),
+        loading && "relative",
+      )}
+      disabled={loading || disabled}
       {...props}
-    />
+    >
+      {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+      {children}
+    </Comp>
   );
 }

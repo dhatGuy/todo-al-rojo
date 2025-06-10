@@ -17,11 +17,13 @@ export default defineConfig({
   },
 
   plugins: [
-    // Please make sure that '@tanstack/router-plugin' is passed before '@vitejs/plugin-react'
     TanStackRouterVite({ target: "react", autoCodeSplitting: true }),
     react(),
     tailwindcss(),
   ],
+  server: {
+    cors: false, // disable Vite's built-in CORS setting
+  },
 
   resolve: {
     alias: {
