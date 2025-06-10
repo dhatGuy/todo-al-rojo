@@ -1,4 +1,4 @@
-import { SigninSchema, SignupSchema } from "src/schemas/auth.schema";
+import type { SigninSchema, SignupSchema } from "src/schemas/auth.schema";
 import { authClient } from "src/utils/auth-client";
 import { mutationOptions } from "src/utils/mutationOptions";
 

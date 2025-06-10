@@ -1,8 +1,8 @@
 import { relations } from "drizzle-orm";
 import { pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
-import * as authSchema from "./auth-schema.js";
+import * as authSchema from "./auth-schema";
 
-export * from "./auth-schema.js";
+export * from "./auth-schema";
 
 export const note = pgTable("note", {
   id: uuid().primaryKey().defaultRandom(),

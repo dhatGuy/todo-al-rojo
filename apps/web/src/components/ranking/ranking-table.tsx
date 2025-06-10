@@ -23,7 +23,7 @@ import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
-  PaginationState,
+  type PaginationState,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -32,7 +32,7 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@repo/ui/components/avatar";
-import { fetchData, Person } from "../../utils/fetch-data";
+import { fetchData, type Person } from "../../utils/fetch-data";
 
 export function RankingTable() {
   const columnHelper = createColumnHelper<Person>();

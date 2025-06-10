@@ -50,40 +50,40 @@ function RouteComponent() {
               <div className="flex items-center space-x-3">
                 <div>
                   <h3 className="text-white font-medium flex items-center space-x-2">
-                    <span>{tasks[0].title}</span>
+                    <span>{tasks[0]?.title}</span>
                     <span
                       // variant="secondary"
                       className="text-yellow-400"
                     >
-                      +{tasks[0].chips} RC
+                      +{tasks[0]?.chips} RC
                     </span>
                     <div className="rounded-full flex items-center justify-center">
                       <PokerChip color="red" width={20} height={20} />
                     </div>
                   </h3>
                   <p className="text-gray-400 text-sm mt-1">
-                    {tasks[0].description}
+                    {tasks[0]?.description}
                   </p>
                 </div>
               </div>
 
               <Button
                 // onClick={() => handleCompleteTask(tasks[0].id)}
-                disabled={tasks[0].completed}
-                variant={tasks[0].completed ? "secondary" : "primary"}
+                disabled={tasks[0]?.completed}
+                variant={tasks[0]?.completed ? "secondary" : "primary"}
                 className={cn(
-                  tasks[0].completed
+                  tasks[0]?.completed
                     ? "bg-gray-600 text-gray-300"
                     : "rojo-gradient text-black font-bold hover:opacity-80",
                   "text-md p-5 rounded-xl w-full sm:w-auto",
                 )}
                 size="sm"
               >
-                {tasks[0].completed ? "Terminado" : "Completo"}
+                {tasks[0]?.completed ? "Terminado" : "Completo"}
               </Button>
             </div>
 
-            {tasks[0].hasInput && !tasks[0].completed && (
+            {tasks[0]?.hasInput && !tasks[0].completed && (
               <Input
                 defaultValue={tasks[0].inputPlaceholder}
                 readOnly

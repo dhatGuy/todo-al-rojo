@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "pnpm vite --clearScreen false",
+    "dev": "vite --clearScreen false",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint \"src/**/*.ts\""
@@ -40,8 +40,10 @@
     "@repo/typescript-config": "workspace:*",
     "@tanstack/eslint-plugin-query": "^5.74.7",
     "@tanstack/router-plugin": "^1.117.2",
+    "@types/bun": "^1.2.15",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.2",
+    "@types/web": "^0.0.241",
     "@vitejs/plugin-react": "^3.1.0",
     "eslint": "^9.25.1",
     "typescript": "^5.8.3",

@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@repo/ui/components/card";
-import { InferResponseType } from "hono";
+import type { InferResponseType } from "hono";
 import { client } from "../utils/hono-client";
 
 export const Notes = ({
