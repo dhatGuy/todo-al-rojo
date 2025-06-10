@@ -22,9 +22,9 @@ import { useForm } from "react-hook-form";
 import { signupMutationOptions } from "src/queries/auth.queries";
 import { SignupSchema, signupSchema } from "src/schemas/auth.schema";
 import { getErrorMessage } from "src/utils/auth-client";
-import bgSignup from "../assets/images/signup-bg.png";
+import bgSignup from "../../assets/images/signup-bg.png";
 
-export const Route = createFileRoute("/signup")({
+export const Route = createFileRoute("/(auth)/signup")({
   component: RouteComponent,
 });
 

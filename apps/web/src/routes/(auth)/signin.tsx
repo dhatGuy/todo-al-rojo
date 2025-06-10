@@ -21,9 +21,9 @@ import { useForm } from "react-hook-form";
 import { signinMutationOptions } from "src/queries/auth.queries";
 import { SigninSchema } from "src/schemas/auth.schema";
 import { mutationOptions } from "src/utils/mutationOptions";
-import bgSignup from "../assets/images/signup-bg.png";
+import bgSignup from "../../assets/images/signup-bg.png";
 
-export const Route = createFileRoute("/signin")({
+export const Route = createFileRoute("/(auth)/signin")({
   component: RouteComponent,
 });
 
