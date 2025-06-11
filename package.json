@@ -8,8 +8,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "db:push": "bun --filter @repo/server db:push",
     "ui-add": "turbo run ui-add --ui=tui",
-    "db:studio": "bun --filter @repo/server db:studio",
-    "create:route": "bun --filter @repo/server create:route"
+    "db:studio": "bun --filter @repo/server db:studio"
   },
   "devDependencies": {
     "eslint": "^9.25.1",

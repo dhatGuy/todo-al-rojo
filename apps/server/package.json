@@ -18,8 +18,7 @@
     "generate": "bunx @better-auth/cli generate",
     "start": "bun src/index.ts",
     "start:dev": "bun --env-file=../../.env dist/src/index.js",
-    "with-env": "dotenv -e ../../.env --",
-    "create:route": "node ./new-route.js"
+    "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
     "@hono/node-server": "^1.14.3",
