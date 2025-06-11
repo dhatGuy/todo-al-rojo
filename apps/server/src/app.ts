@@ -3,10 +3,11 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import { prettyJSON } from "hono/pretty-json";
+import { env } from "../env.js";
 import { auth, type HonoAppContext } from "./auth.js";
 import { notes } from "./routes/notes.js";
 
-console.log(process.env);
+console.log(env);
 
 const app = new Hono<HonoAppContext>()
   .use(logger())
