@@ -3,7 +3,6 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import { prettyJSON } from "hono/pretty-json";
-import { env } from "../env.js";
 import { auth, type HonoAppContext } from "./auth.js";
 import { notes } from "./routes/notes.js";
 
@@ -16,7 +15,7 @@ const app = new Hono<HonoAppContext>()
   .use(
     "*",
     cors({
-      origin: [env.WEB_URL!],
+      origin: "https://todo-al-rojo.vercel.app",
       allowHeaders: ["Content-Type", "Authorization"],
       allowMethods: ["POST", "GET", "OPTIONS"],
       exposeHeaders: ["Content-Length"],
