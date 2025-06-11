@@ -9,7 +9,6 @@ export const env = createEnv({
       process.env.NODE_ENV === "production"
         ? z.string().min(1)
         : z.string().min(1).default("http://localhost:5173").optional(),
-    VITE_SERVER_URL: z.string().min(1),
   },
 
   /**
@@ -20,7 +19,6 @@ export const env = createEnv({
     DATABASE_URL: process.env["DATABASE_URL"],
     BETTER_AUTH_SECRET: process.env["BETTER_AUTH_SECRET"],
     WEB_URL: process.env["WEB_URL"],
-    VITE_SERVER_URL: process.env["VITE_SERVER_URL"],
   },
 
   /**
