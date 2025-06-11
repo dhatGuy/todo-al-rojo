@@ -8,6 +8,7 @@
     "jsx": "react-jsx",
     "allowJs": true,
     "jsxImportSource": "react-jsx",
+    "outDir": "dist",
 
     // Bundler mode
     "moduleResolution": "bundler",
