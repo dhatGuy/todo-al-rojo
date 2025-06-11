@@ -6,6 +6,8 @@ import { prettyJSON } from "hono/pretty-json";
 import { auth, type HonoAppContext } from "./auth.js";
 import { notes } from "./routes/notes.js";
 
+console.log(process.env);
+
 const app = new Hono<HonoAppContext>()
   .use(logger())
   .use(prettyJSON())
