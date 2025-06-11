@@ -21,9 +21,6 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  server: {
-    cors: false, // disable Vite's built-in CORS setting
-  },
 
   resolve: {
     alias: {
