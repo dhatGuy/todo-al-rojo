@@ -1,5 +1,3 @@
-"use client";
-
 import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 import { Slot } from "radix-ui";
 import * as React from "react";
