@@ -1,6 +1,7 @@
 import tailwindcss from "@tailwindcss/vite";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
+import { resolve } from "node:path";
 import { defineConfig } from "vite";
 
 export default defineConfig({
@@ -24,7 +25,7 @@ export default defineConfig({
 
   resolve: {
     alias: {
-      src: "/src",
+      src: resolve(__dirname, "./src"),
     },
   },
 });
