@@ -45,7 +45,7 @@ function RouteComponent() {
     mutation.mutate(data, {
       onSuccess: (data) => {
         if (data.error) {
-          toast.error(data.error.message, {
+          toast.error(data.error.message || "An error occurred", {
             position: "bottom-left",
           });
           return;
