@@ -30,7 +30,7 @@ export const auth = betterAuth({
       secure: true, // Ensures cookies are sent only over HTTPS
       httpOnly: true, // Helps mitigate XSS attacks
       sameSite: "none", // Allows cookies to be sent in cross-site requests
-      // partitioned: true // Optional: for browsers requiring partitioned cookies for cross-site usage
+      ...(Bun.env.NODE_ENV === "production" ? { partitioned: true } : {}),
     },
   },
   trustedOrigins: [env.WEB_URL!],
