@@ -26,6 +26,12 @@ export const auth = betterAuth({
     database: {
       generateId: false,
     },
+    defaultCookieAttributes: {
+      secure: true, // Ensures cookies are sent only over HTTPS
+      httpOnly: true, // Helps mitigate XSS attacks
+      sameSite: "none", // Allows cookies to be sent in cross-site requests
+      // partitioned: true // Optional: for browsers requiring partitioned cookies for cross-site usage
+    },
   },
   trustedOrigins: [env.WEB_URL!],
   user: {

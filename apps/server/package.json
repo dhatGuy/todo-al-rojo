@@ -32,6 +32,7 @@
     "zod": "^3.25.51"
   },
   "devDependencies": {
+    "@types/bun": "^1.2.15",
     "@types/node": "^22.15.29",
     "@types/pg": "^8.15.4",
     "dotenv-cli": "^8.0.0",
