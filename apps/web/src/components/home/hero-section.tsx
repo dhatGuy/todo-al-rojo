@@ -23,14 +23,14 @@ export const HeroSection = () => {
         <div className="relative z-10 mx-auto max-w-7xl px-6 pt-5 md:pt-10 pb-16">
           <div className="text-center">
             {/* Main Headline */}
-            <h1 className="mb-2 md:leading-12 font-bold text-white text-2xl md:text-5xl">
+            <h1 className="mb-2 md:leading-12 font-bold text-white text-xl md:text-4xl">
               ¡Mejores programas de afiliados de
               <br />
               <span className="">casinos para todos!</span>
             </h1>
 
             {/* Subheadline */}
-            <p className="mx-auto mb-4 max-w-4xl text-lg leading-tight text-gray-200 md:text-xl">
+            <p className="mx-auto mb-4 max-w-4xl text-md leading-tight text-gray-200 md:text-xl">
               Descubre promociones exclusivas, plataformas de confianza
               <br />y reseñas de expertos - ¡todo en un solo lugar!
             </p>

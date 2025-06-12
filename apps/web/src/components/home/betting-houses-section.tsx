@@ -9,7 +9,7 @@ export const BettingHousesSection = () => {
     <section className="bg-white py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
-        <h2 className="mb-12 text-center text-4xl font-extrabold text-black md:text-5xl">
+        <h2 className="mb-12 text-center text-3xl font-extrabold text-black md:text-4xl">
           Las Mejores Casas de Apuestas
           <br />
           <span className="text-black">en un Solo Lugar</span>
@@ -28,7 +28,7 @@ export const BettingHousesSection = () => {
                   <img
                     src={house.logo}
                     alt={house.name}
-                    className="h-full w-full object-contain"
+                    className="h-full w-44 md:w-full mx-auto object-contain"
                   />
                 </div>
 

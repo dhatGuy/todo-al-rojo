@@ -19,7 +19,7 @@ export const LatestArticles = () => {
     <div className="bg-gray-200">
       <div className="mx-auto max-w-7xl flex-1 py-8">
         <div className="mb-8 text-center">
-          <h2 className="mb-2 text-4xl font-black text-gray-900">
+          <h2 className="mb-2 text-3xl md:text-4xl font-black text-gray-900">
             Últimos Artículos
           </h2>
           <p className="text-gray-700">

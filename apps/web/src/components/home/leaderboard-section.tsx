@@ -14,7 +14,7 @@ export const LeaderboardSection = () => {
   return (
     <section className="bg-[#393B69] bg-gradient-to-b from-[#393B69] via-[#01000E] to-[#000017] py-16 overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h2 className="mb-12 text-center text-4xl font-bold text-white md:text-5xl">
+        <h2 className="mb-12 text-center text-3xl font-bold text-white md:text-4xl">
           Tablas de Clasificación
         </h2>
 
@@ -61,7 +61,7 @@ export const LeaderboardSection = () => {
                             ? goldCrown
                             : bronzeCrown
                       }
-                    ></img>
+                    />
                     <Avatar
                       className={cn(
                         "h-[60px] w-[60px] rounded-full [grid_area:1/1]",
@@ -120,7 +120,7 @@ export const LeaderboardSection = () => {
           <div className="md:col-span-4 row-span-full col-span-full bg-transparent z-10">
             <h2 className="mb-2 text-3xl font-bold text-white md:text-4xl">
               ¿Por qué elegir
-              <span className="block text-4xl text-yellow-400 md:text-5xl">
+              <span className="block text-rojo-gradient text-4xl md:text-5xl leading-14">
                 Todoalrojo?
               </span>
             </h2>
@@ -137,7 +137,7 @@ export const LeaderboardSection = () => {
             </p>
 
             <div>
-              <h3 className="mb-4 text-3xl font-bold text-yellow-400">
+              <h3 className="mb-4 text-3xl font-bold text-rojo-gradient">
                 Cómo unirse
               </h3>
               <p className="mb-6 text-gray-300">

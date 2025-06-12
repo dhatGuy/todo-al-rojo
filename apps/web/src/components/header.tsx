@@ -1,7 +1,5 @@
 import { Button } from "@repo/ui/components/button";
-import { Sheet, SheetContent, SheetTrigger } from "@repo/ui/components/sheet";
 import { Link } from "@tanstack/react-router";
-import { Menu } from "lucide-react";
 
 const navItems: {
   name: string;
@@ -19,7 +17,7 @@ const navItems: {
 
 export const Header = () => {
   return (
-    <header className="relative z-10 w-full px-6 py-4 bg-[#000017]">
+    <header className="relative z-10 w-full px-6 bg-[#000017]">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         {/* Logo - Hidden on mobile, shown on desktop */}
         <Link to="/" className="hidden lg:flex items-center">
@@ -42,7 +40,15 @@ export const Header = () => {
 
           {/* Mobile Menu Trigger */}
           <div>
-            <Sheet>
+            <Button
+              className="rounded-full rojo-gradient px-6 py-3 font-semibold text-black transition-all duration-200 hover:scale-105 hover:bg-yellow-300"
+              asChild
+            >
+              <Link to="/signin" className="text-black">
+                Iniciar sesión
+              </Link>
+            </Button>
+            {/* <Sheet>
               <SheetTrigger asChild>
                 <Button
                   variant="ghost"
@@ -55,7 +61,6 @@ export const Header = () => {
               </SheetTrigger>
               <SheetContent className="w-80 bg-[#000017] border-none overflow-scroll">
                 <div className="flex flex-col h-full">
-                  {/* Logo in Sidebar */}
                   <div className="flex items-center mb-8 mt-4">
                     <img
                       src="/todoalrojo-logo.png"
@@ -64,7 +69,6 @@ export const Header = () => {
                     />
                   </div>
 
-                  {/* Navigation Links */}
                   <nav className="flex-1">
                     <div className="space-y-2 pl-4">
                       {navItems.map((item) => (
@@ -84,7 +88,6 @@ export const Header = () => {
                     </div>
                   </nav>
 
-                  {/* Login Button in Sidebar */}
                   <div className="mt-auto mb-6 mx-auto">
                     <Button
                       className="rounded-full bg-gradient-to-br from-[#D77921] to-[#FFF154] px-6 py-3 font-semibold text-black transition-all duration-200 hover:scale-105 hover:bg-yellow-300"
@@ -97,7 +100,7 @@ export const Header = () => {
                   </div>
                 </div>
               </SheetContent>
-            </Sheet>
+            </Sheet> */}
           </div>
         </div>
 

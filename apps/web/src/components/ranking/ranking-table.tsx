@@ -72,7 +72,7 @@ export function RankingTable() {
         cell: ({ getValue }) => (
           <div className="flex items-center justify-start gap-2">
             <div>
-              <div className="text-white text-lg font-medium">{getValue()}</div>
+              <div className="text-gray-300 text-lg">{getValue()}</div>
             </div>
           </div>
         ),
@@ -84,7 +84,7 @@ export function RankingTable() {
         cell: ({ getValue }) => (
           <div className="flex items-center justify-start gap-4">
             <img src={chipImg} alt="Chips" className="w-6 h-6" />
-            <p className="text-white text-lg font-medium">{getValue()}</p>
+            <p className="text-gray-300 text-lg">{getValue()}</p>
           </div>
         ),
       }),
@@ -93,7 +93,7 @@ export function RankingTable() {
         header: () => "FTDs",
         footer: (props) => props.column.id,
         cell: ({ getValue }) => (
-          <div className="text-left text-gray-100">{getValue()}</div>
+          <div className="text-left text-gray-300">{getValue()}</div>
         ),
       }),
       columnHelper.accessor("insignia", {
@@ -193,7 +193,7 @@ export function RankingTable() {
                 0,
                 currentPage - Math.floor(maxVisiblePages / 2),
               );
-              let endPage = Math.min(
+              const endPage = Math.min(
                 totalPages - 1,
                 startPage + maxVisiblePages - 1,
               );
