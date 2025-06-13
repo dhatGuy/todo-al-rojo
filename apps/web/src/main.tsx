@@ -1,4 +1,4 @@
-import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { Link, RouterProvider, createRouter } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import "./style.css";
@@ -25,6 +25,21 @@ const router = createRouter({
     queryClient,
   },
   defaultPreload: "intent",
+  defaultPendingComponent: () => {
+    return (
+      <div>
+        <h1>Loading...</h1>
+      </div>
+    );
+  },
+  defaultNotFoundComponent: () => {
+    return (
+      <div>
+        <p>This is the notFoundComponent configured on root route</p>
+        <Link to="/">Start Over</Link>
+      </div>
+    );
+  },
   // Since we're using React Query, we don't want loader calls to ever be stale
   // This will ensure that the loader is always called when the route is preloaded or visited
   defaultPreloadStaleTime: 0,
