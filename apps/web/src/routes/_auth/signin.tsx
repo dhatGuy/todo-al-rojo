@@ -13,6 +13,7 @@ import { toast } from "@repo/ui/components/toast";
 import { useMutation } from "@tanstack/react-query";
 import {
   createFileRoute,
+  Link,
   useCanGoBack,
   useRouter,
 } from "@tanstack/react-router";
@@ -65,7 +66,7 @@ function RouteComponent() {
   };
 
   return (
-    <section className="bg-[#2a2e43] min-h-svh">
+    <section className="bg-dark-blue min-h-svh">
       <div className="grid min-h-svh lg:grid-cols-12">
         <main className="flex flex-col px-0 py-0 lg:col-span-5 xl:col-span-4 overflow-y-auto pb-10">
           <div className="flex flex-col justify-between gap-10 size-full lg:max-w-3xl">
@@ -127,20 +128,29 @@ function RouteComponent() {
                   control={form.control}
                   name="rememberMe"
                   render={({ field }) => (
-                    <FormItem className="col-span-6 flex items-center gap-3">
-                      <Checkbox
-                        id="rememberMe"
-                        className="bg-white data-[state=checked]:bg-white my-auto"
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
+                    <FormItem className="col-span-6 flex items-center justify-between -mt-4">
+                      <div className="flex items-center gap-3 mb-0">
+                        <Checkbox
+                          id="rememberMe"
+                          className="bg-white data-[state=checked]:bg-white my-auto"
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
 
-                      <Label
-                        htmlFor="rememberMe"
-                        className="text-sm font-medium text-gray-200"
+                        <Label
+                          htmlFor="rememberMe"
+                          className="text-sm font-medium text-gray-200"
+                        >
+                          Remember me
+                        </Label>
+                      </div>
+                      <Button
+                        variant="link"
+                        className="font-semibold text-gray-200 p-0"
+                        type="button"
                       >
-                        Remember me
-                      </Label>
+                        Forgot Password?
+                      </Button>
                     </FormItem>
                   )}
                 />
@@ -152,16 +162,17 @@ function RouteComponent() {
                   >
                     Sign In
                   </Button>
-
-                  <p className="flex justify-end font-semibold mt-4 text-sm text-gray-300 sm:mt-0">
-                    <Button
-                      variant="link"
-                      className="font-semibold"
-                      type="button"
-                    >
-                      Forgot Password?
-                    </Button>
-                  </p>
+                  <div className="text-center">
+                    <p className="text-gray-200 text-sm">
+                      Don't have an account?{" "}
+                      <Link
+                        to="/signup"
+                        className="text-white hover:underline font-medium"
+                      >
+                        Sign up
+                      </Link>
+                    </p>
+                  </div>
                 </div>
               </form>
             </Form>

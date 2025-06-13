@@ -12,6 +12,13 @@ export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
 }>()({
   component: RootComponent,
+  pendingComponent: () => {
+    return (
+      <div>
+        <h1>Loading...</h1>
+      </div>
+    );
+  },
   notFoundComponent: () => {
     return (
       <div>
