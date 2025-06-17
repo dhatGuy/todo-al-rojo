@@ -57,8 +57,7 @@ export const auth = betterAuth({
           const [phoneExist] = await db
             .select({ count: count() })
             .from(schema.userTable)
-            // @ts-expect-error
-            .where(eq(schema.userTable.phoneNumber, ctx.body.phoneNumber));
+            .where(eq(schema.userTable.phoneNumber, ctx?.body.phoneNumber));
           if (phoneExist.count > 0) {
             throw new APIError("UNPROCESSABLE_ENTITY", {
               message: "Phone number already exists.",
