@@ -46,3 +46,35 @@ export const logoutMutationOptions = () =>
       return response;
     },
   });
+
+export const requestPasswordResetMutationOptions = () =>
+  mutationOptions({
+    mutationKey: ["requestPasswordReset"],
+    mutationFn: async (email: string) => {
+      const response = await authClient.requestPasswordReset({
+        email,
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+      return response;
+    },
+  });
+
+export const resetPasswordMutationOptions = () =>
+  mutationOptions({
+    mutationKey: ["resetPassword"],
+    mutationFn: async (data: { token: string; newPassword: string }) => {
+      const response = await authClient.resetPassword(data);
+      return response;
+    },
+  });
+
+export const googleSigninMutationOptions = () =>
+  mutationOptions({
+    mutationKey: ["googleSignin"],
+    mutationFn: async () => {
+      const response = await authClient.signIn.social({
+        provider: "google",
+      });
+      return response;
+    },
+  });

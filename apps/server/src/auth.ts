@@ -10,6 +10,20 @@ import * as schema from "./db/schema.js";
 export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
+    sendResetPassword: async ({ user, url, token }, request) => {
+      // await sendEmail({
+      //   to: user.email,
+      //   subject: "Reset your password",
+      //   text: `Click the link to reset your password: ${url}`,
+      // });
+      console.log("Email sent");
+    },
+  },
+  socialProviders: {
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    },
   },
   plugins: [admin()],
   database: drizzleAdapter(db, {

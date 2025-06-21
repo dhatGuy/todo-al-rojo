@@ -174,7 +174,7 @@
   }
 
   .rojo-gradient {
-    @apply bg-gradient-to-tr from-[#D77921] to-[#FFF154];
+    @apply bg-gradient-to-tr from-[#D77921] to-[#FFF154] hover:opacity-90;
   }
 
   .text-rojo-gradient {
