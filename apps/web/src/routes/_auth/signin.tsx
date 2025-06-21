@@ -240,13 +240,13 @@ function RouteComponent() {
                   </form>
                 </Form>
 
-                <div className="h-full grid items-center">
+                <Link to="/" className="h-full grid items-center">
                   <img
                     src="/todoalrojo-logo.png"
                     alt="TodoAlRojo Logo"
                     className="w-32 sm:w-44 mx-auto md:mt-8"
                   />
-                </div>
+                </Link>
               </div>
             </main>
 

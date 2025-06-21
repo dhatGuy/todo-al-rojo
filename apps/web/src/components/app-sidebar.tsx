@@ -67,11 +67,13 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="offcanvas">
       <SidebarHeader>
-        <img
-          src="/todoalrojo-logo.png"
-          alt="Logo"
-          className="object-contain w-40 h-24 pl-8"
-        />
+        <Link to="/">
+          <img
+            src="/todoalrojo-logo.png"
+            alt="Logo"
+            className="object-contain w-40 h-24 pl-8"
+          />
+        </Link>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup className="p-0">

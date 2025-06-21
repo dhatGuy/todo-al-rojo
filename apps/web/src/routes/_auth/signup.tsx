@@ -259,10 +259,13 @@ function RouteComponent() {
                 </form>
               </Form>
 
-              <img
-                src="/todoalrojo-logo.png"
-                className="w-32 sm:w-44 mx-auto py-8"
-              />
+              <Link to="/" className="flex justify-center">
+                <img
+                  alt="Todo al Rojo Logo"
+                  src="/todoalrojo-logo.png"
+                  className="w-32 sm:w-44 mx-auto py-8"
+                />
+              </Link>
             </div>
           </main>
 

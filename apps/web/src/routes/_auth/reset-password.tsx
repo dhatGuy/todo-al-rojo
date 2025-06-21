@@ -9,7 +9,12 @@ import {
 } from "@repo/ui/components/form";
 import { toast } from "@repo/ui/components/toast";
 import { useMutation } from "@tanstack/react-query";
-import { createFileRoute, redirect, useRouter } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  Link,
+  redirect,
+  useRouter,
+} from "@tanstack/react-router";
 import { zodValidator } from "@tanstack/zod-adapter";
 import { useForm } from "react-hook-form";
 import { resetPasswordMutationOptions } from "src/queries/auth.queries";
@@ -151,13 +156,13 @@ function RouteComponent() {
                 </form>
               </Form>
 
-              <div className="h-full grid items-center">
+              <Link to="/" className="h-full grid items-center">
                 <img
                   src="/todoalrojo-logo.png"
                   alt="TodoAlRojo Logo"
                   className="w-32 sm:w-44 mx-auto md:mt-8"
                 />
-              </div>
+              </Link>
             </div>
           </main>
 
