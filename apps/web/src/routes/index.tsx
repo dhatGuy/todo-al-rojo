@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useRef } from "react";
 import { Footer } from "../components/footer";
 import { BettingHousesSection } from "../components/home/betting-houses-section";
 import CasinoRecommendationsSection from "../components/home/casino-recommendation-section";
@@ -11,13 +12,14 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const scrollToRef = useRef<HTMLDivElement | null>(null);
   return (
     <div className="min-h-svh">
-      <HeroSection />
+      <HeroSection ref={scrollToRef} />
 
       <LeaderboardSection />
 
-      <BettingHousesSection />
+      <BettingHousesSection ref={scrollToRef} />
 
       <CasinoRecommendationsSection />
 

@@ -8,6 +8,7 @@ import chipImg from "../../assets/images/rj-chips.png";
 import silverCrown from "../../assets/images/silver.png";
 import pokerImg from "../../assets/images/why-join.png";
 
+import { Link } from "@tanstack/react-router";
 import { CircleArrowRight } from "lucide-react";
 
 export const LeaderboardSection = () => {
@@ -54,6 +55,7 @@ export const LeaderboardSection = () => {
                   <div className="relative mb-4 grid w-full place-items-center">
                     <img
                       className="absolute h-28 w-28 object-cover [grid_area:1/1]"
+                      alt={`Crown for ${user.rank}`}
                       src={
                         i === 0
                           ? silverCrown
@@ -96,9 +98,12 @@ export const LeaderboardSection = () => {
           <Button
             variant="link"
             className="group flex items-center font-semibold text-[#abadde]"
+            asChild
           >
-            Ver Tabla Completa
-            <CircleArrowRight className="" />
+            <Link to="/signup">
+              Ver Tabla Completa
+              <CircleArrowRight className="group-hover:translate-x-1 transition-transform ml-1" />
+            </Link>
           </Button>
         </div>
 

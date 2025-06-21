@@ -1,12 +1,17 @@
 import { Button } from "@repo/ui/components/button";
 import { Card } from "@repo/ui/components/card";
+import { cn } from "@repo/ui/lib/utils";
 import betssonImg from "../../assets/images/betsson.png";
 import pinup from "../../assets/images/pinup.png";
 import thunderpickImg from "../../assets/images/thunderpick.png";
 
-export const BettingHousesSection = () => {
+export const BettingHousesSection = ({
+  ref,
+}: {
+  ref: React.RefObject<HTMLDivElement | null>;
+}) => {
   return (
-    <section className="bg-white py-16">
+    <section className="bg-white py-16" ref={ref}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
         <h2 className="mb-12 text-center text-3xl font-extrabold text-black md:text-4xl">
@@ -17,9 +22,9 @@ export const BettingHousesSection = () => {
 
         {/* Betting Houses List */}
         <div className="flex flex-col space-y-6">
-          {bettingHouses.map((house, index) => (
+          {bettingHouses.map((house, i) => (
             <Card
-              key={index}
+              key={house.name}
               className="overflow-hidden rounded-2xl border-none bg-[#393848] p-0 shadow-md"
             >
               <div className="flex flex-col items-center md:flex-row md:items-stretch">
@@ -28,7 +33,9 @@ export const BettingHousesSection = () => {
                   <img
                     src={house.logo}
                     alt={house.name}
-                    className="h-full w-44 md:w-full mx-auto object-contain"
+                    className={cn(`h-full mx-auto object-contain w-44`, {
+                      "md:w-56": i === 0,
+                    })}
                   />
                 </div>
 

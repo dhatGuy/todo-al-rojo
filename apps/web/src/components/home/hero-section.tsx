@@ -2,7 +2,11 @@ import { Button } from "@repo/ui/components/button";
 import bgHero from "../../assets/images/hero-bg.png";
 import { Header } from "../header";
 
-export const HeroSection = () => {
+export const HeroSection = ({
+  ref,
+}: {
+  ref: React.RefObject<HTMLDivElement | null>;
+}) => {
   return (
     <section className="flex min-h-screen flex-col overflow-hidden">
       <Header />
@@ -36,7 +40,14 @@ export const HeroSection = () => {
             </p>
 
             {/* CTA Button */}
-            <Button className="rounded-xl bg-gradient-to-br from-[#D77921] to-[#FFF154] px-4 py-4 text-lg font-bold text-black shadow-lg transition-all duration-200 hover:scale-105 hover:bg-yellow-300">
+            <Button
+              className="rounded-xl bg-gradient-to-br from-[#D77921] to-[#FFF154] px-4 py-4 text-lg font-bold text-black shadow-lg transition-all duration-200 hover:scale-105 hover:bg-yellow-300"
+              onClick={() =>
+                ref.current?.scrollIntoView({
+                  behavior: "smooth",
+                })
+              }
+            >
               Ver casinos
             </Button>
           </div>
