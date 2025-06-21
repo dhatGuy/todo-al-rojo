@@ -45,3 +45,19 @@ export const SigninSchema = z.object({
 });
 
 export type SigninSchema = z.infer<typeof SigninSchema>;
+
+export const ResetPasswordSchema = z
+  .object({
+    password: z
+      .string()
+      .trim()
+      .min(8, "Password must be at least 8 characters")
+      .max(50, "Password must be at most 50 characters"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+
+export type ResetPasswordSchema = z.infer<typeof ResetPasswordSchema>;
