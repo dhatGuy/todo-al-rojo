@@ -6,6 +6,12 @@ export const env = createEnv({
     DATABASE_URL: z.string().url(),
     BETTER_AUTH_SECRET: z.string().min(1),
     WEB_URL: z.string().min(1),
+    GOOGLE_CLIENT_SECRET: z.string().min(1),
+    GOOGLE_CLIENT_ID: z.string().min(1),
+    GOOGLE_MAIL_CLIENT_ID: z.string().min(1),
+    GOOGLE_CLIENT_MAIL_SECRET: z.string().min(1),
+    GOOGLE_MAIL_REFRESH_TOKEN: z.string().min(1),
+    SENDER_EMAIL: z.string().email(),
   },
 
   /**
@@ -13,9 +19,15 @@ export const env = createEnv({
    * from `server` and `client` in your `runtimeEnv`.
    */
   runtimeEnvStrict: {
-    DATABASE_URL: process.env.DATABASE_URL,
-    BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
-    WEB_URL: process.env.WEB_URL,
+    DATABASE_URL: Bun.env.DATABASE_URL,
+    BETTER_AUTH_SECRET: Bun.env.BETTER_AUTH_SECRET,
+    WEB_URL: Bun.env.WEB_URL,
+    GOOGLE_CLIENT_SECRET: Bun.env.GOOGLE_CLIENT_SECRET,
+    GOOGLE_CLIENT_ID: Bun.env.GOOGLE_CLIENT_ID,
+    GOOGLE_MAIL_CLIENT_ID: Bun.env.GOOGLE_MAIL_CLIENT_ID,
+    GOOGLE_CLIENT_MAIL_SECRET: Bun.env.GOOGLE_CLIENT_MAIL_SECRET,
+    GOOGLE_MAIL_REFRESH_TOKEN: Bun.env.GOOGLE_MAIL_REFRESH_TOKEN,
+    SENDER_EMAIL: Bun.env.SENDER_EMAIL,
   },
 
   /**
