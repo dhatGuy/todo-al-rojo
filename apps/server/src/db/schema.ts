@@ -1,27 +1,13 @@
-import { relations } from "drizzle-orm";
-import { pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
-import * as authSchema from "./auth-schema";
-
+export * from "./affiliates.table";
 export * from "./auth-schema";
-
-export const note = pgTable("note", {
-  id: uuid().primaryKey().defaultRandom(),
-  title: varchar({ length: 255 }).notNull(),
-  content: text().notNull(),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-  userId: uuid("user_id")
-    .notNull()
-    .references(() => authSchema.userTable.id),
-});
-
-export const usersRelations = relations(authSchema.userTable, ({ many }) => ({
-  notes: many(note),
-}));
-
-export const notesRelations = relations(note, ({ one }) => ({
-  user: one(authSchema.userTable, {
-    fields: [note.userId],
-    references: [authSchema.userTable.id],
-  }),
-}));
+export * from "./chip-transactions.table";
+export * from "./click-tracking.table";
+export * from "./ftd-tracking.table";
+export * from "./postback-logs.table";
+export * from "./referrals.table";
+export * from "./reward-catalog.table";
+export * from "./reward-redemptions.table";
+export * from "./tasks.table";
+export * from "./user-chips.table";
+export * from "./user-levels.table";
+export * from "./user-tasks.table";

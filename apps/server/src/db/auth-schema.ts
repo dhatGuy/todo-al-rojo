@@ -1,4 +1,12 @@
+import { relations } from "drizzle-orm";
 import { boolean, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { timestamps } from "../utils/db.utils";
+import { chipTransactionsTable } from "./chip-transactions.table";
+import { clickTrackingTable } from "./click-tracking.table";
+import { referralsTable } from "./referrals.table";
+import { rewardRedemptionsTable } from "./reward-redemptions.table";
+import { userChipsTable } from "./user-chips.table";
+import { userTasksTable } from "./user-tasks.table";
 
 export const userTable = pgTable("user", {
   id: uuid("id").primaryKey().defaultRandom(),
@@ -15,13 +23,24 @@ export const userTable = pgTable("user", {
   banned: boolean("banned").notNull().default(false),
   banReason: text("ban_reason"),
   banExpires: timestamp("ban_expires_at"),
-  createdAt: timestamp("created_at")
-    .$defaultFn(() => /* @__PURE__ */ new Date())
-    .notNull(),
-  updatedAt: timestamp("updated_at")
-    .$defaultFn(() => /* @__PURE__ */ new Date())
-    .notNull(),
+  ...timestamps,
 });
+
+export const usersRelations = relations(userTable, ({ one, many }) => ({
+  userChips: one(userChipsTable, {
+    fields: [userTable.id],
+    references: [userChipsTable.userId],
+  }),
+  referral: one(referralsTable, {
+    fields: [userTable.id],
+    references: [referralsTable.referrerUserId],
+  }),
+  tasks: many(userTasksTable),
+  transactions: many(chipTransactionsTable),
+  redemptions: many(rewardRedemptionsTable),
+  clicks: many(clickTrackingTable, { relationName: "userClicks" }),
+  referrals: many(clickTrackingTable, { relationName: "referrerClicks" }),
+}));
 
 export const sessionTable = pgTable("session", {
   id: uuid("id").primaryKey().defaultRandom(),

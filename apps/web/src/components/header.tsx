@@ -1,5 +1,11 @@
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@repo/ui/components/avatar";
 import { Button } from "@repo/ui/components/button";
 import { Link } from "@tanstack/react-router";
+import { useSession } from "src/utils/auth-client";
 
 const navItems: {
   name: string;
@@ -16,6 +22,7 @@ const navItems: {
 ];
 
 export const Header = () => {
+  const { data } = useSession();
   return (
     <header className="relative z-10 w-full px-6 bg-[#000017]">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
@@ -40,14 +47,34 @@ export const Header = () => {
 
           {/* Mobile Menu Trigger */}
           <div>
-            <Button
-              className="rounded-full rojo-gradient px-6 py-3 font-semibold text-black transition-all duration-200 hover:scale-105 hover:bg-yellow-300"
-              asChild
-            >
-              <Link to="/signin" className="text-black">
-                Iniciar sesión
-              </Link>
-            </Button>
+            {data?.user ? (
+              <Avatar asChild className="cursor-pointer size-10">
+                <Link to="/dashboard" className="flex items-center">
+                  <AvatarImage
+                    src={data.user.image || undefined}
+                    alt={data.user.name || "Avatar"}
+                  />
+                  <AvatarFallback>
+                    {data.user.name
+                      ? data.user.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")
+                          .toUpperCase()
+                      : "U"}
+                  </AvatarFallback>
+                </Link>
+              </Avatar>
+            ) : (
+              <Button
+                className="rounded-full rojo-gradient px-6 py-3 font-semibold text-black transition-all duration-200 hover:scale-105 hover:bg-yellow-300"
+                asChild
+              >
+                <Link to="/signin" className="text-black">
+                  Iniciar sesión
+                </Link>
+              </Button>
+            )}
             {/* <Sheet>
               <SheetTrigger asChild>
                 <Button
@@ -122,12 +149,36 @@ export const Header = () => {
         </nav>
 
         {/* Desktop Login Button */}
-        <Button
-          className="hidden lg:block rounded-full  bg-gradient-to-br from-[#D77921] to-[#FFF154] px-6 py-2 font-semibold text-black transition-all duration-200 hover:scale-105 hover:bg-yellow-300 mx-10"
-          asChild
-        >
-          <Link to="/signin">Iniciar sesión / Registrarse</Link>
-        </Button>
+        {data?.user ? (
+          <Avatar
+            asChild
+            className="hidden lg:flex cursor-pointer mx-10 size-12"
+          >
+            <Link to="/dashboard" className="flex items-center">
+              <AvatarImage
+                src={data.user.image || undefined}
+                alt={data.user.name || "Avatar"}
+                // className="size-12"
+              />
+              <AvatarFallback>
+                {data.user.name
+                  ? data.user.name
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")
+                      .toUpperCase()
+                  : "U"}
+              </AvatarFallback>
+            </Link>
+          </Avatar>
+        ) : (
+          <Button
+            className="hidden lg:block rounded-full  bg-gradient-to-br from-[#D77921] to-[#FFF154] px-6 py-2 font-semibold text-black transition-all duration-200 hover:scale-105 hover:bg-yellow-300 mx-10"
+            asChild
+          >
+            <Link to="/signin">Iniciar sesión / Registrarse</Link>
+          </Button>
+        )}
       </div>
     </header>
   );

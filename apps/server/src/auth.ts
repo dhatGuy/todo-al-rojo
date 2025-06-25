@@ -47,7 +47,7 @@ export const auth = betterAuth({
       ...(Bun.env.NODE_ENV === "production" ? { partitioned: true } : {}),
     },
   },
-  trustedOrigins: [env.WEB_URL!],
+  trustedOrigins: [env.WEB_URL],
   user: {
     additionalFields: {
       firstName: {
