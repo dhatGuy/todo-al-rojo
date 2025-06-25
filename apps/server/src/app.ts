@@ -5,7 +5,8 @@ import { logger } from "hono/logger";
 import { prettyJSON } from "hono/pretty-json";
 import { env } from "../env.js";
 import { auth, type HonoAppContext } from "./auth.js";
-import { notes } from "./routes/notes.js";
+import { tasksRouter } from "./routes/tasks/index.js";
+import { errorHandler, notFoundHandler } from "./utils/error.js";
 
 const app = new Hono<HonoAppContext>()
   .use(logger())
@@ -44,7 +45,12 @@ const app = new Hono<HonoAppContext>()
     return auth.handler(c.req.raw);
   })
   .get("/", (c) => c.json({ message: "Hello World" }))
-  .route("/notes", notes);
+  .route("/", tasksRouter)
+  // ------------------------------------------------------------
+  // Error and Not Found Handlers
+  // ------------------------------------------------------------
+  .onError(errorHandler)
+  .notFound(notFoundHandler);
 
 export default app;
 

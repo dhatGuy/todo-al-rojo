@@ -25,13 +25,11 @@ const main = async () => {
     {
       name: "Betsson",
       postbackUrl: "https://betsson.com/postback",
-      email: "betsson@mail.com",
       affiliateCode: nanoid(5),
     },
     {
       name: "Pinup",
       postbackUrl: "https://pinup.com/postback",
-      email: "pinup@mail.com",
       affiliateCode: nanoid(5),
     },
   ]);

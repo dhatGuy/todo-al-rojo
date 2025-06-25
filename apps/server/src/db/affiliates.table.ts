@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { relations, SQL, sql } from "drizzle-orm";
 import { index, pgEnum, pgTable, uuid, varchar } from "drizzle-orm/pg-core";
 import { timestamps } from "../utils/db.utils";
 import { clickTrackingTable } from "./click-tracking.table";
@@ -17,8 +17,14 @@ export const affiliatesTable = pgTable(
   {
     id: uuid("id").primaryKey().defaultRandom(),
     name: varchar("name", { length: 100 }).notNull().unique(),
-    affiliateCode: varchar("affiliate_code", { length: 50 }).notNull().unique(),
-    email: varchar("email", { length: 100 }).notNull().unique(),
+    slug: varchar("slug", { length: 100 })
+      .notNull()
+      .unique()
+      .generatedAlwaysAs(
+        (): SQL => sql`lower(replace(${affiliatesTable.name}, ' ', '-'))`,
+      ),
+    affiliateCode: varchar("affiliate_code", { length: 50 }).unique(),
+    // email: varchar("email", { length: 100 }).unique(),
     commissionRate: varchar("commission_rate", { length: 5 }).default("0.00"), // Percentage as string
     status: affiliateStatusEnum("status").default("active"),
     trackingDomain: varchar("tracking_domain", { length: 100 }),
