@@ -21,13 +21,14 @@ import { resetPasswordMutationOptions } from "src/queries/auth.queries";
 import { ResetPasswordSchema } from "src/schemas/auth.schema";
 import { mutationOptions } from "src/utils/mutationOptions";
 import { z } from "zod";
-import bgSignup from "../../assets/images/signup-bg.png";
+import bgSignup from "../assets/images/signup-bg.png";
 
 const resetPasswordSearchSchema = z.object({
   token: z.string().min(1, "Token is required"),
+  error: z.string().optional(),
 });
 
-export const Route = createFileRoute("/_auth/reset-password")({
+export const Route = createFileRoute("/reset-password")({
   component: RouteComponent,
   validateSearch: zodValidator(resetPasswordSearchSchema),
   beforeLoad: async ({ search }) => {
@@ -35,7 +36,7 @@ export const Route = createFileRoute("/_auth/reset-password")({
     if (!parsed.success) {
       throw redirect({
         to: "/signin",
-        search: { error: 1 },
+        search,
       });
     }
   },
@@ -156,13 +157,15 @@ function RouteComponent() {
                 </form>
               </Form>
 
-              <Link to="/" className="h-full grid items-center">
-                <img
-                  src="/todoalrojo-logo.png"
-                  alt="TodoAlRojo Logo"
-                  className="w-32 sm:w-44 mx-auto md:mt-8"
-                />
-              </Link>
+              <div className="h-full grid items-center">
+                <Link to="/">
+                  <img
+                    src="/todoalrojo-logo.png"
+                    alt="TodoAlRojo Logo"
+                    className="w-32 sm:w-44 mx-auto md:mt-8"
+                  />
+                </Link>
+              </div>
             </div>
           </main>
 
