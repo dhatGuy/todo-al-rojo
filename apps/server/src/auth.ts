@@ -20,7 +20,7 @@ export const auth = betterAuth({
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-      redirectURI: `${Bun.env.NODE_ENV === "development" ? "http://localhost:8000" : Bun.env.RENDER_EXTERNAL_URL}/api/auth/callback/google`,
+      // redirectURI: `${Bun.env.NODE_ENV === "development" ? "http://localhost:8000" : Bun.env.RENDER_EXTERNAL_URL}/api/auth/callback/google`,
     },
   },
   plugins: [admin()],
@@ -41,7 +41,7 @@ export const auth = betterAuth({
     defaultCookieAttributes: {
       secure: Bun.env.NODE_ENV === "production", // Use secure cookies in production
       httpOnly: true, // Helps mitigate XSS attacks
-      sameSite: "none", // Allows cookies to be sent in cross-site requests
+      // sameSite: "none", // Allows cookies to be sent in cross-site requests
       ...(Bun.env.NODE_ENV === "production" ? { partitioned: true } : {}),
     },
   },
