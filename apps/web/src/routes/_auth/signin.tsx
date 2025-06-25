@@ -77,16 +77,16 @@ function RouteComponent() {
   const handleGoogleSignin = () => {
     googleSigninMutation.mutate(undefined, {
       onSuccess: (data) => {
-        if (data.error) {
-          toast.error(data.error.message || "An error occurred", {
-            position: "bottom-left",
-          });
-          return;
-        }
-        toast.success("Logged in successfully!");
-        router.navigate({
-          to: "/dashboard",
-        });
+        // if (data.error) {
+        //   toast.error(data.error.message || "An error occurred", {
+        //     position: "bottom-left",
+        //   });
+        //   return;
+        // }
+        // toast.success("Logged in successfully!");
+        // router.navigate({
+        //   to: "/dashboard",
+        // });
       },
       onError: (error) => {
         console.log(error);

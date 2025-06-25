@@ -74,6 +74,8 @@ export const googleSigninMutationOptions = () =>
     mutationFn: async () => {
       const response = await authClient.signIn.social({
         provider: "google",
+        callbackURL: `${window.location.origin}/dashboard`,
+        errorCallbackURL: `${window.location.origin}/signin?error=google-signin-failed`,
       });
       return response;
     },
