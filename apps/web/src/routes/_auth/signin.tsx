@@ -199,9 +199,10 @@ function RouteComponent() {
                       )}
                     />
 
-                    <div className="col-span-6 sm:flex flex-col sm:gap-4">
+                    <div className="col-span-6 flex flex-col gap-4">
                       <Button
                         className="w-full rojo-gradient font-bold h-12 rounded-lg"
+                        disabled={googleSigninMutation.isPending}
                         loading={mutation.isPending}
                       >
                         Sign In
@@ -209,6 +210,7 @@ function RouteComponent() {
                       <Button
                         className="w-full rojo-gradient font-bold h-12 rounded-lg"
                         loading={googleSigninMutation.isPending}
+                        disabled={mutation.isPending}
                         type="button"
                         onClick={handleGoogleSignin}
                       >
@@ -244,7 +246,7 @@ function RouteComponent() {
                   <img
                     src="/todoalrojo-logo.png"
                     alt="TodoAlRojo Logo"
-                    className="w-32 sm:w-44 mx-auto md:mt-8"
+                    className="w-32 sm:w-44 mx-auto md:mt-0"
                   />
                 </Link>
               </div>
