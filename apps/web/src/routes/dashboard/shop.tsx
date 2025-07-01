@@ -1,7 +1,9 @@
 import { Button } from "@repo/ui/components/button";
 import { Card, CardContent } from "@repo/ui/components/card";
+import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Gift } from "lucide-react";
+import { shopItemsQueryOptions } from "src/queries/shop.queries";
 import PokerChip from "../../assets/icons/poker-chip";
 
 export const Route = createFileRoute("/dashboard/shop")({
@@ -9,6 +11,10 @@ export const Route = createFileRoute("/dashboard/shop")({
 });
 
 function RouteComponent() {
+  const { data: rewards } = useQuery(shopItemsQueryOptions());
+
+  console.log(rewards);
+
   return (
     <div className="space-y-6">
       {/* Chips Balance Header */}
@@ -26,7 +32,7 @@ function RouteComponent() {
 
       {/* Rewards Grid */}
       <div className="grid gap-y-10 gap-x-4 md:grid-cols-2">
-        {rewards.map((reward) => (
+        {rewards?.data.map((reward) => (
           <Card
             key={reward.id}
             className="bg-dark-blue shadow-dark-blue shadow-xl"
@@ -35,10 +41,10 @@ function RouteComponent() {
               <div className="mb-4">
                 <Gift className="h-12 w-12 text-red-600 mx-auto mb-3" />
                 <h3 className="text-white font-bold text-xl mb-2">
-                  {reward.title}
+                  {reward.rewardName}
                 </h3>
                 <p className="text-gray-400 text-sm mb-4">
-                  {reward.description}
+                  {reward.minLevelRequired} Nivel requerido
                 </p>
               </div>
 
@@ -48,7 +54,7 @@ function RouteComponent() {
                     <PokerChip color="red" width={32} height={32} />
                   </div>
                   <span className="text-gray-200 text-lg font-semibold">
-                    {reward.chipText}
+                    {reward.chipCost}
                   </span>
                 </div>
               </div>

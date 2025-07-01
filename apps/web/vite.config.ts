@@ -6,10 +6,13 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   // envDir: "../../",
+  optimizeDeps: {
+    exclude: ["@repo/server", "@repo/email-service"], // Exclude server-side code from client-side dependencies
+  },
   build: {
     rollupOptions: {
       // Making extra sure that the server is not bundled into the client
-      external: ["@repo/server"],
+      external: ["@repo/server", "@repo/email-service"],
       onwarn(warning, warn) {
         if (warning.code === "MODULE_LEVEL_DIRECTIVE") return;
         warn(warning);
@@ -22,9 +25,9 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  server: {
-    cors: false, // disable Vite's built-in CORS setting
-  },
+  // server: {
+  //   cors: false, // disable Vite's built-in CORS setting
+  // },
 
   resolve: {
     alias: {

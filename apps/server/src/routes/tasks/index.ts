@@ -1,7 +1,5 @@
-import dayjs from "dayjs";
 import { and, eq, exists, not, or, sql } from "drizzle-orm";
 import { Hono } from "hono";
-import { z } from "zod";
 import type { HonoAppContext } from "../../auth";
 import { db } from "../../db";
 import { tasksTable } from "../../db/tasks.table";
@@ -9,24 +7,23 @@ import { userTasksTable } from "../../db/user-tasks.table";
 import { withAuth } from "../../middlewares/auth.middleware";
 import { successResponse } from "../../utils/response";
 
-const taskSchema = z.object({
-  id: z.number(),
-  taskType: z.string(),
-  name: z.string(),
-  description: z.string().nullable(),
-  defaultChips: z.number(),
-  frequency: z.enum(["one_time", "daily", "weekly"]),
-  conditions: z.record(z.any()).nullable(),
-});
+// const taskSchema = z.object({
+//   id: z.number(),
+//   taskType: z.string(),
+//   name: z.string(),
+//   description: z.string().nullable(),
+//   defaultChips: z.number(),
+//   frequency: z.enum(["one_time", "daily", "weekly"]),
+//   conditions: z.record(z.any()).nullable(),
+// });
 
-const completeTaskSchema = z.object({
-  taskType: z.string().min(1),
-});
+// const completeTaskSchema = z.object({
+//   taskType: z.string().min(1),
+// });
 export const tasksRouter = new Hono<HonoAppContext<"IsAuthenticated">>()
   .use(withAuth)
-  .basePath("/tasks")
   .get("/available", async (c) => {
-    const today = dayjs().toDate();
+    // const today = dayjs().toDate();
 
     const userId = c.get("user").id;
 

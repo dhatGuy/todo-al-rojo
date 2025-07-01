@@ -1,9 +1,9 @@
-import { type AppType, type Client } from "@repo/server/hc";
+import type { AppType, Client } from "@repo/server/hc";
 import { hc } from "hono/client";
 
 const hcWithType = (...args: Parameters<typeof hc>): Client =>
   hc<AppType>(...args);
 
-export const client = hcWithType(import.meta.env.VITE_SERVER_URL, {
+export const client = hcWithType(`${import.meta.env.VITE_SERVER_URL}`, {
   init: { credentials: "include" },
 });

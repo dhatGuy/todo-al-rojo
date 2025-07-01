@@ -3,7 +3,9 @@ import { Card, CardContent } from "@repo/ui/components/card";
 import { Input } from "@repo/ui/components/input";
 import { Progress } from "@repo/ui/components/progress";
 import { cn } from "@repo/ui/lib/utils";
+import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import { getAvailableTasksQueryOptions } from "src/queries/tasks.queries";
 import PokerChip from "../../assets/icons/poker-chip";
 
 export const Route = createFileRoute("/dashboard/tasks")({
@@ -11,6 +13,8 @@ export const Route = createFileRoute("/dashboard/tasks")({
 });
 
 function RouteComponent() {
+  const { data } = useQuery(getAvailableTasksQueryOptions());
+
   return (
     <div className="flex flex-col min-h-screen gap-12">
       <Card className="bg-dark-blue w-full rounded-lg md:rounded-full p-3 sm:p-4">
@@ -38,9 +42,7 @@ function RouteComponent() {
             <div className="w-12 h-12 sm:w-15 sm:h-15 rounded-full flex items-center justify-center relative">
               <PokerChip color="red" width={undefined} height={undefined} />
             </div>
-            <span className="text-4xl sm:text-6xl font-bold text-white">
-              2,000
-            </span>
+            <span className="text-4xl sm:text-6xl font-bold text-white">0</span>
           </div>
         </div>
 
@@ -96,19 +98,19 @@ function RouteComponent() {
 
       {/* Tasks List */}
       <div className="space-y-4">
-        {tasks.slice(1).map((task) => (
+        {data?.data.slice(1).map((task) => (
           <Card key={task.id} className="bg-dark-blue rounded-4xl">
             <CardContent className="p-6">
               <div className="flex flex-wrap items-start justify-between mb-4 gap-4">
                 <div className="flex items-center space-x-3">
                   <div>
                     <h3 className="text-white font-medium flex items-center space-x-2">
-                      <span>{task.title}</span>
+                      <span>{task.name}</span>
                       <span
                         // variant="secondary"
                         className="text-yellow-400"
                       >
-                        +{task.chips} RC
+                        +{task.defaultChips} RC
                       </span>
                       <div className="rounded-full flex items-center justify-center">
                         <PokerChip color="red" width={20} height={20} />
@@ -122,27 +124,27 @@ function RouteComponent() {
 
                 <Button
                   // onClick={() => handleCompleteTask(task.id)}
-                  disabled={task.completed}
-                  variant={task.completed ? "secondary" : "primary"}
+                  // disabled={task.completed}
+                  // variant={task.completed ? "secondary" : "primary"}
                   className={cn(
-                    task.completed
+                    !task.active
                       ? "bg-gray-600 text-gray-300"
                       : "rojo-gradient text-black font-bold hover:opacity-80",
                     "text-md p-5 rounded-xl w-full sm:w-auto",
                   )}
                   size="sm"
                 >
-                  {task.completed ? "Terminado" : "Completo"}
+                  {!task.active ? "Terminado" : "Completo"}
                 </Button>
               </div>
 
-              {task.hasInput && !task.completed && (
+              {/* {task.hasInput && !task.completed && (
                 <Input
                   defaultValue={task.inputPlaceholder}
                   readOnly
                   className="border-gray-600 bg-[#11172f] py-6 rounded-xl text-white placeholder-gray-400"
                 />
-              )}
+              )} */}
             </CardContent>
           </Card>
         ))}

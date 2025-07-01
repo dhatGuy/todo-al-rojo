@@ -5,6 +5,7 @@ import { logger } from "hono/logger";
 import { prettyJSON } from "hono/pretty-json";
 import { env } from "../env.js";
 import { auth, type HonoAppContext } from "./auth.js";
+import { shopRouter } from "./routes/shop/index.js";
 import { tasksRouter } from "./routes/tasks/index.js";
 import { errorHandler, notFoundHandler } from "./utils/error.js";
 
@@ -41,11 +42,16 @@ const app = new Hono<HonoAppContext>()
     c.set("session", session.session);
     return next();
   })
-  .on(["POST", "GET"], "/api/auth/*", (c) => {
+  // .get("/", (c) => {
+  //   return c.redirect("/api", 301);
+  // })
+  .basePath("/api")
+  .on(["POST", "GET"], "/auth/*", (c) => {
     return auth.handler(c.req.raw);
   })
-  .get("/", (c) => c.json({ message: "Hello World" }))
-  .route("/", tasksRouter)
+  .route("/shop", shopRouter)
+  // .get("/", (c) => c.json({ message: "Hello World" }))
+  .route("/tasks", tasksRouter)
   // ------------------------------------------------------------
   // Error and Not Found Handlers
   // ------------------------------------------------------------

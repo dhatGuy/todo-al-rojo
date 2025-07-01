@@ -42,7 +42,7 @@ export const auth = betterAuth({
       generateId: false,
     },
     defaultCookieAttributes: {
-      secure: true, // Use secure cookies in production
+      secure: Bun.env.NODE_ENV === "production", // Use secure cookies in production
       httpOnly: true, // Helps mitigate XSS attacks
       sameSite: "lax", // Allows cookies to be sent in cross-site requests
       // ...(Bun.env.NODE_ENV === "production" ? { partitioned: true } : {}),
@@ -92,12 +92,13 @@ export const auth = betterAuth({
           };
         },
         after: async (user, ctx) => {
-          const { ref, affliate } = ctx?.query || {};
+          const { ref, affiliate } = ctx?.query || {};
           await db.insert(referralsTable).values({
             referrerUserId: user.id,
             referredUserId: ref,
+            // @ts-expect-error referral is present
             referralCode: user?.referralCode,
-            affiliateId: affliate,
+            affiliateId: affiliate,
           });
         },
       },
