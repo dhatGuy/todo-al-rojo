@@ -15,15 +15,21 @@ export const signupMutationOptions = () =>
           name: data.firstName + " " + data.lastName,
           phoneNumber: data.phoneNumber,
           image: "",
+          fetchOptions: {
+            query: {
+              // ref: "randomRef",
+              // affliate: "randomAffiliate",
+            },
+          },
         },
-        // {
-        //   onSuccess: (user) => {
-        //     console.log("User signed up:", user);
-        //   },
-        //   onError: (error) => {
-        //     console.error("Signup failed:", error);
-        //   },
-        // },
+        {
+          //   onSuccess: (user) => {
+          //     console.log("User signed up:", user);
+          //   },
+          //   onError: (error) => {
+          //     console.error("Signup failed:", error);
+          //   },
+        },
       );
       return response;
     },
@@ -33,7 +39,7 @@ export const signinMutationOptions = () =>
   mutationOptions({
     mutationKey: ["login"],
     mutationFn: async (data: SigninSchema) => {
-      const response = await authClient.signIn.email(data);
+      const response = await authClient.signIn.email(data, {});
       return response;
     },
   });

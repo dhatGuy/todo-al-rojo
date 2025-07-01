@@ -7,6 +7,8 @@ import { count, eq } from "drizzle-orm";
 import { env } from "../env.js";
 import { db } from "./db/index.js";
 import * as schema from "./db/schema.js";
+import { referralsTable } from "./db/schema.js";
+import { generateUniqueReferralCode } from "./utils/referral/generateUniqueReferralCode";
 
 export const auth = betterAuth({
   emailAndPassword: {
@@ -32,7 +34,7 @@ export const auth = betterAuth({
       session: schema.sessionTable,
       account: schema.accountTable,
     },
-    debugLogs: true,
+    // debugLogs: true,
   }),
   advanced: {
     // useSecureCookies: true,
@@ -42,7 +44,7 @@ export const auth = betterAuth({
     defaultCookieAttributes: {
       secure: true, // Use secure cookies in production
       httpOnly: true, // Helps mitigate XSS attacks
-      sameSite: "None", // Allows cookies to be sent in cross-site requests
+      sameSite: "lax", // Allows cookies to be sent in cross-site requests
       // ...(Bun.env.NODE_ENV === "production" ? { partitioned: true } : {}),
     },
   },
@@ -61,6 +63,9 @@ export const auth = betterAuth({
         type: "string",
         required: true,
       },
+      referralCode: {
+        type: "string",
+      },
     },
   },
   databaseHooks: {
@@ -71,6 +76,8 @@ export const auth = betterAuth({
             .select({ count: count() })
             .from(schema.userTable)
             .where(eq(schema.userTable.phoneNumber, ctx?.body.phoneNumber));
+
+          const referralCode = await generateUniqueReferralCode();
           if (phoneExist.count > 0) {
             throw new APIError("UNPROCESSABLE_ENTITY", {
               message: "Phone number already exists.",
@@ -78,8 +85,20 @@ export const auth = betterAuth({
             });
           }
           return {
-            data: user,
+            data: {
+              ...user,
+              referralCode,
+            },
           };
+        },
+        after: async (user, ctx) => {
+          const { ref, affliate } = ctx?.query || {};
+          await db.insert(referralsTable).values({
+            referrerUserId: user.id,
+            referredUserId: ref,
+            referralCode: user?.referralCode,
+            affiliateId: affliate,
+          });
         },
       },
     },

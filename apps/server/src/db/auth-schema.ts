@@ -19,6 +19,7 @@ export const userTable = pgTable("user", {
     .$defaultFn(() => false)
     .notNull(),
   image: text("image"),
+  referralCode: text("referral_code").notNull().unique(),
   role: text("role").notNull().default("user"),
   banned: boolean("banned").notNull().default(false),
   banReason: text("ban_reason"),
