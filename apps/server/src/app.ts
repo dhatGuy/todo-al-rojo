@@ -42,15 +42,15 @@ const app = new Hono<HonoAppContext>()
     c.set("session", session.session);
     return next();
   })
-  // .get("/", (c) => {
-  //   return c.redirect("/api", 301);
-  // })
+  .get("/", (c) => {
+    return c.redirect("/api", 301);
+  })
   .basePath("/api")
+  .get("/", (c) => c.json({ message: "Hello World" }))
   .on(["POST", "GET"], "/auth/*", (c) => {
     return auth.handler(c.req.raw);
   })
   .route("/shop", shopRouter)
-  // .get("/", (c) => c.json({ message: "Hello World" }))
   .route("/tasks", tasksRouter)
   // ------------------------------------------------------------
   // Error and Not Found Handlers
