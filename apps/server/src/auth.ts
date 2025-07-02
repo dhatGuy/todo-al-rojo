@@ -44,7 +44,7 @@ export const auth = betterAuth({
     defaultCookieAttributes: {
       secure: Bun.env.NODE_ENV === "production", // Use secure cookies in production
       httpOnly: true, // Helps mitigate XSS attacks
-      sameSite: "lax", // Allows cookies to be sent in cross-site requests
+      sameSite: "none", // Allows cookies to be sent in cross-site requests
       // ...(Bun.env.NODE_ENV === "production" ? { partitioned: true } : {}),
     },
   },
