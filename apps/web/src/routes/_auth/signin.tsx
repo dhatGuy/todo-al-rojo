@@ -38,7 +38,7 @@ function RouteComponent() {
   const canGoBack = useCanGoBack();
   const mutation = useMutation(mutationOptions(signinMutationOptions()));
   const googleSigninMutation = useMutation(
-    mutationOptions(googleSigninMutationOptions()),
+    mutationOptions(googleSigninMutationOptions())
   );
   const [showForgotPassword, setShowForgotPassword] = useState(false);
 
@@ -208,25 +208,39 @@ function RouteComponent() {
                         Sign In
                       </Button>
                       <Button
-                        className="w-full rojo-gradient font-bold h-12 rounded-lg"
                         loading={googleSigninMutation.isPending}
                         disabled={mutation.isPending}
                         type="button"
                         onClick={handleGoogleSignin}
+                        className="h-12 font-bold rounded-lg flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 shadow-sm bg-white hover:bg-gray-100 transition"
                       >
                         <svg
+                          className="w-5 h-5"
+                          viewBox="0 0 533.5 544.3"
                           xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          className="h-5 w-5 mr-2 inline-block"
                         >
-                          <title>Google Logo</title>
                           <path
-                            d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
-                            fill="currentColor"
+                            d="M533.5 278.4c0-17.4-1.6-34.1-4.6-50.4H272v95.3h146.9c-6.3 34.1-25.1 62.9-53.6 82.2v68.2h86.7c50.7-46.7 81.5-115.6 81.5-195.3z"
+                            fill="#4285F4"
+                          />
+                          <path
+                            d="M272 544.3c72.6 0 133.6-24.1 178.1-65.5l-86.7-68.2c-24.1 16.1-55 25.6-91.4 25.6-70.3 0-129.9-47.6-151.2-111.4H30.1v69.9c44.6 88.3 136.6 149.6 241.9 149.6z"
+                            fill="#34A853"
+                          />
+                          <path
+                            d="M120.8 324.8c-10.1-30.3-10.1-62.9 0-93.2V161.7H30.1c-39.6 78.9-39.6 171.9 0 250.8l90.7-70.9z"
+                            fill="#FBBC05"
+                          />
+                          <path
+                            d="M272 107.7c39.5-.6 77.4 13.9 106.3 40.4l79.4-79.4C411.2 24.1 342.3 0 272 0 166.7 0 74.7 61.3 30.1 149.6l90.7 69.9C142.1 155.3 201.7 107.7 272 107.7z"
+                            fill="#EA4335"
                           />
                         </svg>
-                        Continue with Google
+                        <span className="text-sm text-gray-700 font-bold">
+                          Sign in with Google
+                        </span>
                       </Button>
+
                       <div className="text-center mt-4">
                         <p className="text-gray-200 text-sm">
                           Don't have an account?{" "}

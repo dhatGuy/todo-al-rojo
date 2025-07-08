@@ -18,6 +18,7 @@ import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as DashboardTasksRouteImport } from './routes/dashboard/tasks'
 import { Route as DashboardShopRouteImport } from './routes/dashboard/shop'
 import { Route as DashboardLeaderboardRouteImport } from './routes/dashboard/leaderboard'
+import { Route as ArticlesPorQueElegirBuenosProveedoresRouteImport } from './routes/articles/por-que-elegir-buenos-proveedores'
 import { Route as AuthSignupRouteImport } from './routes/_auth/signup'
 import { Route as AuthSigninRouteImport } from './routes/_auth/signin'
 
@@ -65,6 +66,12 @@ const DashboardLeaderboardRoute = DashboardLeaderboardRouteImport.update({
   path: '/leaderboard',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
+const ArticlesPorQueElegirBuenosProveedoresRoute =
+  ArticlesPorQueElegirBuenosProveedoresRouteImport.update({
+    id: '/articles/por-que-elegir-buenos-proveedores',
+    path: '/articles/por-que-elegir-buenos-proveedores',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthSignupRoute = AuthSignupRouteImport.update({
   id: '/signup',
   path: '/signup',
@@ -84,6 +91,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/signin': typeof AuthSigninRoute
   '/signup': typeof AuthSignupRoute
+  '/articles/por-que-elegir-buenos-proveedores': typeof ArticlesPorQueElegirBuenosProveedoresRoute
   '/dashboard/leaderboard': typeof DashboardLeaderboardRoute
   '/dashboard/shop': typeof DashboardShopRoute
   '/dashboard/tasks': typeof DashboardTasksRoute
@@ -96,6 +104,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/signin': typeof AuthSigninRoute
   '/signup': typeof AuthSignupRoute
+  '/articles/por-que-elegir-buenos-proveedores': typeof ArticlesPorQueElegirBuenosProveedoresRoute
   '/dashboard/leaderboard': typeof DashboardLeaderboardRoute
   '/dashboard/shop': typeof DashboardShopRoute
   '/dashboard/tasks': typeof DashboardTasksRoute
@@ -110,6 +119,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/_auth/signin': typeof AuthSigninRoute
   '/_auth/signup': typeof AuthSignupRoute
+  '/articles/por-que-elegir-buenos-proveedores': typeof ArticlesPorQueElegirBuenosProveedoresRoute
   '/dashboard/leaderboard': typeof DashboardLeaderboardRoute
   '/dashboard/shop': typeof DashboardShopRoute
   '/dashboard/tasks': typeof DashboardTasksRoute
@@ -125,6 +135,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/signin'
     | '/signup'
+    | '/articles/por-que-elegir-buenos-proveedores'
     | '/dashboard/leaderboard'
     | '/dashboard/shop'
     | '/dashboard/tasks'
@@ -137,6 +148,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/signin'
     | '/signup'
+    | '/articles/por-que-elegir-buenos-proveedores'
     | '/dashboard/leaderboard'
     | '/dashboard/shop'
     | '/dashboard/tasks'
@@ -150,6 +162,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/_auth/signin'
     | '/_auth/signup'
+    | '/articles/por-que-elegir-buenos-proveedores'
     | '/dashboard/leaderboard'
     | '/dashboard/shop'
     | '/dashboard/tasks'
@@ -162,6 +175,7 @@ export interface RootRouteChildren {
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
   RankingRoute: typeof RankingRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  ArticlesPorQueElegirBuenosProveedoresRoute: typeof ArticlesPorQueElegirBuenosProveedoresRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -214,6 +228,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/signup'
       preLoaderRoute: typeof AuthSignupRouteImport
       parentRoute: typeof AuthRouteRoute
+    }
+    '/articles/por-que-elegir-buenos-proveedores': {
+      id: '/articles/por-que-elegir-buenos-proveedores'
+      path: '/articles/por-que-elegir-buenos-proveedores'
+      fullPath: '/articles/por-que-elegir-buenos-proveedores'
+      preLoaderRoute: typeof ArticlesPorQueElegirBuenosProveedoresRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/dashboard/leaderboard': {
       id: '/dashboard/leaderboard'
@@ -284,6 +305,8 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
   RankingRoute: RankingRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  ArticlesPorQueElegirBuenosProveedoresRoute:
+    ArticlesPorQueElegirBuenosProveedoresRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
