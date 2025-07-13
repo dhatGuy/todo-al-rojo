@@ -1,45 +1,79 @@
-# TodoAlRojo.cl – Gamification + FTD System
+# Welcome to React Router!
 
-## Overview
+A modern, production-ready template for building full-stack React applications using React Router.
 
-TodoAlRojo.cl is a loyalty-based gamification platform combined with an affiliate FTD (First-Time Deposit) tracking system, designed to boost user engagement and conversions.
+## Features
 
-### 🧩 Gamification System: Red Chips
+- 🚀 Server-side rendering
+- ⚡️ Hot Module Replacement (HMR)
+- 📦 Asset bundling and optimization
+- 🔄 Data loading and mutations
+- 🔒 TypeScript by default
+- 🎉 TailwindCSS for styling
+- 📖 [React Router docs](https://reactrouter.com/)
 
-Users earn Red Chips (virtual points) for completing various tasks, unlocking new levels and rewards. Key features include:
+## Getting Started
 
-- **Point Tasks:**
+### Installation
 
-  - Daily login (+5 chips)
-  - Join WhatsApp/Telegram (+50 chips)
-  - Refer a user (+100 chips)
-  - First deposit (manual check) (+200 chips)
-  - Participate in trivia (+10 chips)
-  - Share promos on social (+20 chips)
+Install the dependencies:
 
-- **User Dashboard:**
+```bash
+npm install
+```
 
-  - Chip balance
-  - Level & progress bar
-  - Task checklist
-  - Rewards store (redeem chips)
-  - Public leaderboard
+### Development
 
-- **Admin Dashboard:**
-  - Approve deposit confirmations
-  - Manage chip rewards & redemptions
-  - Track user logs and detect anomalies
+Start the development server with HMR:
+
+```bash
+npm run dev
+```
+
+Your application will be available at `http://localhost:5173`.
+
+## Previewing the Production Build
+
+Preview the production build locally:
+
+```bash
+npm run preview
+```
+
+## Building for Production
+
+Create a production build:
+
+```bash
+npm run build
+```
+
+## Deployment
+
+Deployment is done using the Wrangler CLI.
+
+To build and deploy directly to production:
+
+```sh
+npm run deploy
+```
+
+To deploy a preview URL:
+
+```sh
+npx wrangler versions upload
+```
+
+You can then promote a version to production after verification or roll it out progressively.
+
+```sh
+npx wrangler versions deploy
+```
+
+## Styling
+
+This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
 
 ---
 
-### 🎯 FTD Tracking System
-
-Affiliate tracking is handled via UTM parameters and cookies, with logic to:
-
-- Store UTM and click data (user_id, timestamp)
-- Match user registration to click
-- Confirm FTD on deposit via:
-  - Pixel tracking
-  - Postback (server-to-server)
-  - Manual fallback if needed
-- Periodically cross-check with casino operator reports
+Built with ❤️ using React Router.
