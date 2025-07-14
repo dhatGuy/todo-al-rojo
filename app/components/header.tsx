@@ -1,7 +1,7 @@
-// import { useSession } from "src/utils/auth-client";
 import { Link } from "react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
+import { useAuthUser } from "~/hooks/use-auth-user";
 
 const navItems: {
 	name: string;
@@ -18,16 +18,7 @@ const navItems: {
 ];
 
 export const Header = () => {
-	// const { data } = useSession();
-	const { data } = {
-		data: {
-			user: {
-				name: "John Doe",
-				image:
-					"https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-			},
-		},
-	};
+	const data = useAuthUser();
 	return (
 		<header className="relative z-10 w-full px-6 bg-[#000017]">
 			<div className="mx-auto flex max-w-7xl items-center justify-between">
