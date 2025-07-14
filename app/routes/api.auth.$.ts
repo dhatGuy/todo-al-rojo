@@ -1,10 +1,12 @@
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
-import { auth } from "~/auth";
+import { getAuth } from "~/auth";
+import type { Route } from "./+types/api.auth.$";
 
-export async function loader({ request }: LoaderFunctionArgs) {
+export async function loader({ context, request }: Route.LoaderArgs) {
+	const auth = getAuth(context);
 	return auth.handler(request);
 }
 
-export async function action({ request }: ActionFunctionArgs) {
+export async function action({ context, request }: Route.ActionArgs) {
+	const auth = getAuth(context);
 	return auth.handler(request);
 }

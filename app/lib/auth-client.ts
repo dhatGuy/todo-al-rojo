@@ -2,30 +2,43 @@ import { inferAdditionalFields } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
 import { useEffect, useState } from "react";
 
-export const authClient = createAuthClient({
-	baseURL: import.meta.env.WEB_URL,
-	plugins: [
-		inferAdditionalFields({
-			user: {
-				firstName: {
-					type: "string",
-					required: true,
-					fieldName: "first_name",
-				},
-				lastName: {
-					type: "string",
-					required: true,
-					fieldName: "last_name",
-				},
-				phoneNumber: {
-					type: "string",
-					required: true,
-					fieldName: "phone_number",
-				},
-			},
-		}),
-	],
-});
+let authClient: ReturnType<typeof createAuthClient>;
+
+export function getAuthClient({
+	// the base url of your auth server
+	baseURL = "http://localhost:5173",
+}: {
+	baseURL?: string;
+}) {
+	if (!authClient) {
+		authClient = createAuthClient({
+			baseURL,
+			plugins: [
+				inferAdditionalFields({
+					user: {
+						firstName: {
+							type: "string",
+							required: true,
+							fieldName: "first_name",
+						},
+						lastName: {
+							type: "string",
+							required: true,
+							fieldName: "last_name",
+						},
+						phoneNumber: {
+							type: "string",
+							required: true,
+							fieldName: "phone_number",
+						},
+					},
+				}),
+			],
+		});
+	}
+
+	return authClient;
+}
 
 type ErrorTypes = Partial<
 	Record<

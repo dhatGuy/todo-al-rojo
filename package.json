@@ -30,7 +30,6 @@
     "embla-carousel-auto-scroll": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "embla-carousel-wheel-gestures": "^8.0.2",
-    "googleapis": "^152.0.0",
     "isbot": "^5.1.27",
     "lucide-react": "^0.525.0",
     "nodemailer": "^7.0.5",
@@ -46,6 +45,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.1.1",
     "@cloudflare/vite-plugin": "^1.0.12",
+    "@cloudflare/workers-types": "^4.20250712.0",
     "@react-router/dev": "^7.5.3",
     "@tailwindcss/vite": "^4.1.4",
     "@types/bun": "^1.2.18",
