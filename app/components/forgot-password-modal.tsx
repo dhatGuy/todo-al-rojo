@@ -1,7 +1,7 @@
-import { useMutation } from "@tanstack/react-query";
+// import { useMutation } from "@tanstack/react-query";
 import { AlertCircle, CheckCircle, Mail } from "lucide-react";
 import { useId, useState } from "react";
-import { authClient } from "src/utils/auth-client";
+// import { authClient } from "src/utils/auth-client";
 import { z } from "zod";
 import { Button } from "~/components/ui/button";
 import {
@@ -19,7 +19,7 @@ interface ForgotPasswordModalProps {
 }
 
 const schema = z.object({
-	email: z.string().email("Please enter a valid email address"),
+	email: z.email("Please enter a valid email address"),
 });
 
 export function ForgotPasswordModal({
@@ -31,32 +31,32 @@ export function ForgotPasswordModal({
 	const [error, setError] = useState("");
 	const id = useId();
 
-	const mutation = useMutation({
-		mutationFn: async (email: string) => {
-			return await authClient.requestPasswordReset({
-				email,
-				redirectTo: `${window.location.origin}/reset-password`,
-			});
-		},
-		onSuccess: () => {
-			setIsSuccess(true);
-		},
-		onError: () => {
-			setError("Failed to send reset link");
-		},
-	});
+	// const mutation = useMutation({
+	// 	mutationFn: async (email: string) => {
+	// 		return await authClient.requestPasswordReset({
+	// 			email,
+	// 			redirectTo: `${window.location.origin}/reset-password`,
+	// 		});
+	// 	},
+	// 	onSuccess: () => {
+	// 		setIsSuccess(true);
+	// 	},
+	// 	onError: () => {
+	// 		setError("Failed to send reset link");
+	// 	},
+	// });
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setError("");
 
-		const parsed = schema.safeParse({ email });
-		if (!parsed.success) {
-			setError(parsed?.error?.errors[0]?.message || "Invalid email address");
-			return;
-		}
+		// const parsed = schema.safeParse({ email });
+		// if (!parsed.success) {
+		// 	setError(parsed?.error?.errors[0]?.message || "Invalid email address");
+		// 	return;
+		// }
 
-		mutation.mutate(email);
+		// mutation.mutate(email);
 	};
 
 	const handleClose = () => {
@@ -111,7 +111,7 @@ export function ForgotPasswordModal({
 								type="email"
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
-								disabled={mutation.isPending}
+								// disabled={mutation.isPending}
 							/>
 						</div>
 
@@ -126,7 +126,7 @@ export function ForgotPasswordModal({
 							<Button
 								type="submit"
 								className="w-full rojo-gradient font-bold h-12 rounded-lg text-black disabled:opacity-50"
-								loading={mutation.isPending}
+								// loading={mutation.isPending}
 							>
 								Send Reset Link
 							</Button>
@@ -136,7 +136,7 @@ export function ForgotPasswordModal({
 								variant="ghost"
 								onClick={handleClose}
 								className="w-full text-gray-300 hover:text-gray-100 hover:bg-slate-800"
-								disabled={mutation.isPending}
+								// disabled={mutation.isPending}
 							>
 								Cancel
 							</Button>

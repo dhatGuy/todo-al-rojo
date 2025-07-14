@@ -1,87 +1,87 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+// import { useMutation } from "@tanstack/react-query";
 import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 import { toast } from "sonner";
-import {
-	googleSigninMutationOptions,
-	signinMutationOptions,
-} from "src/queries/auth.queries";
-import { SigninSchema } from "src/schemas/auth.schema";
-import { mutationOptions } from "src/utils/mutationOptions";
+// import {
+// 	googleSigninMutationOptions,
+// 	signinMutationOptions,
+// } from "src/queries/auth.queries";
+// import { SigninSchema } from "src/schemas/auth.schema";
+// import { mutationOptions } from "src/utils/mutationOptions";
 import { ForgotPasswordModal } from "~/components/forgot-password-modal";
 import { Button } from "~/components/ui/button";
 import { Checkbox } from "~/components/ui/checkbox";
 import { FloatingLabelInput } from "~/components/ui/floating-label-input";
 import { Form, FormField, FormItem, FormMessage } from "~/components/ui/form";
 import { Label } from "~/components/ui/label";
-import bgSignup from "../../assets/images/signup-bg.png";
+import bgSignup from "../assets/images/signup-bg.png";
 
 export default function SignIn() {
-	const router = useRouter();
-	const canGoBack = useCanGoBack();
-	const mutation = useMutation(mutationOptions(signinMutationOptions()));
-	const googleSigninMutation = useMutation(
-		mutationOptions(googleSigninMutationOptions()),
-	);
-	const [showForgotPassword, setShowForgotPassword] = useState(false);
+	// const router = useRouter();
+	// const canGoBack = useCanGoBack();
+	// const mutation = useMutation(mutationOptions(signinMutationOptions()));
+	// const googleSigninMutation = useMutation(
+	// 	mutationOptions(googleSigninMutationOptions()),
+	// );
+	// const [showForgotPassword, setShowForgotPassword] = useState(false);
 
-	const form = useForm({
-		resolver: zodResolver(SigninSchema),
-		defaultValues: {
-			email: "",
-			password: "",
-			rememberMe: false,
-		},
-	});
+	// const form = useForm({
+	// 	resolver: zodResolver(SigninSchema),
+	// 	defaultValues: {
+	// 		email: "",
+	// 		password: "",
+	// 		rememberMe: false,
+	// 	},
+	// });
 
-	const onSubmit = async (data: SigninSchema) => {
-		mutation.mutate(data, {
-			onSuccess: (data) => {
-				if (data.error) {
-					toast.error(data.error.message || "An error occurred", {
-						position: "bottom-left",
-					});
-					return;
-				}
-				toast.success("Logged in successfully!");
-				router.navigate({
-					to: "/dashboard",
-				});
-			},
-			onError: (error) => {
-				console.log(error);
-				toast.error("Failed to login", {
-					position: "bottom-left",
-				});
-			},
-		});
-	};
+	// const onSubmit = async (data: SigninSchema) => {
+	// 	mutation.mutate(data, {
+	// 		onSuccess: (data) => {
+	// 			if (data.error) {
+	// 				toast.error(data.error.message || "An error occurred", {
+	// 					position: "bottom-left",
+	// 				});
+	// 				return;
+	// 			}
+	// 			toast.success("Logged in successfully!");
+	// 			router.navigate({
+	// 				to: "/dashboard",
+	// 			});
+	// 		},
+	// 		onError: (error) => {
+	// 			console.log(error);
+	// 			toast.error("Failed to login", {
+	// 				position: "bottom-left",
+	// 			});
+	// 		},
+	// 	});
+	// };
 
-	const handleGoogleSignin = () => {
-		googleSigninMutation.mutate(undefined, {
-			onSuccess: (data) => {
-				// if (data.error) {
-				//   toast.error(data.error.message || "An error occurred", {
-				//     position: "bottom-left",
-				//   });
-				//   return;
-				// }
-				// toast.success("Logged in successfully!");
-				// router.navigate({
-				//   to: "/dashboard",
-				// });
-			},
-			onError: (error) => {
-				console.log(error);
-				toast.error("Failed to login with Google", {
-					position: "bottom-left",
-				});
-			},
-		});
-	};
+	// const handleGoogleSignin = () => {
+	// 	googleSigninMutation.mutate(undefined, {
+	// 		onSuccess: (data) => {
+	// 			// if (data.error) {
+	// 			//   toast.error(data.error.message || "An error occurred", {
+	// 			//     position: "bottom-left",
+	// 			//   });
+	// 			//   return;
+	// 			// }
+	// 			// toast.success("Logged in successfully!");
+	// 			// router.navigate({
+	// 			//   to: "/dashboard",
+	// 			// });
+	// 		},
+	// 		onError: (error) => {
+	// 			console.log(error);
+	// 			toast.error("Failed to login with Google", {
+	// 				position: "bottom-left",
+	// 			});
+	// 		},
+	// 	});
+	// };
 
 	return (
 		<>
@@ -100,13 +100,13 @@ export default function SignIn() {
 										className=""
 										size="icon"
 										variant="ghost"
-										onClick={() =>
-											canGoBack
-												? router.history.back()
-												: router.navigate({
-														to: "/",
-													})
-										}
+										// onClick={() =>
+										// 	canGoBack
+										// 		? router.history.back()
+										// 		: router.navigate({
+										// 				to: "/",
+										// 			})
+										// }
 									>
 										<ArrowLeft color="white" />
 									</Button>
@@ -116,7 +116,7 @@ export default function SignIn() {
 									</h1>
 								</div>
 
-								<Form {...form}>
+								{/* <Form {...form}>
 									<form
 										onSubmit={form.handleSubmit(onSubmit)}
 										action="#"
@@ -241,7 +241,7 @@ export default function SignIn() {
 											</div>
 										</div>
 									</form>
-								</Form>
+								</Form> */}
 
 								<Link to="/" className="h-full grid items-center">
 									<img
@@ -257,10 +257,10 @@ export default function SignIn() {
 					</div>
 				</div>
 			</section>
-			<ForgotPasswordModal
+			{/* <ForgotPasswordModal
 				open={showForgotPassword}
 				onOpenChange={setShowForgotPassword}
-			/>
+			/> */}
 		</>
 	);
 }

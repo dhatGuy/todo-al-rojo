@@ -1,17 +1,18 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import {
-	createFileRoute,
-	Link,
-	useCanGoBack,
-	useRouter,
-} from "@tanstack/react-router";
+// import { useMutation } from "@tanstack/react-query";
+// import {
+// 	createFileRoute,
+// 	Link,
+// 	useCanGoBack,
+// 	useRouter,
+// } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router";
 import { toast } from "sonner";
-import { signupMutationOptions } from "src/queries/auth.queries";
-import { type SignupSchema, signupSchema } from "src/schemas/auth.schema";
-import { getErrorMessage } from "src/utils/auth-client";
+// import { signupMutationOptions } from "src/queries/auth.queries";
+// import { type SignupSchema, signupSchema } from "src/schemas/auth.schema";
+// import { getErrorMessage } from "src/utils/auth-client";
 import { Button } from "~/components/ui/button";
 import { Checkbox } from "~/components/ui/checkbox";
 import { FloatingLabelInput } from "~/components/ui/floating-label-input";
@@ -24,73 +25,69 @@ import {
 } from "~/components/ui/form";
 import bgSignup from "../../assets/images/signup-bg.png";
 
-export const Route = createFileRoute("/_auth/signup")({
-	component: RouteComponent,
-});
+export default function RouteComponent() {
+	// const router = useRouter();
+	// const canGoBack = useCanGoBack();
 
-function RouteComponent() {
-	const router = useRouter();
-	const canGoBack = useCanGoBack();
+	// const mutation = useMutation(signupMutationOptions());
 
-	const mutation = useMutation(signupMutationOptions());
+	// const form = useForm({
+	// 	resolver: zodResolver(signupSchema),
+	// 	defaultValues: {
+	// 		termsAccepted: false,
+	// 		firstName: "",
+	// 		lastName: "",
+	// 		email: "",
+	// 		phoneNumber: "",
+	// 		confirmPassword: "",
+	// 		password: "",
+	// 	},
+	// });
 
-	const form = useForm({
-		resolver: zodResolver(signupSchema),
-		defaultValues: {
-			termsAccepted: false,
-			firstName: "",
-			lastName: "",
-			email: "",
-			phoneNumber: "",
-			confirmPassword: "",
-			password: "",
-		},
-	});
+	// const onSubmit = async (data: SignupSchema) => {
+	// 	mutation.mutate(data, {
+	// 		onSuccess: (data) => {
+	// 			if (data.error) {
+	// 				const errorCode = data.error.code;
+	// 				if (errorCode === "USER_ALREADY_EXISTS") {
+	// 					form.setError("email", {
+	// 						type: "custom",
+	// 						message: "User already exists",
+	// 					});
+	// 				}
+	// 				if (errorCode === "PHONE_NUMBER_ALREADY_EXISTS") {
+	// 					form.setError("phoneNumber", {
+	// 						type: "custom",
+	// 						message: "Phone number already exists",
+	// 					});
+	// 				}
 
-	const onSubmit = async (data: SignupSchema) => {
-		mutation.mutate(data, {
-			onSuccess: (data) => {
-				if (data.error) {
-					const errorCode = data.error.code;
-					if (errorCode === "USER_ALREADY_EXISTS") {
-						form.setError("email", {
-							type: "custom",
-							message: "User already exists",
-						});
-					}
-					if (errorCode === "PHONE_NUMBER_ALREADY_EXISTS") {
-						form.setError("phoneNumber", {
-							type: "custom",
-							message: "Phone number already exists",
-						});
-					}
+	// 				const errorMessage = getErrorMessage(errorCode);
+	// 				if (errorMessage) {
+	// 					toast.error(errorMessage, {
+	// 						position: "bottom-left",
+	// 					});
+	// 				} else {
+	// 					toast.error("An unknown error occurred.", {
+	// 						position: "bottom-left",
+	// 					});
+	// 				}
+	// 				return;
+	// 			}
 
-					const errorMessage = getErrorMessage(errorCode);
-					if (errorMessage) {
-						toast.error(errorMessage, {
-							position: "bottom-left",
-						});
-					} else {
-						toast.error("An unknown error occurred.", {
-							position: "bottom-left",
-						});
-					}
-					return;
-				}
-
-				toast.success("Account created successfully!");
-				router.navigate({
-					to: "/dashboard",
-				});
-			},
-			onError: (error) => {
-				console.error(error);
-				toast.error("An unknown error occurred.", {
-					position: "bottom-left",
-				});
-			},
-		});
-	};
+	// 			toast.success("Account created successfully!");
+	// 			router.navigate({
+	// 				to: "/dashboard",
+	// 			});
+	// 		},
+	// 		onError: (error) => {
+	// 			console.error(error);
+	// 			toast.error("An unknown error occurred.", {
+	// 				position: "bottom-left",
+	// 			});
+	// 		},
+	// 	});
+	// };
 
 	return (
 		<section className="lg:block lg:fixed lg:inset-0 lg:z-50 bg-[#333]">
@@ -106,13 +103,13 @@ function RouteComponent() {
 									className=""
 									size="icon"
 									variant="ghost"
-									onClick={() =>
-										canGoBack
-											? router.history.back()
-											: router.navigate({
-													to: "/",
-												})
-									}
+									// onClick={() =>
+									// 	canGoBack
+									// 		? router.history.back()
+									// 		: router.navigate({
+									// 				to: "/",
+									// 			})
+									// }
 								>
 									<ArrowLeft color="white" />
 								</Button>
@@ -122,7 +119,7 @@ function RouteComponent() {
 								</h1>
 							</div>
 
-							<Form {...form}>
+							{/* <Form {...form}>
 								<form
 									onSubmit={form.handleSubmit(onSubmit)}
 									action="#"
@@ -257,7 +254,7 @@ function RouteComponent() {
 										</p>
 									</div>
 								</form>
-							</Form>
+							</Form> */}
 
 							<Link to="/" className="flex justify-center">
 								<img
