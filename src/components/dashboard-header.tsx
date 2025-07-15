@@ -7,7 +7,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useSession } from "@/lib/auth-client";
+import { useSession } from "@/hooks/auth-hooks";
 import { Link } from "@tanstack/react-router";
 import { Crown, Menu } from "lucide-react";
 

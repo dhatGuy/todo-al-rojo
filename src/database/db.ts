@@ -1,2 +1,4 @@
 import { drizzle } from "drizzle-orm/postgres-js";
-export const db = (connectionString: string) => drizzle(connectionString);
+import { schema } from "./schema";
+export const db = (connectionString: string) =>
+  drizzle(connectionString, { schema });
