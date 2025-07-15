@@ -1,4 +1,3 @@
-import bgSignup from "@/assets/images/signup-bg.png";
 import { ForgotPasswordModal } from "@/components/forgot-password-modal";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -101,7 +100,7 @@ function RouteComponent() {
             className={`grid lg:grid-cols-12 mx-auto w-full lg:max-w-6xl lg:rounded-4xl overflow-hidden lg:shadow-2xl lg:max-h-[90vh]
           bg-no-repeat bg-cover
           `}
-            style={{ backgroundImage: `url(${bgSignup})` }}
+            style={{ backgroundImage: `url('images/signup-bg.png')` }}
           >
             <main className="flex flex-col px-0 py-0 lg:col-span-5 bg-dark-blue xl:col-span-4 overflow-y-auto lg:max-h-[90svh] lg:rounded-4xl">
               <div className="flex flex-col gap-10 size-full">

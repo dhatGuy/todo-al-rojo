@@ -1,4 +1,3 @@
-import bgSignup from "@/assets/images/signup-bg.png";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FloatingLabelInput } from "@/components/ui/floating-label-input";
@@ -98,7 +97,7 @@ function RouteComponent() {
       <div className="flex lg:items-center lg:justify-center min-h-svh lg:p-8">
         <div
           className="grid lg:grid-cols-12 mx-auto w-full lg:max-w-6xl bg-white lg:rounded-4xl overflow-hidden lg:shadow-2xl lg:max-h-[90vh] bg-no-repeat bg-cover"
-          style={{ backgroundImage: `url(${bgSignup})` }}
+          style={{ backgroundImage: `url('images/signup-bg.png')` }}
         >
           <main className="flex flex-col px-0 py-0 lg:col-span-5 bg-dark-blue xl:col-span-4 overflow-y-auto lg:max-h-[90svh] lg:rounded-4xl">
             <div className="flex flex-col gap-10 size-full">
@@ -272,7 +271,7 @@ function RouteComponent() {
 
           <aside
             className="hidden sticky right-0 top-0 h-screen lg:block lg:col-span-7 xl:col-span-8 w-full bg-cover bg-no-repeat bg-right"
-            style={{ backgroundImage: `url(${bgSignup})` }}
+            style={{ backgroundImage: `url('images/signup-bg.png')` }}
           ></aside>
         </div>
       </div>

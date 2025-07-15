@@ -27,3 +27,6 @@ routeTree.gen.ts
 
 .nitro
 .tanstack
+
+.wrangler
+.dev.vars*
