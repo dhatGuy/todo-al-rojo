@@ -6,7 +6,6 @@ import {
 } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 
-import { Header } from "@/components/header";
 import globalsCss from "@/styles/globals.css?url";
 import { Providers } from "../providers";
 
@@ -66,11 +65,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
 
 			<body>
 				<Providers>
-					<div className="flex min-h-svh flex-col">
-						<Header />
-
-						{children}
-					</div>
+					<div className="flex min-h-svh flex-col">{children}</div>
 				</Providers>
 
 				<Scripts />

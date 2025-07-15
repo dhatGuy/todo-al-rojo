@@ -1,42 +1,31 @@
 import { createFileRoute } from "@tanstack/react-router";
-import logo from "../logo.svg";
+import { useRef } from "react";
+import { Footer } from "@/components/footer";
+import { BettingHousesSection } from "@/components/home/betting-houses-section";
+import CasinoRecommendationsSection from "@/components/home/casino-recommendation-section";
+import { HeroSection } from "@/components/home/hero-section";
+import { LatestArticles } from "@/components/home/latest-articles";
+import { LeaderboardSection } from "@/components/home/leaderboard-section";
 
 export const Route = createFileRoute("/")({
-  component: App,
+	component: Index,
 });
 
-function App() {
-  return (
-    <div className="flex grow flex-col text-center">
-      <header className="flex grow flex-col items-center justify-center text-[calc(10px+2vmin)]">
-        <img
-          src={logo}
-          className="pointer-events-none h-[40vmin] animate-[spin_20s_linear_infinite]"
-          alt="logo"
-        />
+function Index() {
+	const scrollToRef = useRef<HTMLDivElement | null>(null);
+	return (
+		<div className="min-h-svh">
+			<HeroSection ref={scrollToRef} />
 
-        <p>
-          Edit <code>app/routes/index.tsx</code> and save to reload.
-        </p>
+			<LeaderboardSection />
 
-        <a
-          className="text-[#61dafb] hover:underline"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+			<BettingHousesSection ref={scrollToRef} />
 
-        <a
-          className="text-[#61dafb] hover:underline"
-          href="https://tanstack.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn TanStack
-        </a>
-      </header>
-    </div>
-  );
+			<CasinoRecommendationsSection />
+
+			<LatestArticles />
+
+			<Footer />
+		</div>
+	);
 }
