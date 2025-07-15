@@ -39,6 +39,12 @@ export const auth = (env: Env) => {
         clientId: env.GOOGLE_CLIENT_ID as string,
         clientSecret: env.GOOGLE_CLIENT_SECRET as string,
         redirectURI: `${env.CF_PAGES_URL}/api/auth/callback/google`,
+        mapProfileToUser: async (profile) => ({
+          email: profile.email,
+          firstName: profile.name?.split(" ")[0],
+          lastName: profile.name?.split(" ")[1],
+          image: profile.picture,
+        }),
       },
     },
     database: drizzleAdapter(sql, {

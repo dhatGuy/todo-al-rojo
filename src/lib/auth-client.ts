@@ -3,7 +3,7 @@ import { createAuthClient } from "better-auth/react";
 import { useEffect, useState } from "react";
 
 export const authClient = createAuthClient({
-  baseURL: import.meta.env.VITE_SERVER_URL,
+  baseURL: process.env.CF_PAGES_URL,
   plugins: [
     inferAdditionalFields({
       user: {

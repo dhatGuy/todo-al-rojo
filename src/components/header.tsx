@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { useSession } from "@/hooks/auth-hooks";
+import { Route } from "@/routes";
 import { Link } from "@tanstack/react-router";
 
 const navItems: {
@@ -18,7 +18,8 @@ const navItems: {
 ];
 
 export const Header = () => {
-  const { data } = useSession();
+  const session = Route.useLoaderData();
+
   return (
     <header className="relative z-10 w-full px-6 bg-[#000017]">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
@@ -43,17 +44,17 @@ export const Header = () => {
 
           {/* Mobile Menu Trigger */}
           <div>
-            {data?.user ? (
+            {session?.user ? (
               <Avatar asChild className="cursor-pointer size-10">
                 {/* @ts-expect-error */}
                 <Link to="/dashboard" className="flex items-center">
                   <AvatarImage
-                    src={data.user.image || undefined}
-                    alt={data.user.name || "Avatar"}
+                    src={session.user.image || undefined}
+                    alt={session.user.name || "Avatar"}
                   />
                   <AvatarFallback>
-                    {data.user.name
-                      ? data.user.name
+                    {session.user.name
+                      ? session.user.name
                           .split(" ")
                           .map((n) => n[0])
                           .join("")
@@ -146,7 +147,7 @@ export const Header = () => {
         </nav>
 
         {/* Desktop Login Button */}
-        {data?.user ? (
+        {session?.user ? (
           <Avatar
             asChild
             className="hidden lg:flex cursor-pointer mx-10 size-12"
@@ -154,13 +155,13 @@ export const Header = () => {
             {/* @ts-expect-error */}
             <Link to="/dashboard" className="flex items-center">
               <AvatarImage
-                src={data.user.image || undefined}
-                alt={data.user.name || "Avatar"}
+                src={session.user.image || undefined}
+                alt={session.user.name || "Avatar"}
                 // className="size-12"
               />
               <AvatarFallback>
-                {data.user.name
-                  ? data.user.name
+                {session.user.name
+                  ? session.user.name
                       .split(" ")
                       .map((n) => n[0])
                       .join("")
