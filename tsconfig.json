@@ -7,7 +7,7 @@
     "skipLibCheck": true,
     "moduleDetection": "force",
     "strictNullChecks": true,
-    "types": ["@types/bun"],
+    "types": ["vite/client", "bun-types"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]

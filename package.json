@@ -43,6 +43,7 @@
     "vite": "^7.0.4"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.1.1",
     "@types/bun": "^1.2.18",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
@@ -54,5 +55,5 @@
     "typescript": "^5.8.3",
     "vite-tsconfig-paths": "^5.1.4"
   },
-  "packageManager": "pnpm@10.6.4"
+  "packageManager": "bun@1.2.14"
 }
