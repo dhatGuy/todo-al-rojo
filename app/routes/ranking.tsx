@@ -1,17 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import bronzeCrown from "@/assets/images/bronze.png";
+import goldCrown from "@/assets/images/gold.png";
+import LeaderboardsBg from "@/assets/images/leaderboards-bg.png";
+import chipImg from "@/assets/images/rj-chips.png";
+import silverCrown from "@/assets/images/silver.png";
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
+import { RankingTable } from "@/components/ranking/ranking-table";
+import { TimePeriodFilter } from "@/components/ranking/TimePeriodFilter";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
-import { cn } from "@/utils";
-import bronzeCrown from "../assets/images/bronze.png";
-import goldCrown from "../assets/images/gold.png";
-import LeaderboardsBg from "../assets/images/leaderboards-bg.png";
-import chipImg from "../assets/images/rj-chips.png";
-import silverCrown from "../assets/images/silver.png";
-import { Footer } from "../components/footer";
-import { Header } from "../components/header";
-import { RankingTable } from "../components/ranking/ranking-table";
-import { TimePeriodFilter } from "../components/ranking/TimePeriodFilter";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/ranking")({
 	component: RouteComponent,
@@ -39,7 +39,10 @@ function RouteComponent() {
 						<p className="text-gray-300 text-lg mb-6">
 							Gana puntos, escala posiciones y consigue recompensas exclusivas.
 						</p>
-						<button className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-1 px-5 rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-200">
+						<button
+							type="button"
+							className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-1 px-5 rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-200"
+						>
 							Participa Ahora
 						</button>
 					</div>
@@ -58,7 +61,7 @@ function RouteComponent() {
 							else if (i === 2) orderClass = "order-3 md:order-3";
 							return (
 								<Card
-									key={i}
+									key={user.name}
 									className={cn(
 										"overflow-hidden border-none shadow-lg",
 										user.bgClass,
@@ -80,6 +83,7 @@ function RouteComponent() {
 										<div className="relative mb-4 grid w-full place-items-center">
 											<img
 												className="absolute h-28 w-28 object-cover [grid_area:1/1]"
+												alt="crown"
 												src={
 													i === 0
 														? silverCrown

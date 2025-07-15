@@ -8,14 +8,14 @@ import {
 } from "@tanstack/react-router";
 import { zodValidator } from "@tanstack/zod-adapter";
 import { useForm } from "react-hook-form";
-import { resetPasswordMutationOptions } from "src/queries/auth.queries";
-import { ResetPasswordSchema } from "src/schemas/auth.schema";
-import { mutationOptions } from "src/utils/mutationOptions";
+import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { FloatingLabelInput } from "@/components/ui/floating-label-input";
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { toast } from "@/components/ui/toast";
+import { mutationOptions } from "@/lib/mutationOptions";
+import { resetPasswordMutationOptions } from "@/queries/auth.queries";
+import { ResetPasswordSchema } from "@/schemas/auth.schema";
 import bgSignup from "../assets/images/signup-bg.png";
 
 const resetPasswordSearchSchema = z.object({

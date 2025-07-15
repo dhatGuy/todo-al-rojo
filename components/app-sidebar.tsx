@@ -2,8 +2,9 @@ import { useMutation } from "@tanstack/react-query";
 import { Link, useRouter, useRouterState } from "@tanstack/react-router";
 import { Home, ListTodo, Loader2, LogOut } from "lucide-react";
 import { useMemo } from "react";
-import { logoutMutationOptions } from "src/queries/auth.queries";
-import { mutationOptions } from "src/utils/mutationOptions";
+import { toast } from "sonner";
+import PokerChip from "@/assets/icons/poker-chip";
+import { Ranking } from "@/assets/icons/ranking";
 import {
 	Sidebar,
 	SidebarContent,
@@ -15,10 +16,9 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { toast } from "@/components/ui/toast";
+import { mutationOptions } from "@/lib/mutationOptions";
 import { cn } from "@/lib/utils";
-import PokerChip from "../assets/icons/poker-chip";
-import { Ranking } from "../assets/icons/ranking";
+import { logoutMutationOptions } from "@/queries/auth.queries";
 
 export function AppSidebar() {
 	const pathname = useRouterState({ select: (s) => s.location.pathname });

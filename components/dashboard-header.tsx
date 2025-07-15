@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { Crown, Menu } from "lucide-react";
-import { useSession } from "src/utils/auth-client";
 import { Button } from "@/components/ui/button";
 import {
 	NavigationMenu,
@@ -10,6 +9,7 @@ import {
 	navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useSession } from "@/lib/auth-client";
 import goldCrown from "../assets/images/gold.png";
 
 const navigationItems: any[] = [
@@ -71,7 +71,7 @@ export default function DashboardNavigation() {
 								<div className="size-6 md:size-12 rounded-full overflow-hidden">
 									<img
 										src="https://picsum.photos/seed/picsum/200/300.webp"
-										alt={`${data?.user.firstName}'s profile picture`}
+										alt={`${data?.user.firstName}`}
 										className="size-full object-cover"
 									/>
 								</div>

@@ -8,9 +8,8 @@ import {
 } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { signupMutationOptions } from "src/queries/auth.queries";
-import { type SignupSchema, signupSchema } from "src/schemas/auth.schema";
-import { getErrorMessage } from "src/utils/auth-client";
+import { toast } from "sonner";
+import bgSignup from "@/assets/images/signup-bg.png";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FloatingLabelInput } from "@/components/ui/floating-label-input";
@@ -21,8 +20,9 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-import { toast } from "@/components/ui/toast";
-import bgSignup from "../../assets/images/signup-bg.png";
+import { getErrorMessage } from "@/lib/auth-client";
+import { signupMutationOptions } from "@/queries/auth.queries";
+import { type SignupSchema, signupSchema } from "@/schemas/auth.schema";
 
 export const Route = createFileRoute("/_auth/signup")({
 	component: RouteComponent,

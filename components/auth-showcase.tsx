@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { authClient, useSession } from "../utils/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
 
 export const AuthShowcase = () => {
 	const { data: session, isInitialPending } = useSession();
@@ -66,6 +66,7 @@ export const AuthShowcase = () => {
 					viewBox="0 0 24 24"
 					className="mr-1"
 				>
+					<title>Discord</title>
 					<defs>
 						<linearGradient id="discord-gradient" x1="0" y1="0" x2="1" y2="1">
 							<stop offset="0%" stopColor="#7289da" />

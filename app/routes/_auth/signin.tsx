@@ -9,20 +9,20 @@ import {
 import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { ForgotPasswordModal } from "src/components/forgot-password-modal";
-import {
-	googleSigninMutationOptions,
-	signinMutationOptions,
-} from "src/queries/auth.queries";
-import { SigninSchema } from "src/schemas/auth.schema";
-import { mutationOptions } from "src/utils/mutationOptions";
+import { toast } from "sonner";
+import bgSignup from "@/assets/images/signup-bg.png";
+import { ForgotPasswordModal } from "@/components/forgot-password-modal";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FloatingLabelInput } from "@/components/ui/floating-label-input";
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
-import { toast } from "@/components/ui/toast";
-import bgSignup from "../../assets/images/signup-bg.png";
+import { mutationOptions } from "@/lib/mutationOptions";
+import {
+	googleSigninMutationOptions,
+	signinMutationOptions,
+} from "@/queries/auth.queries";
+import { SigninSchema } from "@/schemas/auth.schema";
 
 export const Route = createFileRoute("/_auth/signin")({
 	component: RouteComponent,
@@ -214,6 +214,7 @@ function RouteComponent() {
 													viewBox="0 0 533.5 544.3"
 													xmlns="http://www.w3.org/2000/svg"
 												>
+													<title>Google logo</title>
 													<path
 														d="M533.5 278.4c0-17.4-1.6-34.1-4.6-50.4H272v95.3h146.9c-6.3 34.1-25.1 62.9-53.6 82.2v68.2h86.7c50.7-46.7 81.5-115.6 81.5-195.3z"
 														fill="#4285F4"

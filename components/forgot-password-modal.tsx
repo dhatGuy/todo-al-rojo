@@ -1,7 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { AlertCircle, CheckCircle, Mail } from "lucide-react";
 import { useId, useState } from "react";
-import { authClient } from "src/utils/auth-client";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +11,7 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import { FloatingLabelInput } from "@/components/ui/floating-label-input";
+import { authClient } from "@/lib/auth-client";
 
 interface ForgotPasswordModalProps {
 	open: boolean;
@@ -52,7 +52,7 @@ export function ForgotPasswordModal({
 
 		const parsed = schema.safeParse({ email });
 		if (!parsed.success) {
-			setError(parsed?.error?.errors[0]?.message || "Invalid email address");
+			setError(parsed.error.message || "Invalid email address");
 			return;
 		}
 

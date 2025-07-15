@@ -24,8 +24,8 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import { fetchData, type Person } from "@/lib/fetch-data";
 import chipImg from "../../assets/images/rj-chips.png";
-import { fetchData, type Person } from "../../utils/fetch-data";
 
 export function RankingTable() {
 	const columnHelper = createColumnHelper<Person>();
@@ -98,7 +98,7 @@ export function RankingTable() {
 				),
 			}),
 		],
-		[],
+		[columnHelper.accessor],
 	);
 
 	const [pagination, setPagination] = React.useState<PaginationState>({
@@ -279,7 +279,7 @@ export function RankingTable() {
 									</PaginationItem>
 								</>
 							);
-						}, [table.getState().pagination.pageIndex, table.getPageCount()])}
+						}, [table.getPageCount, table.getState, table.setPageIndex])}
 					</PaginationContent>
 				</Pagination>
 			</div>
