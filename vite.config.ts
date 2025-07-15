@@ -19,9 +19,6 @@ export default defineConfig({
     tanstackStart({
       customViteReactPlugin: true,
       target: "cloudflare-module",
-      tsr: {
-        srcDirectory: "./app",
-      },
     }),
     tailwindcss(),
     viteReact(),
