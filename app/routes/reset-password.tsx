@@ -10,13 +10,13 @@ import { zodValidator } from "@tanstack/zod-adapter";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import bgSignup from "@/assets/images/signup-bg.png";
 import { Button } from "@/components/ui/button";
 import { FloatingLabelInput } from "@/components/ui/floating-label-input";
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { mutationOptions } from "@/lib/mutationOptions";
 import { resetPasswordMutationOptions } from "@/queries/auth.queries";
 import { ResetPasswordSchema } from "@/schemas/auth.schema";
-import bgSignup from "../assets/images/signup-bg.png";
 
 const resetPasswordSearchSchema = z.object({
 	token: z.string().min(1, "Token is required"),
