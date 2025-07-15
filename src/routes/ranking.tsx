@@ -1,10 +1,10 @@
-import { Footer } from "@/src/components/footer";
-import { Header } from "@/src/components/header";
-import { RankingTable } from "@/src/components/ranking/ranking-table";
-import { TimePeriodFilter } from "@/src/components/ranking/TimePeriodFilter";
-import { Avatar, AvatarImage } from "@/src/components/ui/avatar";
-import { Card } from "@/src/components/ui/card";
-import { cn } from "@/src/lib/utils";
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
+import { RankingTable } from "@/components/ranking/ranking-table";
+import { TimePeriodFilter } from "@/components/ranking/TimePeriodFilter";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 

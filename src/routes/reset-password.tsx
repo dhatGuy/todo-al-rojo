@@ -1,9 +1,9 @@
-import { Button } from "@/src/components/ui/button";
-import { FloatingLabelInput } from "@/src/components/ui/floating-label-input";
-import { Form, FormField, FormItem, FormMessage } from "@/src/components/ui/form";
-import { mutationOptions } from "@/src/lib/mutationOptions";
-import { resetPasswordMutationOptions } from "@/src/queries/auth.queries";
-import { ResetPasswordSchema } from "@/src/schemas/auth.schema";
+import { Button } from "@/components/ui/button";
+import { FloatingLabelInput } from "@/components/ui/floating-label-input";
+import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { mutationOptions } from "@/lib/mutationOptions";
+import { resetPasswordMutationOptions } from "@/queries/auth.queries";
+import { ResetPasswordSchema } from "@/schemas/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import {

@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/src/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Pagination,
   PaginationContent,
@@ -6,7 +6,7 @@ import {
   PaginationItem,
   PaginationLink,
   PaginationNext,
-} from "@/src/components/ui/pagination";
+} from "@/components/ui/pagination";
 import {
   Table,
   TableBody,
@@ -14,8 +14,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/src/components/ui/table";
-import { fetchData, type Person } from "@/src/lib/fetch-data";
+} from "@/components/ui/table";
+import { fetchData, type Person } from "@/lib/fetch-data";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import {
   createColumnHelper,

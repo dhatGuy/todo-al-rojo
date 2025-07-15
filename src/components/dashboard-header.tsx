@@ -1,13 +1,13 @@
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   navigationMenuTriggerStyle,
-} from "@/src/components/ui/navigation-menu";
-import { Sheet, SheetContent, SheetTrigger } from "@/src/components/ui/sheet";
-import { useSession } from "@/src/lib/auth-client";
+} from "@/components/ui/navigation-menu";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useSession } from "@/lib/auth-client";
 import { Link } from "@tanstack/react-router";
 import { Crown, Menu } from "lucide-react";
 

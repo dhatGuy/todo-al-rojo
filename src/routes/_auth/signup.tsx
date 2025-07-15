@@ -1,16 +1,16 @@
-import { Button } from "@/src/components/ui/button";
-import { Checkbox } from "@/src/components/ui/checkbox";
-import { FloatingLabelInput } from "@/src/components/ui/floating-label-input";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { FloatingLabelInput } from "@/components/ui/floating-label-input";
 import {
   Form,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/src/components/ui/form";
-import { getErrorMessage } from "@/src/lib/auth-client";
-import { signupMutationOptions } from "@/src/queries/auth.queries";
-import { type SignupSchema, signupSchema } from "@/src/schemas/auth.schema";
+} from "@/components/ui/form";
+import { getErrorMessage } from "@/lib/auth-client";
+import { signupMutationOptions } from "@/queries/auth.queries";
+import { type SignupSchema, signupSchema } from "@/schemas/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import {

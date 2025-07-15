@@ -1,15 +1,15 @@
-import { ForgotPasswordModal } from "@/src/components/forgot-password-modal";
-import { Button } from "@/src/components/ui/button";
-import { Checkbox } from "@/src/components/ui/checkbox";
-import { FloatingLabelInput } from "@/src/components/ui/floating-label-input";
-import { Form, FormField, FormItem, FormMessage } from "@/src/components/ui/form";
-import { Label } from "@/src/components/ui/label";
-import { mutationOptions } from "@/src/lib/mutationOptions";
+import { ForgotPasswordModal } from "@/components/forgot-password-modal";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { FloatingLabelInput } from "@/components/ui/floating-label-input";
+import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { Label } from "@/components/ui/label";
+import { mutationOptions } from "@/lib/mutationOptions";
 import {
   googleSigninMutationOptions,
   signinMutationOptions,
-} from "@/src/queries/auth.queries";
-import { SigninSchema } from "@/src/schemas/auth.schema";
+} from "@/queries/auth.queries";
+import { SigninSchema } from "@/schemas/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import {

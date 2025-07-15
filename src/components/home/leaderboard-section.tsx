@@ -1,7 +1,7 @@
-import { Avatar, AvatarImage } from "@/src/components/ui/avatar";
-import { Button } from "@/src/components/ui/button";
-import { Card } from "@/src/components/ui/card";
-import { cn } from "@/src/lib/utils";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { Link } from "@tanstack/react-router";
 import { CircleArrowRight } from "lucide-react";
 
