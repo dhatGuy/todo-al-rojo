@@ -18,6 +18,7 @@ export function meta({ data }: Route.MetaArgs) {
 export async function loader({ context, request }: Route.LoaderArgs) {
 	const auth = getAuth(context);
 	const session = await auth.api.getSession({ headers: request.headers });
+	console.log("🚀 ~ loader ~ session:", session);
 	return session;
 }
 

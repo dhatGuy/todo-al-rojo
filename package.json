@@ -12,6 +12,8 @@
     "ui:add": "TS_NODE_PROJECT=tsconfig.cloudflare.json bunx --bun shadcn@latest add"
   },
   "dependencies": {
+    "@conform-to/react": "^1.8.1",
+    "@conform-to/zod": "^1.8.1",
     "@faker-js/faker": "^9.9.0",
     "@hookform/resolvers": "^5.1.1",
     "@radix-ui/react-avatar": "^1.1.10",

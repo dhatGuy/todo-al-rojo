@@ -33,6 +33,7 @@ export default {
 			},
 		});
 
+		ctx.passThroughOnException();
 		return await requestHandler(request, loadContext);
 	},
 } satisfies ExportedHandler<Env>;

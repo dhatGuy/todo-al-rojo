@@ -36,14 +36,8 @@ export const createBetterAuth = (
 			database: {
 				generateId: false,
 			},
-			defaultCookieAttributes: {
-				// secure: Bun.env.NODE_ENV === "production", // Use secure cookies in production
-				httpOnly: true, // Helps mitigate XSS attacks
-				sameSite: "none", // Allows cookies to be sent in cross-site requests
-				// ...(Bun.env.NODE_ENV === "production" ? { partitioned: true } : {}),
-			},
 		},
-		// trustedOrigins: [env.WEB_URL],
+		trustedOrigins: [env.CF_PAGES_URL],
 		user: {
 			additionalFields: {
 				firstName: {
@@ -114,7 +108,7 @@ export function getAuth(ctx: AppLoadContext) {
 						session: schema.sessionTable,
 						account: schema.accountTable,
 					},
-					// debugLogs: true,
+					debugLogs: true,
 				},
 			),
 			ctx.cloudflare.env,
