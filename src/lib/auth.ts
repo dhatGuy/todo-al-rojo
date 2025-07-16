@@ -11,9 +11,9 @@ import { generateUniqueReferralCode } from "./generateUniqueReferralCode";
 export const auth = (env: Env) => {
   const sql = db(env.HYPERDRIVE.connectionString);
   return betterAuth({
-    baseURL: env.CF_PAGES_URL,
+    baseURL: env.BETTER_AUTH_URL,
     secret: env.BETTER_AUTH_SECRET,
-    trustedOrigins: [env.CF_PAGES_URL],
+    trustedOrigins: [env.TRUSTED_ORIGINS || ""],
     advanced: {
       database: {
         generateId: false,
@@ -40,15 +40,17 @@ export const auth = (env: Env) => {
     },
     socialProviders: {
       google: {
-        clientId: env.GOOGLE_CLIENT_ID as string,
-        clientSecret: env.GOOGLE_CLIENT_SECRET as string,
-        redirectURI: `${env.CF_PAGES_URL}/api/auth/callback/google`,
-        mapProfileToUser: async (profile) => ({
-          email: profile.email,
-          firstName: profile.name?.split(" ")[0],
-          lastName: profile.name?.split(" ")[1],
-          image: profile.picture,
-        }),
+        clientId: env.GOOGLE_CLIENT_ID,
+        clientSecret: env.GOOGLE_CLIENT_SECRET,
+        redirectURI: `${env.WEB_URL}/api/auth/callback/google`,
+        mapProfileToUser: async (profile) => {
+          return {
+            email: profile.email,
+            firstName: profile.name?.split(" ")[0],
+            lastName: profile.name?.split(" ")[1],
+            image: profile.picture,
+          };
+        },
       },
     },
     databaseHooks: {
@@ -95,6 +97,7 @@ export const auth = (env: Env) => {
         session: schema.sessionTable,
         account: schema.accountTable,
       },
+      debugLogs: true,
     }),
     emailAndPassword: {
       enabled: true,
