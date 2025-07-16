@@ -23,7 +23,7 @@ export const Route = createFileRoute(
   head: () => ({
     meta: [
       ...seo({
-        title: "Por qué elegir buenos proveedores",
+        title: "Por qué elegir buenos proveedores - TodoAlRojo",
         description: "Aprende por qué es importante elegir buenos proveedores",
         keywords: "proveedores, calidad, servicio",
       }),

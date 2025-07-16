@@ -17,9 +17,10 @@ export const Route = createFileRoute(
   head: () => ({
     meta: [
       ...seo({
-        title: "Por qué elegir buenos proveedores",
-        description: "Aprende por qué es importante elegir buenos proveedores",
-        keywords: "proveedores, calidad, servicio",
+        title: "Cómo elegir el mejor casino online en Chile - TodoAlRojo",
+        description:
+          "Descubre cómo elegir el mejor casino online en Chile. Aprende sobre licencias, variedad de juegos, bonos y promociones, opciones de pago y retiros, seguridad y soporte.",
+        keywords: "casino, online, chile, elegir, mejor",
       }),
     ],
     link: [

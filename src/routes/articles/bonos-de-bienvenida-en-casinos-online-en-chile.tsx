@@ -32,9 +32,10 @@ export const Route = createFileRoute(
     meta: [
       ...seo({
         title:
-          "Juegos de Casino Más Populares en Chile: ¿Cuáles Conquistan el 2025?",
-        description: "Aprende por qué es importante elegir buenos proveedores",
-        keywords: "proveedores, calidad, servicio",
+          "Bonos de Bienvenida en Casinos Online en Chile [Comparativa 2025] - TodoAlRojo",
+        description:
+          "Descubre los mejores bonos de bienvenida en casinos online en Chile.",
+        keywords: "bonos, casino, online, chile, comparativa",
       }),
     ],
     link: [

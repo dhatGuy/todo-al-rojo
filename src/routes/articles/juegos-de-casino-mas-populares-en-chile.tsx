@@ -23,9 +23,9 @@ export const Route = createFileRoute(
   head: () => ({
     meta: [
       ...seo({
-        title: "Por qué elegir buenos proveedores",
-        description: "Aprende por qué es importante elegir buenos proveedores",
-        keywords: "proveedores, calidad, servicio",
+        title: "Juegos de casino más populares en Chile - TodoAlRojo",
+        description: "Descubre los juegos de casino más populares en Chile.",
+        keywords: "casino, chile, juegos, populares",
       }),
     ],
     link: [
