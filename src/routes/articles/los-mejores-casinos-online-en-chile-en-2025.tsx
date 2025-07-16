@@ -17,7 +17,7 @@ import { seo } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
-  "/articles/por-que-elegir-buenos-proveedores",
+  "/articles/los-mejores-casinos-online-en-chile-en-2025",
 )({
   component: RouteComponent,
   head: () => ({
@@ -250,9 +250,8 @@ function RouteComponent() {
           </AnimatedSection>
 
           <PromoBox>
-            Haz clic aquí para registrarte en Pinup, reclamar tu bono de
-            bienvenida y comenzar a disfrutar de toda la diversión que te
-            espera.
+            ¡Regístrate, reclama tu bono de bienvenida y comienza a disfrutar de
+            la diversión que te espera!
           </PromoBox>
 
           <QuoteBox>
