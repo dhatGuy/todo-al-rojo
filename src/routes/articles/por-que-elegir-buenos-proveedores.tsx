@@ -1,215 +1,291 @@
-import { createFileRoute } from "@tanstack/react-router";
-import "./por.css";
+import { Header } from "@/components/header";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { seo } from "@/lib/seo";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import styles from "./por.css?url";
 
 export const Route = createFileRoute(
-  "/articles/por-que-elegir-buenos-proveedores"
+  "/articles/por-que-elegir-buenos-proveedores",
 )({
   component: RouteComponent,
+  head: () => ({
+    meta: [
+      ...seo({
+        title: "Por qué elegir buenos proveedores",
+        description: "Aprende por qué es importante elegir buenos proveedores",
+        keywords: "proveedores, calidad, servicio",
+      }),
+    ],
+    link: [
+      {
+        rel: "stylesheet",
+        href: "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css",
+      },
+      {
+        rel: "stylesheet",
+        href: styles,
+      },
+    ],
+  }),
 });
 
 function RouteComponent() {
   return (
-    <div>
-      <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-      />
-      <nav
-        className="flex justify-center items-center py-4 animate-on-scroll"
-        data-animate="fadeInDown"
+    <main
+      className="flex flex-col bg-cover bg-fixed bg-center"
+      style={{
+        backgroundImage: "url('https://todoalrojo.cl/images/bg-image.png')",
+      }}
+    >
+      <Header />
+      <div
+        className="bg-[#061f3f] animate-on-scroll py-2"
+        data-animate="fadeInUp"
       >
-        <h1>
-          <a href="index.html">
-            <img
-              src="images/todoalrojo-logo.png"
-              alt="TODOALROJO"
-              className="h-24"
-            />
-          </a>
-        </h1>
-      </nav>
-
-      <div className="back-link animate-on-scroll" data-animate="fadeInLeft">
-        <a href="index.html">← Volver al inicio</a>
+        <Link
+          to="/"
+          className="text-lighter-yellow font-medium pl-12 hover:underline"
+        >
+          ← Volver al inicio
+        </Link>
       </div>
 
-      {/* <section className="post-hero">
+      <section className="relative h-[300px] md:h-[400px] flex items-center justify-center text-white overflow-hidden">
         <div
-          className="hero-background"
-          // style="background-image: url('images/bonus.jpg');"
-        ></div>
-        <div className="hero-content animate-on-scroll" data-animate="fadeInUp">
-          <h1 className="font-bold">
-            Bonos de Bienvenida en Casinos Online en Chile [Comparativa 2025]
-          </h1>
-          <p className="intro">
-            En Chile, los bonos de bienvenida son una excelente forma de
-            comenzar tu experiencia. Te mostramos los tipos de bonos, cómo
-            funcionan y cuáles son los mejores en 2025.
-          </p>
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('https://picsum.photos/1910/1080')" }}
+        >
+          <div className="absolute inset-0 bg-black opacity-80"></div>
         </div>
-        <div className="hero-shape"></div>
-      </section>
-
-      <section className="post-content">
-        <h2 className="animate-on-scroll" data-animate="fadeInRight">
-          💰 ¿Qué es un Bono de Bienvenida?
-        </h2>
-        <p className="animate-on-scroll" data-animate="fadeInLeft">
-          Un bono de bienvenida es una promoción especial que los casinos online
-          ofrecen a los nuevos usuarios para incentivarlos a registrarse y
-          realizar su primer depósito. Puede incluir:
-        </p>
-        <ul className="tick-list animate-on-scroll" data-animate="fadeInUp">
-          <li>Dinero extra para jugar</li>
-          <li>Giros gratis en tragamonedas</li>
-          <li>Bonificaciones combinadas (dinero + giros)</li>
-        </ul>
-
-        <h2 className="animate-on-scroll" data-animate="fadeInRight">
-          📊 Tipos de Bonos de Bienvenida
-        </h2>
-        <h3 className="animate-on-scroll" data-animate="fadeInUp">
-          1. Bono de Depósito
-        </h3>
-        <p className="animate-on-scroll" data-animate="fadeInLeft">
-          El casino duplica o multiplica tu primer depósito.
-        </p>
-
-        <h3 className="animate-on-scroll" data-animate="fadeInUp">
-          2. Giros Gratis
-        </h3>
-        <p className="animate-on-scroll" data-animate="fadeInLeft">
-          Ideal para los amantes de las tragamonedas.
-        </p>
-
-        <h3 className="animate-on-scroll" data-animate="fadeInUp">
-          3. Bonos Sin Depósito
-        </h3>
-        <p className="animate-on-scroll" data-animate="fadeInLeft">
-          Recibes un pequeño saldo o giros gratis simplemente por registrarte.
-        </p>
-
-        <h3 className="animate-on-scroll" data-animate="fadeInUp">
-          4. Paquetes de Bienvenida
-        </h3>
-        <p className="animate-on-scroll" data-animate="fadeInLeft">
-          Incluyen bonos para varios depósitos iniciales, más giros gratis.
-        </p>
-
-        <h2 className="animate-on-scroll" data-animate="fadeInRight">
-          🌐 Mejores Bonos de Bienvenida en Chile (2025)
-        </h2>
         <div
-          className="styled-table-container animate-on-scroll"
+          className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-on-scroll"
           data-animate="fadeInUp"
         >
-          <table className="styled-table">
-            <thead>
-              <tr>
-                <th>Casino</th>
-                <th>Bono</th>
-                <th>Requisitos</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Pin-Up Casino</td>
-                <td>100% hasta $250.000 CLP + 250 giros</td>
-                <td>Depósito mínimo $10.000 CLP</td>
-              </tr>
-              <tr>
-                <td>Betsson</td>
-                <td>100% hasta $200.000 CLP</td>
-                <td>Depósito mínimo $10.000 CLP</td>
-              </tr>
-              <tr>
-                <td>Betano</td>
-                <td>100% hasta $100.000 CLP + apuestas gratis</td>
-                <td>Depósito mínimo $5.000 CLP</td>
-              </tr>
-              <tr>
-                <td>LeoVegas</td>
-                <td>Hasta $150.000 CLP + 20 giros</td>
-                <td>Depósito mínimo $10.000 CLP</td>
-              </tr>
-              <tr>
-                <td>JackpotCity</td>
-                <td>100% hasta $160.000 CLP</td>
-                <td>Depósito mínimo $10.000 CLP</td>
-              </tr>
-            </tbody>
-          </table>
+          <h1 className="font-bold text-2xl md:text-3xl leading-tight mb-4">
+            Los Mejores Casinos Online en Chile en 2025: ¡Diversión y Seguridad
+            Garantizadas!
+          </h1>
+          <p className="text-lg md:text-xl">
+            Encontrar un casino online confiable y entretenido en Chile puede
+            ser todo un desafío. En este artículo, te presentamos los mejores
+            casinos online para jugadores chilenos en 2025, destacando a Pin-Up
+            Casino.
+          </p>
         </div>
+        <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-gray-900 to-transparent z-10"></div>
+      </section>
 
-        <h2 className="animate-on-scroll" data-animate="fadeInLeft">
-          ⚠️ Términos y Condiciones que Debes Revisar
+      <section className="max-w-screen-md text-white mx-auto fade-in mt-18">
+        <h2
+          className="animate-on-scroll text-lighter-yellow text-2xl font-medium my-3"
+          data-animate="fadeInUp"
+        >
+          🌟 Top 5 Casinos Online en Chile
         </h2>
-        <ul className="risk-list animate-on-scroll" data-animate="fadeInRight">
-          <li>
-            <strong>Requisitos de apuesta:</strong> cuántas veces debes apostar
-            el bono antes de retirar ganancias.
-          </li>
-          <li>
-            <strong>Límite de tiempo:</strong> tiempo disponible para usar el
-            bono.
-          </li>
-          <li>
-            <strong>Restricciones de juegos:</strong> algunos bonos solo aplican
-            a ciertos juegos.
-          </li>
-        </ul>
 
-        <h2 className="animate-on-scroll" data-animate="fadeInLeft">
-          🔄 Preguntas Frecuentes sobre Bonos de Bienvenida
-        </h2>
-        <div className="faq-container">
-          <div
-            className="faq-item animate-on-scroll"
-            data-animate="fadeInRight"
+        <div className="flex flex-col gap-1 mb-4">
+          <h3
+            className="animate-on-scroll text-[rgb(97,218,251)]"
+            data-animate="fadeInUp"
           >
-            <button className="faq-question">
-              ¿Puedo retirar el dinero del bono inmediatamente?
-            </button>
-            <div className="faq-answer">
-              No, primero debes cumplir los requisitos de apuesta que impone
-              cada casino.
-            </div>
-          </div>
-          <div className="faq-item animate-on-scroll" data-animate="fadeInLeft">
-            <button className="faq-question">
-              ¿Vale la pena aceptar un bono de bienvenida?
-            </button>
-            <div className="faq-answer">
-              Sí, siempre que revises las condiciones y elijas casinos
-              confiables con requisitos justos.
-            </div>
-          </div>
-          <div className="faq-item animate-on-scroll" data-animate="fadeInUp">
-            <button className="faq-question">
-              ¿Qué casino ofrece el mejor bono en 2025?
-            </button>
-            <div className="faq-answer">
-              Pin-Up Casino destaca por su bono generoso y sus bajos requisitos
-              de apuesta.
-            </div>
-          </div>
+            1. Pin-Up Casino
+          </h3>
+          <ul className="emoji-list animate-on-scroll" data-animate="fadeInUp">
+            <li>
+              Variedad de juegos: tragamonedas, ruleta, blackjack, póker y
+              apuestas deportivas.
+            </li>
+            <li>
+              Bonos atractivos: bono de bienvenida generoso y promociones
+              semanales.
+            </li>
+            <li>
+              Seguridad: licencias internacionales y protocolos de cifrado
+              avanzados.
+            </li>
+            <li>
+              Móvil friendly: sitio y app adaptados perfectamente para jugar
+              desde cualquier dispositivo.
+            </li>
+          </ul>
         </div>
 
-        <h2 className="animate-on-scroll" data-animate="fadeInUp">
-          📍 Conclusión
-        </h2>
-        <p className="animate-on-scroll" data-animate="fadeInLeft">
-          Un buen bono de bienvenida puede marcar la diferencia. Revisa siempre
-          los términos.
-        </p>
-        <div className="promo-box animate-on-scroll" data-animate="zoomIn">
-          ¡Aprovecha al máximo tu primera apuesta en 2025!
+        <div
+          className="quote-box animate-on-scroll"
+          data-animate="zoomIn"
+        ></div>
+        <blockquote className="p-4 my-4 border-s-4 border-lighter-yellow bg-lighter-yellow/5">
+          <p className="text-md italic leading-relaxed text-lighter-yellow">
+            Pin-Up Casino combina una estética retro vibrante con tecnología de
+            última generación, ofreciendo una experiencia única para jugadores
+            modernos.
+          </p>
+        </blockquote>
+
+        <div className="flex flex-col gap-1 mb-4">
+          <h3
+            className="animate-on-scroll text-sky-blue"
+            data-animate="fadeInUp"
+          >
+            2. Betsson
+          </h3>
+          <ul className="animate-on-scroll" data-animate="fadeInUp">
+            <li>Excelente selección de juegos.</li>
+            <li>Promociones regulares y apuestas deportivas.</li>
+            <li>Plataforma segura y fácil de usar.</li>
+          </ul>
         </div>
-        <div className="quote-box animate-on-scroll" data-animate="zoomIn">
-          ✨ Juega de manera responsable y disfruta. ✨
+
+        <div className="flex flex-col gap-1 mb-4">
+          <h3
+            className="animate-on-scroll text-sky-blue"
+            data-animate="fadeInUp"
+          >
+            3. Betano
+          </h3>
+          <ul className="animate-on-scroll" data-animate="fadeInUp">
+            <li>Bonos de bienvenida atractivos.</li>
+            <li>Transmisión de eventos deportivos en vivo.</li>
+            <li>Aplicación móvil de alta calidad.</li>
+          </ul>
         </div>
-      </section> */}
-    </div>
+
+        <div className="flex flex-col gap-1 mb-4">
+          <h3
+            className="animate-on-scroll text-sky-blue"
+            data-animate="fadeInUp"
+          >
+            4. LeoVegas
+          </h3>
+          <ul className="animate-on-scroll" data-animate="fadeInUp">
+            <li>
+              Gran variedad de juegos optimizados para dispositivos móviles.
+            </li>
+            <li>Promociones exclusivas para jugadores chilenos.</li>
+            <li>Retiro de fondos rápido y seguro.</li>
+          </ul>
+        </div>
+
+        <div className="flex flex-col gap-1 mb-4">
+          <h3
+            className="animate-on-scroll text-sky-blue"
+            data-animate="fadeInUp"
+          >
+            5. JackpotCity
+          </h3>
+          <ul className="animate-on-scroll" data-animate="fadeInUp">
+            <li>Especialista en tragamonedas progresivas.</li>
+            <li>Licencia de la MGA (Malta Gaming Authority).</li>
+            <li>Servicio al cliente disponible 24/7.</li>
+          </ul>
+        </div>
+
+        <div className="flex flex-col gap-3 mb-4">
+          <h2
+            className="animate-on-scroll text-lighter-yellow text-2xl font-medium mt-10"
+            data-animate="fadeInUp"
+          >
+            🔎 ¿Qué Debes Buscar en un Casino Online en Chile?
+          </h2>
+          <ul className="risk-list animate-on-scroll" data-animate="fadeInUp">
+            <li>
+              <strong>Licencia y regulación:</strong> Asegúrate de que el casino
+              esté licenciado por autoridades reconocidas.
+            </li>
+            <li>
+              <strong>Métodos de pago:</strong> Busca opciones locales como
+              WebPay, transferencias bancarias y criptomonedas.
+            </li>
+            <li>
+              <strong>Variedad de juegos:</strong> Desde tragamonedas hasta
+              casino en vivo.
+            </li>
+            <li>
+              <strong>Bonificaciones y promociones:</strong> Lee siempre los
+              términos y condiciones.
+            </li>
+            <li>
+              <strong>Soporte al cliente:</strong> 24/7 y en español es lo
+              ideal.
+            </li>
+          </ul>
+        </div>
+
+        <div className="flex flex-col gap-3 mb-4">
+          <h2
+            className="animate-on-scroll text-lighter-yellow text-2xl font-medium mt-10"
+            data-animate="fadeInUp"
+          >
+            🔄 Preguntas Frecuentes sobre Casinos Online en Chile
+          </h2>
+          <Accordion type="multiple">
+            <AccordionItem value="item-1" className="border-lighter-yellow">
+              <AccordionTrigger className="font-bold text-lighter-yellow text-base">
+                ¿Es legal jugar en casinos online en Chile?
+              </AccordionTrigger>
+              <AccordionContent className="text-base">
+                Sí, los jugadores chilenos pueden jugar en casinos
+                internacionales que acepten jugadores de Chile.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-2" className="border-lighter-yellow">
+              <AccordionTrigger className="font-bold text-lighter-yellow text-base">
+                ¿Cuál es el mejor casino online para bonos de bienvenida?
+              </AccordionTrigger>
+              <AccordionContent className="text-base">
+                Pin-Up Casino y Betsson ofrecen algunos de los bonos más
+                atractivos del mercado.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-3" className="border-lighter-yellow">
+              <AccordionTrigger className="font-bold text-lighter-yellow text-base">
+                ¿Puedo depositar en pesos chilenos (CLP)?
+              </AccordionTrigger>
+              <AccordionContent className="text-base">
+                Muchos casinos permiten depositar directamente en CLP o usan
+                conversores automáticos.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+
+        <div className="flex flex-col gap-3 mb-4">
+          <h2
+            className="animate-on-scroll text-lighter-yellow text-2xl font-medium mt-10"
+            data-animate="fadeInUp"
+          >
+            👉 Conclusión
+          </h2>
+          <p className="animate-on-scroll" data-animate="fadeInUp">
+            Elegir el mejor casino online en Chile depende de tus preferencias
+            personales, pero si buscas un sitio confiable, seguro y con una
+            experiencia de usuario sobresaliente, Pin-Up Casino debería estar en
+            la parte superior de tu lista.
+          </p>
+          <div
+            className="promo-box animate-on-scroll bg-cyan-600 p-4 rounded-xl my-2"
+            data-animate="fadeInUp"
+          >
+            <p className="text-center font-bold">
+              Haz clic aquí para registrarte en Pinup, reclamar tu bono de
+              bienvenida y comenzar a disfrutar de toda la diversión que te
+              espera.
+            </p>
+          </div>
+          <blockquote
+            className="p-4 my-4 border-s-4 border-lighter-yellow bg-lighter-yellow/5 animate-on-scroll"
+            data-animate="fadeInUp"
+          >
+            ✨ ¡Recuerda siempre jugar de manera responsable y con moderación!
+            ✨
+          </blockquote>
+        </div>
+      </section>
+    </main>
   );
 }

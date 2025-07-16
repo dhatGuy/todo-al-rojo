@@ -6,11 +6,16 @@ import {
 } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 
+import { getUser } from "@/lib/auth.server";
 import { seo } from "@/lib/seo";
 import { Providers } from "@/providers";
 import globalsCss from "@/styles/globals.css?url";
 
 export const Route = createRootRoute({
+  loader: async () => {
+    const session = await getUser();
+    return session;
+  },
   head: () => ({
     meta: [
       {

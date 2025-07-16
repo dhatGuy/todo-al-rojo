@@ -4,16 +4,11 @@ import CasinoRecommendationsSection from "@/components/home/casino-recommendatio
 import { HeroSection } from "@/components/home/hero-section";
 import { LatestArticles } from "@/components/home/latest-articles";
 import { LeaderboardSection } from "@/components/home/leaderboard-section";
-import { getUser } from "@/lib/auth.server";
 import { createFileRoute } from "@tanstack/react-router";
 import { useRef } from "react";
 
 export const Route = createFileRoute("/")({
   component: Index,
-  loader: async () => {
-    const session = await getUser();
-    return session;
-  },
 });
 
 function Index() {
