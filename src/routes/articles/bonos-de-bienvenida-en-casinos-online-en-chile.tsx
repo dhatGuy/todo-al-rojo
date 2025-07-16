@@ -31,7 +31,8 @@ export const Route = createFileRoute(
   head: () => ({
     meta: [
       ...seo({
-        title: "Por qué elegir buenos proveedores",
+        title:
+          "Juegos de Casino Más Populares en Chile: ¿Cuáles Conquistan el 2025?",
         description: "Aprende por qué es importante elegir buenos proveedores",
         keywords: "proveedores, calidad, servicio",
       }),
@@ -46,57 +47,33 @@ export const Route = createFileRoute(
 });
 
 // Data for casinos
-const casinos = [
+const tips = [
   {
     rank: 1,
-    name: "Licencia y Regulación",
-    features: [
-      "Asegúrate de que el casino posea una licencia válida de una autoridad reconocida como la Malta Gaming Authority (MGA) o Curazao eGaming. Esto garantiza que opera bajo estándares internacionales de seguridad y transparencia.",
-    ],
+    name: "Bono de Depósito",
+    features: ["El casino duplica o multiplica tu primer depósito."],
     isHighlighted: false,
   },
   {
     rank: 2,
-    name: "Variedad de Juegos Disponibles",
-    features: [
-      "Tragamonedas",
-      "Ruleta",
-      "Blackjack",
-      "Póker",
-      "Casino en vivo",
-    ],
-    isHighlighted: true,
+    name: "Giros Gratis",
+    features: ["Ideal para los amantes de las tragamonedas."],
+    isHighlighted: false,
   },
   {
     rank: 3,
-    name: "Bonos y Promociones",
+    name: "Bonos Sin Depósito",
     features: [
-      "Revisa los bonos de bienvenida, las promociones semanales y los programas de fidelidad. Lee siempre los términos y condiciones para evitar sorpresas.",
+      "Recibes un pequeño saldo o giros gratis simplemente por registrarte.",
     ],
   },
   {
     rank: 4,
-    name: "Opciones de Pago y Retiros",
+    name: "Paquetes de Bienvenida",
     features: [
-      "Depósitos y retiros en pesos chilenos (CLP)",
-      "Múltiples métodos de pago como WebPay, transferencias bancarias, criptomonedas",
-      "Procesos de retiro rápidos y seguros",
+      "Incluyen bonos para varios depósitos iniciales, más giros gratis.",
     ],
-    isHighlighted: true,
-  },
-  {
-    rank: 5,
-    name: "Seguridad y Protección de Datos",
-    features: [
-      "El casino debe utilizar tecnología de cifrado SSL para proteger tu información personal y financiera.",
-    ],
-  },
-  {
-    rank: 6,
-    name: "Servicio al Cliente",
-    features: [
-      "Un soporte eficiente y disponible 24/7 en español es fundamental para resolver cualquier inconveniente rápidamente.",
-    ],
+    isHighlighted: false,
   },
 ];
 
@@ -208,39 +185,49 @@ function RouteComponent() {
       </section>
 
       <section className="max-w-screen-md text-white mx-auto fade-in mt-18">
-        <SectionHeader
-          title="¿Qué es un Bono de Bienvenida?"
-          emoji="💰"
-          className="my-3"
-          before="Un bono de bienvenida es una promoción especial que los casinos online ofrecen a los nuevos usuarios para incentivarlos a registrarse y realizar su primer depósito. Puede incluir:"
-        />
-
-        {/* Render all casino cards */}
-        {casinos.map((casino) => (
-          <CasinoCard
-            key={casino.rank}
-            rank={casino.rank}
-            name={casino.name}
-            features={casino.features}
-            isHighlighted={casino.isHighlighted}
+        <div>
+          <SectionHeader
+            title="💰¿Qué es un Bono de Bienvenida?"
+            className="my-3"
           />
-        ))}
+          <p>
+            Un bono de bienvenida es una promoción especial que los casinos
+            online ofrecen a los nuevos usuarios para incentivarlos a
+            registrarse y realizar su primer depósito. Puede incluir:
+          </p>
+          <CasinoCard
+            // rank={casino.rank}
+            // name={casino.name}
+            features={[
+              "Dinero extra para jugar",
+              "Giros gratis en tragamonedas",
+              "Bonificaciones combinadas (dinero + giros)",
+            ]}
+            isHighlighted
+          />
+        </div>
 
         {/* Special quote for Pin-Up Casino */}
-        <div className="animate-on-scroll" data-animate="zoomIn"></div>
-        <QuoteBox animation="zoomIn">
-          <p className="text-md italic leading-relaxed text-lighter-yellow">
-            Pin-Up Casino combina una estética retro vibrante con tecnología de
-            última generación, ofreciendo una experiencia única para jugadores
-            modernos.
-          </p>
-        </QuoteBox>
+        <div
+          className="animate-on-scroll flex flex-col gap-3"
+          data-animate="zoomIn"
+        >
+          <SectionHeader title="📊 Tipos de Bonos de Bienvenida" />
+          <div>
+            {tips.map((tip) => (
+              <CasinoCard
+                key={tip.rank}
+                rank={tip.rank}
+                name={tip.name}
+                features={tip.features}
+                isHighlighted={false}
+              />
+            ))}
+          </div>
+        </div>
 
         <div className="flex flex-col gap-3 mb-4">
-          <SectionHeader
-            title="Mejores Bonos de Bienvenida en Chile (2025)"
-            emoji="🌐"
-          />
+          <SectionHeader title="🌐 Mejores Bonos de Bienvenida en Chile (2025)" />
 
           <Table className="rounded-2xl">
             <TableHeader className="bg-red-700">
@@ -265,18 +252,12 @@ function RouteComponent() {
         </div>
 
         <div className="flex flex-col gap-3 mb-4">
-          <SectionHeader
-            title="Términos y Condiciones que Debes Revisar"
-            emoji="⚠️"
-          />
+          <SectionHeader title="⚠️ Términos y Condiciones que Debes Revisar" />
           <FeatureList items={casinoFeatures} />
         </div>
 
         <div className="flex flex-col gap-3 mb-4">
-          <SectionHeader
-            title="Preguntas Frecuentes sobre Bonos de Bienvenida"
-            emoji="🔄"
-          />
+          <SectionHeader title="🔄 Preguntas Frecuentes sobre Bonos de Bienvenida" />
           <Accordion type="multiple">
             {faqItems.map((item) => (
               <AccordionItem

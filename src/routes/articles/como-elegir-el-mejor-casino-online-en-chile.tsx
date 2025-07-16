@@ -52,6 +52,7 @@ const casinos = [
       "Casino en vivo",
     ],
     isHighlighted: true,
+    subText: "Cuanta mayor variedad, más opciones tendrás para disfrutar.",
   },
   {
     rank: 3,
@@ -173,14 +174,22 @@ function RouteComponent() {
         />
 
         {/* Render all casino cards */}
+
         {casinos.map((casino) => (
-          <CasinoCard
-            key={casino.rank}
-            rank={casino.rank}
-            name={casino.name}
-            features={casino.features}
-            isHighlighted={casino.isHighlighted}
-          />
+          <>
+            <CasinoCard
+              key={casino.rank}
+              rank={casino.rank}
+              name={casino.name}
+              features={casino.features}
+              isHighlighted={casino.isHighlighted}
+            />
+            {casino.subText && (
+              <p className="mb-4">
+                Cuanta mayor variedad, más opciones tendrás para disfrutar.
+              </p>
+            )}
+          </>
         ))}
 
         {/* Special quote for Pin-Up Casino */}

@@ -22,9 +22,10 @@ export function AnimatedSection({
 // components/ui/casino-card.tsx
 
 interface CasinoCardProps {
-  rank: number;
-  name: string;
+  rank?: number;
+  name?: string;
   features: string[];
+  className?: string;
   isHighlighted?: boolean;
 }
 
@@ -32,16 +33,19 @@ export function CasinoCard({
   rank,
   name,
   features,
+  className = "",
   isHighlighted = false,
 }: CasinoCardProps) {
   const textColor = isHighlighted ? "text-[rgb(97,218,251)]" : "text-sky-blue";
 
   return (
-    <div className="flex flex-col gap-1 mb-4">
+    <div className={`flex flex-col gap-1 mb-4 ${className}`}>
       <AnimatedSection>
-        <h3 className={textColor}>
-          {rank}. {name}
-        </h3>
+        {rank && (
+          <h3 className={textColor}>
+            {rank}. {name}
+          </h3>
+        )}
       </AnimatedSection>
       <AnimatedSection>
         <ul className={isHighlighted ? "emoji-list" : ""}>
@@ -76,13 +80,8 @@ export function SectionHeader({
       <h2
         className={`text-lighter-yellow text-2xl font-medium mt-10 ${className}`}
       >
-          
         {emoji && `${emoji} `}
-        <p>
-        {before && `${before} `}
-        </p>
         {title}
-        {after && ` ${after}`}
       </h2>
     </AnimatedSection>
   );
@@ -95,13 +94,20 @@ interface FeatureListProps {
     title?: string;
     description: string;
   }>;
+  isHighlighted?: boolean;
   className?: string;
 }
 
-export function FeatureList({ items, className = "" }: FeatureListProps) {
+export function FeatureList({
+  items,
+  isHighlighted,
+  className = "",
+}: FeatureListProps) {
   return (
     <AnimatedSection>
-      <ul className={`risk-list ${className}`}>
+      <ul
+        className={`${isHighlighted ? "emoji-list" : ""} ${className}`.trim()}
+      >
         {items.map((item, index) => (
           <li key={index}>
             {item.title && <strong>{item.title}:</strong>} {item.description}
