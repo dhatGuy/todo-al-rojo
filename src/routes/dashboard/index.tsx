@@ -83,7 +83,10 @@ function RouteComponent() {
 
         {/* Buttons Grid */}
         <div className="md:col-span-2 grid grid-cols-2 gap-3 sm:gap-4">
-          <button className="bg-[#1e203a] backdrop-blur-lg rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center gap-3 sm:gap-4 text-white hover:bg-card-blue/90 hover:transform hover:-translate-y-1 transition-all duration-200">
+          <button
+            type="button"
+            className="bg-[#1e203a] backdrop-blur-lg rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center gap-3 sm:gap-4 text-white hover:bg-card-blue/90 hover:transform hover:-translate-y-1 transition-all duration-200"
+          >
             <div className="w-10 h-10 sm:w-12 sm:h-12 bg-red-600 rounded-full flex items-center justify-center text-xl sm:text-2xl">
               🎁
             </div>
@@ -92,7 +95,10 @@ function RouteComponent() {
             </span>
           </button>
 
-          <button className="bg-[#1e203a] backdrop-blur-lg rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center gap-3 sm:gap-4 text-white hover:bg-card-blue/90 hover:transform hover:-translate-y-1 transition-all duration-200">
+          <button
+            type="button"
+            className="bg-[#1e203a] backdrop-blur-lg rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center gap-3 sm:gap-4 text-white hover:bg-card-blue/90 hover:transform hover:-translate-y-1 transition-all duration-200"
+          >
             <div className="w-10 h-10 sm:w-12 sm:h-12 bg-red-600 rounded-full flex items-center justify-center text-xl sm:text-2xl">
               🛍️
             </div>
@@ -101,7 +107,10 @@ function RouteComponent() {
             </span>
           </button>
 
-          <button className="bg-gradient-to-br from-red-600 to-red-700 rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center gap-3 sm:gap-4 text-white hover:from-red-500 hover:to-red-600 hover:transform hover:-translate-y-1 transition-all duration-200">
+          <button
+            type="button"
+            className="bg-gradient-to-br from-red-600 to-red-700 rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center gap-3 sm:gap-4 text-white hover:from-red-500 hover:to-red-600 hover:transform hover:-translate-y-1 transition-all duration-200"
+          >
             <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-full flex items-center justify-center text-xl sm:text-2xl">
               📊
             </div>
@@ -110,7 +119,10 @@ function RouteComponent() {
             </span>
           </button>
 
-          <button className="bg-[#1e203a] backdrop-blur-lg rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center gap-3 sm:gap-4 text-white hover:bg-card-blue/90 hover:transform hover:-translate-y-1 transition-all duration-200">
+          <button
+            type="button"
+            className="bg-[#1e203a] backdrop-blur-lg rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center gap-3 sm:gap-4 text-white hover:bg-card-blue/90 hover:transform hover:-translate-y-1 transition-all duration-200"
+          >
             <div className="w-10 h-10 sm:w-12 sm:h-12 bg-red-600 rounded-full flex items-center justify-center text-xl sm:text-2xl">
               👥
             </div>
