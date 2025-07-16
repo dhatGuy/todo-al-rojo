@@ -1,21 +1,17 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { authClient } from "@/lib/auth-client";
+import { seo } from "@/lib/seo";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard/")({
   component: RouteComponent,
-  beforeLoad: async ({ context }) => {
-    console.log("🚀 context ~ :", context);
-    const { data } = await authClient.getSession({ fetchOptions: {} });
-    console.log("🚀 data ~ :", data);
-
-    // if (!data?.session) {
-    //   throw redirect({
-    //     to: "/signin",
-    //   });
-    // }
-  },
+  head: () => ({
+    meta: [
+      ...seo({
+        title: "Dashboard - TodoAlRojo",
+      }),
+    ],
+  }),
 });
 
 function RouteComponent() {

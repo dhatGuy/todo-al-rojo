@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { FloatingLabelInput } from "@/components/ui/floating-label-input";
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { mutationOptions } from "@/lib/mutationOptions";
+import { seo } from "@/lib/seo";
 import { resetPasswordMutationOptions } from "@/queries/auth.queries";
 import { ResetPasswordSchema } from "@/schemas/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,6 +25,13 @@ const resetPasswordSearchSchema = z.object({
 
 export const Route = createFileRoute("/reset-password")({
   component: RouteComponent,
+  head: () => ({
+    meta: [
+      ...seo({
+        title: "Reset Password - TodoAlRojo",
+      }),
+    ],
+  }),
   validateSearch: zodValidator(resetPasswordSearchSchema),
   beforeLoad: async ({ search }) => {
     const parsed = resetPasswordSearchSchema.safeParse(search);

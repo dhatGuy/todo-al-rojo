@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 
+import { seo } from "@/lib/seo";
 import { Providers } from "@/providers";
 import globalsCss from "@/styles/globals.css?url";
 
@@ -19,15 +20,33 @@ export const Route = createRootRoute({
         name: "viewport",
         content: "width=device-width, initial-scale=1",
       },
-      {
-        title: "Todo Al Rojo",
-      },
+      ...seo({
+        title: "TodoAlRojo – Gamification + FTD System",
+        description:
+          "Building a loyalty-based gamification system + affiliate FTD (First-Time Deposit) tracker for TodoAlRojo.cl to boost engagement and conversions",
+      }),
     ],
     links: [
       { rel: "stylesheet", href: globalsCss },
+      {
+        rel: "apple-touch-icon",
+        sizes: "180x180",
+        href: "/apple-touch-icon.png",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "32x32",
+        href: "/favicon-32x32.png",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "16x16",
+        href: "/favicon-16x16.png",
+      },
+      { rel: "manifest", href: "/site.webmanifest", color: "#fffff" },
       { rel: "icon", href: "/favicon.ico" },
-      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
-      { rel: "manifest", href: "/manifest.webmanifest" },
     ],
   }),
   component: RootComponent,

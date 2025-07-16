@@ -1,17 +1,27 @@
+import DashboardNavigation from "@/components/dashboard-header";
+import { Footer } from "@/components/footer";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { getUser } from "@/lib/auth.server";
 import { cn } from "@/lib/utils";
-import { createFileRoute, Outlet } from "@tanstack/react-router";
-import DashboardNavigation from "src/components/dashboard-header";
-import { Footer } from "src/components/footer";
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { AppSidebar } from "../../components/app-sidebar";
 
 export const Route = createFileRoute("/dashboard")({
   component: RouteComponent,
+  loader: async () => {
+    const session = await getUser();
+
+    if (!session?.user) {
+      throw redirect({
+        to: "/signin",
+      });
+    }
+  },
 });
 
 function RouteComponent() {

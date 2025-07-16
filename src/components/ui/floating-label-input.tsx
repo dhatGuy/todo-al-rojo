@@ -12,7 +12,7 @@ const FloatingInput = React.forwardRef<HTMLInputElement, InputProps>(
       <Input
         placeholder=""
         className={cn(
-          "peer border-0 border-b rounded-none border-gray-100 caret-white shadow-none",
+          "peer border-0 border-b bg-transparent rounded-none border-gray-100 caret-white shadow-none",
           className,
         )}
         ref={ref}

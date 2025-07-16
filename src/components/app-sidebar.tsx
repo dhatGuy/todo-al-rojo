@@ -65,7 +65,7 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar collapsible="offcanvas">
+    <Sidebar collapsible="offcanvas" className="border-none">
       <SidebarHeader>
         <Link to="/">
           <img
@@ -121,16 +121,14 @@ export function AppSidebar() {
                                 !isActive && "before:rounded-none",
                               )}
                             /> */}
-                            <>
-                              <item.icon
-                              // color={isActive ? "#fff" : "rgb(66 67 87)"}
-                              // height={32}
-                              // width={32}
-                              />
-                              <span className="text-[1rem] ml-3">
-                                {item.title}
-                              </span>
-                            </>
+                            <item.icon
+                            // color={isActive ? "#fff" : "rgb(66 67 87)"}
+                            // height={32}
+                            // width={32}
+                            />
+                            <span className="text-[1rem] ml-3">
+                              {item.title}
+                            </span>
                           </SidebarMenuButton>
                         );
                       }}
