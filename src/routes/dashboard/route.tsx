@@ -21,6 +21,8 @@ export const Route = createFileRoute("/dashboard")({
         to: "/signin",
       });
     }
+
+    return session;
   },
 });
 
