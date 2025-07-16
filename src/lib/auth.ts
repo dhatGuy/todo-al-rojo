@@ -7,6 +7,7 @@ import { schema } from "@/database/schema";
 import { referralsTable } from "@/database/schema/referrals.table";
 import { count, eq } from "drizzle-orm";
 import { generateUniqueReferralCode } from "./generateUniqueReferralCode";
+import { sendResetPasswordEmail } from "./resend";
 
 export const auth = (env: Env) => {
   const sql = db(env.HYPERDRIVE.connectionString);
@@ -97,10 +98,14 @@ export const auth = (env: Env) => {
         session: schema.sessionTable,
         account: schema.accountTable,
       },
-      debugLogs: true,
+      // debugLogs: true,
     }),
     emailAndPassword: {
       enabled: true,
+      sendResetPassword: async ({ user, url }) => {
+        await sendResetPasswordEmail(env, user.email, url);
+        console.log("Email sent");
+      },
     },
   });
 };
