@@ -4,7 +4,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { FloatingLabelInput } from "@/components/ui/floating-label-input";
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
-import { mutationOptions } from "@/lib/mutationOptions";
 import { seo } from "@/lib/seo";
 import {
   googleSigninMutationOptions,
@@ -38,10 +37,8 @@ export const Route = createFileRoute("/_auth/signin")({
 function RouteComponent() {
   const router = useRouter();
   const canGoBack = useCanGoBack();
-  const mutation = useMutation(mutationOptions(signinMutationOptions()));
-  const googleSigninMutation = useMutation(
-    mutationOptions(googleSigninMutationOptions()),
-  );
+  const mutation = useMutation(signinMutationOptions());
+  const googleSigninMutation = useMutation(googleSigninMutationOptions());
   const [showForgotPassword, setShowForgotPassword] = useState(false);
 
   const form = useForm({

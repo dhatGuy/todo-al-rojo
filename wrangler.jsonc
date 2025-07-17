@@ -10,6 +10,11 @@
   "observability": {
     "enabled": true,
   },
+  "vars": {
+    "WEB_URL": "https://todo-al-rojo.abiola-abd.workers.dev",
+    "TRUSTED_ORIGINS": "https://todo-al-rojo.abiola-abd.workers.dev",
+    "BETTER_AUTH_URL": "https://todo-al-rojo.abiola-abd.workers.dev",
+  },
   "hyperdrive": [
     {
       "binding": "HYPERDRIVE",

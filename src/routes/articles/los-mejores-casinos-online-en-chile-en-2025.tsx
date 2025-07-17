@@ -179,7 +179,7 @@ function RouteComponent() {
         <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-gray-900 to-transparent z-10"></div>
       </section>
 
-      <section className="max-w-screen-md text-white mx-auto fade-in mt-18">
+      <section className="max-w-screen-md px-4 text-white mx-auto fade-in mt-18">
         <SectionHeader
           title="Top 5 Casinos Online en Chile"
           emoji="🌟"
