@@ -1,0 +1,43 @@
+# TodoAlRojo.cl - Gamification & FTD System
+
+
+## Stack
+TanStack Start, Drizzle + PostgreSQL, Better Auth, TanStack Query (server state), Zustand (client state), Tailwind + Radix, Zod + TypeScript
+
+## Naming
+- Components: `PascalCase` (`RedChipBalance`)
+- Files: `kebab-case` (`user-dashboard`)
+- Variables: `camelCase` (`redChips`)
+- DB: `snake_case` (`user_chips`)
+
+## Schema
+```typescript
+export const users = pgTable('users', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  redChips: integer('red_chips').default(0),
+  level: integer('level').default(1)
+});
+```
+
+## State Management
+```typescript
+// Server state - TanStack Query
+const { data: chips } = useQuery({
+  queryKey: ['chips', userId],
+  queryFn: () => fetchUserChips(userId)
+})
+```
+
+## API Routes
+```typescript
+export async function POST({ request }) {
+  const { userId, amount, reason } = chipRewardSchema.parse(await request.json())
+  const result = await rewardUserChips(userId, amount, reason)
+  return json({ success: true, newBalance: result.balance })
+}
+```
+
+## Business Rules
+- **Chips**: Daily +5, Social +50, Referral +100, FTD +200, Trivia +10
+- **FTD**: UTM capture → registration match → deposit confirm (pixel/postback/manual)
+- **Validation**: Server-side chip transactions, rate limiting, audit logs
