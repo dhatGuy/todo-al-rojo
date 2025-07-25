@@ -2,6 +2,7 @@ import PokerChip from "@/assets/icons/poker-chip";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { seo } from "@/lib/seo";
+import { orpc } from "@/orpc/client";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Gift } from "lucide-react";
@@ -21,7 +22,13 @@ export const Route = createFileRoute("/dashboard/shop")({
 function RouteComponent() {
   const { data: rewards } = useQuery(shopItemsQueryOptions);
 
-  console.log(rewards);
+  const { data: planets } = useQuery(
+    orpc.planet.list.queryOptions({
+      input: {},
+    }),
+  );
+
+  console.log(planets);
 
   return (
     <div className="space-y-6">

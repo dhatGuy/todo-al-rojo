@@ -1,0 +1,32 @@
+import { getBindings } from "@/lib/bindings";
+import { router } from "@/orpc/router";
+import { RPCHandler } from "@orpc/server/fetch";
+import {
+  createServerFileRoute,
+  getHeaders,
+} from "@tanstack/react-start/server";
+
+const handler = new RPCHandler(router);
+
+async function handle({ request }: { request: Request }) {
+  const env = getBindings();
+  const headers = getHeaders() as unknown as Headers;
+  const { response } = await handler.handle(request, {
+    prefix: "/api/rpc",
+    context: {
+      env,
+      headers,
+    },
+  });
+
+  return response ?? new Response("Not Found", { status: 404 });
+}
+
+export const ServerRoute = createServerFileRoute("/api/rpc/$").methods({
+  HEAD: handle,
+  GET: handle,
+  POST: handle,
+  PUT: handle,
+  PATCH: handle,
+  DELETE: handle,
+});
