@@ -5,12 +5,19 @@ import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { seo } from "@/lib/seo";
 import { cn } from "@/lib/utils";
+import { orpc } from "@/orpc/client";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { getAvailableTasksQueryOptions } from "src/queries/tasks.queries";
+
+const queryOptions = orpc.tasks.getAvailableTasks.queryOptions({
+  input: {},
+});
 
 export const Route = createFileRoute("/dashboard/tasks")({
   component: RouteComponent,
+  loader: async ({ context }) => {
+    await context.queryClient.ensureQueryData(queryOptions);
+  },
   head: () => ({
     meta: [
       ...seo({
@@ -21,7 +28,9 @@ export const Route = createFileRoute("/dashboard/tasks")({
 });
 
 function RouteComponent() {
-  const { data } = useQuery(getAvailableTasksQueryOptions);
+  const { data } = useQuery(queryOptions);
+
+  // console.log(data);
 
   return (
     <div className="flex flex-col min-h-screen gap-12">
@@ -106,7 +115,7 @@ function RouteComponent() {
 
       {/* Tasks List */}
       <div className="space-y-4">
-        {data?.data.slice(1).map((task) => (
+        {data?.tasks?.slice(1).map((task) => (
           <Card key={task.id} className="bg-dark-blue rounded-4xl">
             <CardContent className="p-6">
               <div className="flex flex-wrap items-start justify-between mb-4 gap-4">

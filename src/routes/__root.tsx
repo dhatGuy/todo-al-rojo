@@ -1,17 +1,22 @@
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
-  createRootRoute,
+  createRootRouteWithContext,
   HeadContent,
   Outlet,
   Scripts,
 } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 import { getUser } from "@/lib/auth.server";
 import { seo } from "@/lib/seo";
 import { Providers } from "@/providers";
 import globalsCss from "@/styles/globals.css?url";
+import { QueryClient } from "@tanstack/react-query";
+import type { ReactNode } from "react";
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<{
+  queryClient: QueryClient;
+}>()({
   loader: async () => {
     const session = await getUser();
     return session;
@@ -92,6 +97,8 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
           <div className="flex min-h-svh flex-col">{children}</div>
         </Providers>
 
+        <TanStackRouterDevtools position="bottom-right" />
+        <ReactQueryDevtools buttonPosition="bottom-left" />
         <Scripts />
       </body>
     </html>

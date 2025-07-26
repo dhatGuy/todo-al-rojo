@@ -11,10 +11,12 @@ import z from "zod";
 
 // zod
 const userTasksWithStatusSchema = z.object({
-  canComplete: z.boolean(),
-  frequency: z.enum(["one_time", "daily", "weekly", "monthly", "unlimited"]),
-  validationType: z.enum(["automatic", "manual", "bot"]),
-  completed: z.boolean(),
+  canComplete: z.boolean().optional(),
+  frequency: z
+    .enum(["one_time", "daily", "weekly", "monthly", "unlimited"])
+    .optional(),
+  validationType: z.enum(["automatic", "manual", "bot"]).optional(),
+  completed: z.boolean().optional(),
 });
 
 export const getUserTasksWithStatus = authedProcedure

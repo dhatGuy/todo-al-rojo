@@ -1,12 +1,11 @@
 import { AuthQueryProvider } from "@daveyplate/better-auth-tanstack";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useRouter } from "@tanstack/react-router";
+import { QueryClient } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
 import type { ReactNode } from "react";
 import { Toaster } from "sonner";
 
 // Create a client
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 1000 * 60,
@@ -15,26 +14,22 @@ const queryClient = new QueryClient({
 });
 
 export function Providers({ children }: { children: ReactNode }) {
-  const router = useRouter();
-
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthQueryProvider>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-          themeColor={{
-            light: "oklch(1 0 0)",
-            dark: "oklch(0.145 0 0)",
-          }}
-        >
-          {children}
+    <AuthQueryProvider>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+        themeColor={{
+          light: "oklch(1 0 0)",
+          dark: "oklch(0.145 0 0)",
+        }}
+      >
+        {children}
 
-          <Toaster />
-        </ThemeProvider>
-      </AuthQueryProvider>
-    </QueryClientProvider>
+        <Toaster />
+      </ThemeProvider>
+    </AuthQueryProvider>
   );
 }

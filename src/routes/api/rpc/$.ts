@@ -1,4 +1,3 @@
-import { getBindings } from "@/lib/bindings";
 import { router } from "@/orpc/router";
 import { RPCHandler } from "@orpc/server/fetch";
 import {
@@ -9,12 +8,10 @@ import {
 const handler = new RPCHandler(router);
 
 async function handle({ request }: { request: Request }) {
-  const env = getBindings();
   const headers = getHeaders() as unknown as Headers;
   const { response } = await handler.handle(request, {
     prefix: "/api/rpc",
     context: {
-      env,
       headers,
     },
   });
