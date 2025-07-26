@@ -69,7 +69,10 @@ export default function DashboardNavigation() {
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="size-6 md:size-12 rounded-full overflow-hidden">
                   <img
-                    src="https://picsum.photos/seed/picsum/200/300.webp"
+                    src={
+                      data.user.image ||
+                      "https://picsum.photos/seed/picsum/200/300.webp"
+                    }
                     alt={`${data?.user.firstName}`}
                     className="size-full object-cover"
                   />
@@ -112,7 +115,10 @@ export default function DashboardNavigation() {
                         <div className="w-8 h-8 rounded-full border-2 border-yellow-400 p-0.5 bg-gradient-to-r from-yellow-400 to-yellow-600">
                           <div className="w-full h-full rounded-full overflow-hidden">
                             <img
-                              src="/placeholder.svg?height=32&width=32"
+                              src={
+                                data.user.image ||
+                                "https://picsum.photos/seed/picsum/200/300.webp"
+                              }
                               alt={`${data?.user.firstName}'s Avatar`}
                               width={32}
                               height={32}

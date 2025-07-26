@@ -17,9 +17,28 @@ export const authClient = createAuthClient({
           required: true,
           fieldName: "last_name",
         },
+        emailVerifiedAt: {
+          type: "string",
+          required: false,
+          fieldName: "email_verified_at",
+        },
+        chips: {
+          type: "number",
+          required: false,
+          fieldName: "chips",
+        },
+        referralCode: {
+          type: "string",
+          required: false,
+          fieldName: "referral_code",
+        },
+        level: {
+          type: "number",
+          required: false,
+          fieldName: "level",
+        },
         phoneNumber: {
           type: "string",
-          required: true,
           fieldName: "phone_number",
         },
       },

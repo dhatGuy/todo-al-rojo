@@ -28,8 +28,6 @@ function RouteComponent() {
     }),
   );
 
-  console.log(planets);
-
   return (
     <div className="space-y-6">
       {/* Chips Balance Header */}

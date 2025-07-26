@@ -32,10 +32,18 @@ export const auth = (env: Env) => {
         },
         phoneNumber: {
           type: "string",
-          required: true,
+          required: false,
         },
         referralCode: {
           type: "string",
+        },
+        chips: {
+          type: "number",
+          default: 0,
+        },
+        level: {
+          type: "number",
+          default: 1,
         },
       },
     },
@@ -45,6 +53,7 @@ export const auth = (env: Env) => {
         clientSecret: env.GOOGLE_CLIENT_SECRET,
         redirectURI: `${env.WEB_URL}/api/auth/callback/google`,
         mapProfileToUser: async (profile) => {
+          console.log(profile);
           return {
             email: profile.email,
             firstName: profile.name?.split(" ")[0],
@@ -58,18 +67,22 @@ export const auth = (env: Env) => {
       user: {
         create: {
           before: async (user, ctx) => {
-            const [phoneExist] = await sql
-              .select({ count: count() })
-              .from(schema.userTable)
-              .where(eq(schema.userTable.phoneNumber, ctx?.body.phoneNumber));
+            if (ctx?.body?.phoneNumber) {
+              const [phoneExist] = await sql
+                .select({ count: count() })
+                .from(schema.userTable)
+                .where(eq(schema.userTable.phoneNumber, ctx?.body.phoneNumber));
+
+              if (phoneExist.count > 0) {
+                throw new APIError("UNPROCESSABLE_ENTITY", {
+                  message: "Phone number already exists.",
+                  code: "PHONE_NUMBER_ALREADY_EXISTS",
+                });
+              }
+            }
 
             const referralCode = await generateUniqueReferralCode(6, 5, sql);
-            if (phoneExist.count > 0) {
-              throw new APIError("UNPROCESSABLE_ENTITY", {
-                message: "Phone number already exists.",
-                code: "PHONE_NUMBER_ALREADY_EXISTS",
-              });
-            }
+
             return {
               data: {
                 ...user,

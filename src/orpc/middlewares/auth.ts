@@ -17,7 +17,7 @@ export const requiredAuthMiddleware = os
         context: { session },
       });
     } catch (e) {
-      console.log(e);
+      console.log("auth middleware error", e);
       throw e;
     }
   });

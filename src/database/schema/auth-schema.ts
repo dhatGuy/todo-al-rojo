@@ -1,6 +1,12 @@
-import { relations } from "drizzle-orm";
-import { boolean, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
-import { timestamps } from "../timestamps";
+import { relations, sql } from "drizzle-orm";
+import {
+  boolean,
+  integer,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+} from "drizzle-orm/pg-core";
 import { chipTransactionsTable } from "./chip-transactions.table";
 import { clickTrackingTable } from "./click-tracking.table";
 import { referralsTable } from "./referrals.table";
@@ -12,19 +18,28 @@ export const userTable = pgTable("user", {
   id: uuid("id").primaryKey().defaultRandom(),
   firstName: text("first_name").notNull(),
   lastName: text("last_name").notNull(),
-  phoneNumber: text("phone_number").unique().notNull(),
+  phoneNumber: text("phone_number").unique(),
   name: text("name"),
   email: text("email").notNull().unique(),
+  chips: integer("chips").notNull().default(0),
+  level: integer("level").notNull().default(1),
   emailVerified: boolean("email_verified")
     .$defaultFn(() => false)
     .notNull(),
+  emailVerifiedAt: timestamp("email_verified_at"),
   image: text("image"),
   referralCode: text("referral_code").notNull().unique(),
   role: text("role").notNull().default("user"),
   banned: boolean("banned").notNull().default(false),
   banReason: text("ban_reason"),
   banExpires: timestamp("ban_expires_at"),
-  ...timestamps,
+  createdAt: timestamp("created_at", { withTimezone: true, mode: "date" })
+    .default(sql`(now() AT TIME ZONE 'utc'::text)`)
+    .notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true, mode: "date" })
+    .default(sql`(now() AT TIME ZONE 'utc'::text)`)
+    .notNull()
+    .$onUpdate(() => sql`(now() AT TIME ZONE 'utc'::text)`),
 });
 
 export const usersRelations = relations(userTable, ({ one, many }) => ({

@@ -18,7 +18,7 @@
   "hyperdrive": [
     {
       "binding": "HYPERDRIVE",
-      "id": "32230b084a084fc9ae7a784411d5a53a",
+      "id": "146024e5fdc2445d9ba3f3df067e0b43",
       "localConnectionString": "postgresql://postgres:newsspend@localhost:5432/todo-rojo",
     },
   ],

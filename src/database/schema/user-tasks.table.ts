@@ -23,6 +23,8 @@ export const userTasksTable = pgTable("user_tasks", {
   completionDate: timestamp("completion_date"),
   lastCompletedAt: timestamp("last_completed_at"),
   completionCount: integer("completion_count").notNull().default(0),
+  validatedBy: uuid("validated_by").references(() => userTable.id), // For manual validation
+  validated: timestamp("validated_at"),
   ...timestamps,
 });
 
