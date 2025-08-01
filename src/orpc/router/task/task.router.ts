@@ -1,8 +1,10 @@
 import { DB } from "@/database/db";
+import { userTable } from "@/database/schema/auth-schema";
+import { chipTransactionsTable } from "@/database/schema/chip-transactions.table";
 import { tasksTable } from "@/database/schema/tasks.table";
 import { userTasksTable } from "@/database/schema/user-tasks.table";
 import { authedProcedure } from "@/orpc/server";
-import { and, eq, gte } from "drizzle-orm";
+import { and, eq, gte, sql } from "drizzle-orm";
 import z from "zod";
 
 /**
@@ -153,6 +155,81 @@ export const getUserTasksWithStatus = authedProcedure
     }
   });
 
+export const completeTask = authedProcedure
+  .input(
+    z.object({
+      userId: z.uuid(),
+      taskId: z.uuid(),
+      taskType: z.string().min(1).max(100),
+    }),
+  )
+  .handler(async ({ context, input }) => {
+    const { db } = context;
+    const userId = context.session.user.id;
+
+    try {
+      // 1. Get task definition
+      const task = await db.query.tasksTable.findFirst({
+        where: and(
+          eq(tasksTable.id, input.taskId),
+          eq(tasksTable.active, true),
+        ),
+      });
+
+      if (!task) {
+        return { success: false, message: "Task not found or inactive" };
+      }
+
+      // 2. Check frequency limits
+      const canComplete = await canCompleteTask(userId, task, db);
+      if (!canComplete.allowed) {
+        return { success: false, message: canComplete.reason };
+      }
+
+      // 3. Check level requirement
+      const userLevel = context.session.user.level;
+      if (userLevel < (task.levelRequirement || 1)) {
+        return { success: false, message: "Level requirement not met" };
+      }
+
+      // 4. Create user task record
+      const userTask = await db
+        .insert(userTasksTable)
+        .values({
+          userId,
+          taskId: task.id,
+          chipsRewarded: task.defaultChips,
+          status: "completed",
+          // meta metadata,
+          validated: new Date(),
+        })
+        .returning();
+
+      // 5. Award chips if automatic validation
+      if (task.validationType === "automatic") {
+        await awardChipsForTask(
+          userId,
+          task.defaultChips,
+          input.taskType,
+          userTask[0].id,
+          db,
+        );
+      }
+
+      return {
+        success: true,
+        message:
+          task.validationType === "automatic"
+            ? "Task completed and chips awarded"
+            : "Task submitted for validation",
+        requiresValidation: task.validationType !== "automatic",
+      };
+    } catch (error) {
+      console.error("Error completing task:", error);
+      return { success: false, message: "Failed to complete task" };
+    }
+  });
+
 /**
  * Get start of period for frequency checking
  */
@@ -230,4 +307,57 @@ async function canCompleteTask(
   }
 
   return { allowed: true };
+}
+
+async function awardChipsForTask(
+  userId: string,
+  chips: number,
+  taskType: string,
+  userTaskId: string,
+  db: DB,
+) {
+  try {
+    // Award chips to user
+    await db
+      .update(userTable)
+      .set({
+        chips: sql`${userTable.chips} + ${chips}`,
+        level: sql`CASE
+          WHEN ${userTable.chips} + ${chips} >= 1500 THEN 6
+          WHEN ${userTable.chips} + ${chips} >= 1000 THEN 5
+          WHEN ${userTable.chips} + ${chips} >= 600 THEN 4
+          WHEN ${userTable.chips} + ${chips} >= 300 THEN 3
+          WHEN ${userTable.chips} + ${chips} >= 100 THEN 2
+          ELSE 1
+        END`,
+      })
+      .where(eq(userTable.id, userId));
+
+    // Record chip transaction
+    await db.insert(chipTransactionsTable).values({
+      userId,
+      taskId:
+        (
+          await db.query.tasksTable.findFirst({
+            where: eq(tasksTable.taskType, taskType),
+          })
+        )?.id || null,
+      // userTaskId,
+      // chips,
+      amount: chips,
+      transactionType: "earned",
+      description: `Earned from ${taskType}`,
+    });
+
+    // Mark user task as validated if not already
+    await db
+      .update(userTasksTable)
+      .set({ validated: new Date() })
+      .where(eq(userTasksTable.id, userTaskId));
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error awarding chips:", error);
+    return { success: false, error: "Failed to award chips" };
+  }
 }

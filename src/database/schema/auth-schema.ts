@@ -21,8 +21,13 @@ export const userTable = pgTable("user", {
   phoneNumber: text("phone_number").unique(),
   name: text("name"),
   email: text("email").notNull().unique(),
+
   chips: integer("chips").notNull().default(0),
   level: integer("level").notNull().default(1),
+  earnedChips: integer("earned_chips").notNull().default(0),
+  spentChips: integer("spent_chips").notNull().default(0),
+  lastLevelUp: timestamp("last_level_up"),
+
   emailVerified: boolean("email_verified")
     .$defaultFn(() => false)
     .notNull(),

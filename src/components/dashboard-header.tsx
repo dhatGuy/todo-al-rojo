@@ -22,7 +22,7 @@ const navigationItems: any[] = [
 ];
 
 export default function DashboardNavigation() {
-  const data = Route.useLoaderData();
+  const { session } = Route.useLoaderData();
 
   return (
     <nav className="text-white w-full overflow-hidden">
@@ -55,7 +55,7 @@ export default function DashboardNavigation() {
                 Bienvenido
               </span>
               <span className="text-white text-2xl font-semibold hidden sm:block">
-                {data?.user.firstName}
+                {session?.user.firstName}
               </span>
             </div>
             <div className="relative size-12 md:size-24">
@@ -70,10 +70,10 @@ export default function DashboardNavigation() {
                 <div className="size-6 md:size-12 rounded-full overflow-hidden">
                   <img
                     src={
-                      data.user.image ||
+                      session.user.image ||
                       "https://picsum.photos/seed/picsum/200/300.webp"
                     }
-                    alt={`${data?.user.firstName}`}
+                    alt={`${session?.user.firstName}`}
                     className="size-full object-cover"
                   />
                 </div>
@@ -116,10 +116,10 @@ export default function DashboardNavigation() {
                           <div className="w-full h-full rounded-full overflow-hidden">
                             <img
                               src={
-                                data.user.image ||
+                                session.user.image ||
                                 "https://picsum.photos/seed/picsum/200/300.webp"
                               }
-                              alt={`${data?.user.firstName}'s Avatar`}
+                              alt={`${session?.user.firstName}'s Avatar`}
                               width={32}
                               height={32}
                               className="w-full h-full object-cover"
@@ -130,7 +130,7 @@ export default function DashboardNavigation() {
                       <div>
                         <div className="text-gray-300 text-sm">Bienvenido</div>
                         <div className="text-white font-semibold">
-                          {data?.user.firstName}
+                          {session?.user.firstName}
                         </div>
                       </div>
                     </div>

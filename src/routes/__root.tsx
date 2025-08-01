@@ -16,10 +16,11 @@ import type { ReactNode } from "react";
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
+  session: Awaited<ReturnType<typeof getUser>>;
 }>()({
-  loader: async () => {
+  beforeLoad: async () => {
     const session = await getUser();
-    return session;
+    return { session };
   },
   head: () => ({
     meta: [

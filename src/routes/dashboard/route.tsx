@@ -6,15 +6,14 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { getUser } from "@/lib/auth.server";
 import { cn } from "@/lib/utils";
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { AppSidebar } from "../../components/app-sidebar";
 
 export const Route = createFileRoute("/dashboard")({
   component: RouteComponent,
-  loader: async () => {
-    const session = await getUser();
+  beforeLoad: async ({ context }) => {
+    const session = context.session;
 
     if (!session?.user) {
       throw redirect({
@@ -22,8 +21,11 @@ export const Route = createFileRoute("/dashboard")({
       });
     }
 
-    return session;
+    return { session };
   },
+  loader: async ({ context }) => ({
+    session: context.session,
+  }),
 });
 
 function RouteComponent() {

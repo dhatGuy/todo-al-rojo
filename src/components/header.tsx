@@ -18,7 +18,7 @@ const navItems: {
 ];
 
 export const Header = () => {
-  const session = Route.useLoaderData();
+  const { session } = Route.useRouteContext();
 
   return (
     <header className="relative z-10 w-full px-6 bg-[#000017]">

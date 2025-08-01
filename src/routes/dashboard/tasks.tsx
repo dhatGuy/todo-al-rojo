@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
+import { getUser } from "@/lib/auth.server";
 import { seo } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import { orpc } from "@/orpc/client";
@@ -17,6 +18,11 @@ export const Route = createFileRoute("/dashboard/tasks")({
   component: RouteComponent,
   loader: async ({ context }) => {
     await context.queryClient.ensureQueryData(queryOptions);
+    const session = await getUser();
+
+    return {
+      session,
+    };
   },
   head: () => ({
     meta: [
@@ -29,6 +35,7 @@ export const Route = createFileRoute("/dashboard/tasks")({
 
 function RouteComponent() {
   const { data } = useQuery(queryOptions);
+  const { session } = Route.useLoaderData();
 
   // console.log(data);
 
@@ -59,7 +66,9 @@ function RouteComponent() {
             <div className="w-12 h-12 sm:w-15 sm:h-15 rounded-full flex items-center justify-center relative">
               <PokerChip color="red" width={undefined} height={undefined} />
             </div>
-            <span className="text-4xl sm:text-6xl font-bold text-white">0</span>
+            <span className="text-4xl sm:text-6xl font-bold text-white">
+              {session?.user.chips}
+            </span>
           </div>
         </div>
 
