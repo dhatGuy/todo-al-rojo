@@ -1,16 +1,19 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { APIError } from "better-auth/api";
+import { customSession } from "better-auth/plugins";
 
 import { db } from "@/database/db";
 import { schema } from "@/database/schema";
+import { userTable } from "@/database/schema/auth-schema";
 import { referralsTable } from "@/database/schema/referrals.table";
+import { userLevelsTable } from "@/database/schema/user-levels.table";
 import { count, eq } from "drizzle-orm";
 import { generateUniqueReferralCode } from "./generateUniqueReferralCode";
 import { sendResetPasswordEmail } from "./resend";
 
 export const auth = (env: Env) => {
-  const sql = db(env.HYPERDRIVE.connectionString);
+  const database = db(env.HYPERDRIVE.connectionString);
   return betterAuth({
     baseURL: env.BETTER_AUTH_URL,
     secret: env.BETTER_AUTH_SECRET,
@@ -41,10 +44,10 @@ export const auth = (env: Env) => {
           type: "number",
           default: 0,
         },
-        level: {
-          type: "number",
-          default: 1,
-        },
+        // level: {
+        //   type: "number",
+        //   default: 1,
+        // },
       },
     },
     socialProviders: {
@@ -68,7 +71,7 @@ export const auth = (env: Env) => {
         create: {
           before: async (user, ctx) => {
             if (ctx?.body?.phoneNumber) {
-              const [phoneExist] = await sql
+              const [phoneExist] = await database
                 .select({ count: count() })
                 .from(schema.userTable)
                 .where(eq(schema.userTable.phoneNumber, ctx?.body.phoneNumber));
@@ -81,7 +84,11 @@ export const auth = (env: Env) => {
               }
             }
 
-            const referralCode = await generateUniqueReferralCode(6, 5, sql);
+            const referralCode = await generateUniqueReferralCode(
+              6,
+              5,
+              database,
+            );
 
             return {
               data: {
@@ -92,7 +99,7 @@ export const auth = (env: Env) => {
           },
           after: async (user, ctx) => {
             const { ref, affiliate } = ctx?.query || {};
-            await sql.insert(referralsTable).values({
+            await database.insert(referralsTable).values({
               referrerUserId: user.id,
               referredUserId: ref,
               // @ts-expect-error referral is present
@@ -103,7 +110,7 @@ export const auth = (env: Env) => {
         },
       },
     },
-    database: drizzleAdapter(sql, {
+    database: drizzleAdapter(database, {
       provider: "pg",
       schema: {
         user: schema.userTable,
@@ -120,5 +127,37 @@ export const auth = (env: Env) => {
         console.log("Email sent");
       },
     },
+    plugins: [
+      customSession(async ({ user, session }) => {
+        const userData = await database.query.userTable.findFirst({
+          with: {
+            level: {
+              columns: {
+                level: true,
+                name: true,
+                requiredChips: true,
+              },
+            },
+          },
+          where: eq(userTable.id, user.id),
+        });
+        const nextLevel = await database.query.userLevelsTable.findFirst({
+          columns: {
+            level: true,
+            name: true,
+            requiredChips: true,
+          },
+          where: eq(userLevelsTable.level, (userData?.level?.level ?? 1) + 1),
+        });
+
+        return {
+          user: {
+            ...userData,
+            nextLevel,
+          },
+          session,
+        };
+      }),
+    ],
   });
 };

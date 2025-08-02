@@ -1,14 +1,14 @@
 import PokerChip from "@/assets/icons/poker-chip";
+import { LevelProgress } from "@/components/level-progress";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Progress } from "@/components/ui/progress";
 import { getUser } from "@/lib/auth.server";
 import { seo } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import { orpc } from "@/orpc/client";
 import { useQuery } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useRouteContext } from "@tanstack/react-router";
 
 const queryOptions = orpc.tasks.getAvailableTasks.queryOptions({
   input: {},
@@ -35,26 +35,15 @@ export const Route = createFileRoute("/dashboard/tasks")({
 
 function RouteComponent() {
   const { data } = useQuery(queryOptions);
-  const { session } = Route.useLoaderData();
+  const { session } = useRouteContext({
+    from: "__root__",
+  });
 
   // console.log(data);
 
   return (
     <div className="flex flex-col min-h-screen gap-12">
-      <Card className="bg-dark-blue w-full rounded-lg md:rounded-full p-3 sm:p-4">
-        <CardContent className="p-0">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
-            <h3 className="text-xs sm:text-sm text-gray-400">Nivel 3</h3>
-            <Progress
-              value={75}
-              className="h-1.5 sm:h-2 md:h-3 bg-gray-700 w-full sm:flex-1"
-            />
-            <span className="text-gray-400 text-xs sm:text-sm">
-              75% completado
-            </span>
-          </div>
-        </CardContent>
-      </Card>
+      <LevelProgress user={session?.user as any} />
 
       <div className="flex flex-col gap-4">
         {/* Chips Balance */}

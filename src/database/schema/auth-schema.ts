@@ -12,6 +12,7 @@ import { clickTrackingTable } from "./click-tracking.table";
 import { referralsTable } from "./referrals.table";
 import { rewardRedemptionsTable } from "./reward-redemptions.table";
 import { userChipsTable } from "./user-chips.table";
+import { userLevelsTable } from "./user-levels.table";
 import { userTasksTable } from "./user-tasks.table";
 
 export const userTable = pgTable("user", {
@@ -23,7 +24,10 @@ export const userTable = pgTable("user", {
   email: text("email").notNull().unique(),
 
   chips: integer("chips").notNull().default(0),
-  level: integer("level").notNull().default(1),
+  level: integer("level")
+    .notNull()
+    .default(1)
+    .references(() => userLevelsTable.level),
   earnedChips: integer("earned_chips").notNull().default(0),
   spentChips: integer("spent_chips").notNull().default(0),
   lastLevelUp: timestamp("last_level_up"),
@@ -55,6 +59,10 @@ export const usersRelations = relations(userTable, ({ one, many }) => ({
   referral: one(referralsTable, {
     fields: [userTable.id],
     references: [referralsTable.referrerUserId],
+  }),
+  level: one(userLevelsTable, {
+    fields: [userTable.level],
+    references: [userLevelsTable.level],
   }),
   tasks: many(userTasksTable),
   transactions: many(chipTransactionsTable),

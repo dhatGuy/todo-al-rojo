@@ -27,14 +27,24 @@ export const taskValidationEnum = pgEnum("task_validation", [
   "bot",
 ]);
 
+export const taskCategoryEnum = pgEnum("task_category", [
+  "onboarding",
+  "referral",
+  "participation",
+  "activity",
+  "event",
+]);
+
 export const tasksTable = pgTable("tasks", {
   id: uuid("id").primaryKey().defaultRandom(),
   taskType: varchar("task_type", { length: 50 }).notNull().unique(), // e.g., 'daily_login', 'refer_friend'
   name: varchar("name", { length: 100 }).notNull(),
   description: text("description"),
+  category: taskCategoryEnum("category"),
+
   defaultChips: integer("default_chips").notNull().default(0),
   frequency: taskFrequencyEnum("frequency").notNull().default("one_time"),
-  validationType: taskValidationEnum("validation_type")
+  validationMethod: taskValidationEnum("validation_type")
     .notNull()
     .default("automatic"),
   maxCompletionsPerPeriod: integer("max_completions_per_period"), // e.g., 5 per day for messages

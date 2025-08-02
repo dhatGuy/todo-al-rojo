@@ -1,12 +1,22 @@
 import { relations } from "drizzle-orm";
-import { integer, pgEnum, pgTable, uuid, varchar } from "drizzle-orm/pg-core";
+import {
+  integer,
+  jsonb,
+  pgEnum,
+  pgTable,
+  uuid,
+  varchar,
+} from "drizzle-orm/pg-core";
 import { timestamps } from "../timestamps";
 import { userTable } from "./auth-schema";
 import { tasksTable } from "./tasks.table";
 
 export const transactionTypeEnum = pgEnum("transaction_type", [
   "earned",
-  "spent",
+  "redeemed",
+  "adjusted",
+  "bonus",
+  "penalty",
 ]);
 
 export const chipTransactionsTable = pgTable("chip_transactions", {
@@ -19,6 +29,12 @@ export const chipTransactionsTable = pgTable("chip_transactions", {
   taskId: uuid("task_id").references(() => tasksTable.id, {
     onDelete: "set null",
   }),
+  meta: jsonb("metadata").$type<{
+    taskId?: string;
+    redemptionId?: string;
+    adminNote?: string;
+    proofUrl?: string;
+  }>(),
   description: varchar("description", { length: 255 }).notNull(),
   referenceId: varchar("reference_id", { length: 100 }),
   ...timestamps,

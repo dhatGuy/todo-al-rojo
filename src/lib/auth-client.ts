@@ -1,6 +1,10 @@
-import { inferAdditionalFields } from "better-auth/client/plugins";
+import {
+  customSessionClient,
+  inferAdditionalFields,
+} from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
 import { useEffect, useState } from "react";
+import { auth } from "./auth";
 
 export const authClient = createAuthClient({
   // baseURL: process.env.WEB_URL,
@@ -32,17 +36,18 @@ export const authClient = createAuthClient({
           required: false,
           fieldName: "referral_code",
         },
-        level: {
-          type: "number",
-          required: false,
-          fieldName: "level",
-        },
+        // level: {
+        //   type: "number",
+        //   required: false,
+        //   fieldName: "level",
+        // },
         phoneNumber: {
           type: "string",
           fieldName: "phone_number",
         },
       },
     }),
+    customSessionClient<ReturnType<typeof auth>>(),
   ],
 });
 

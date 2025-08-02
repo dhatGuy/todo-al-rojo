@@ -1,7 +1,6 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
+import { LevelProgress } from "@/components/level-progress";
 import { seo } from "@/lib/seo";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useRouteContext } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard/")({
   component: RouteComponent,
@@ -15,22 +14,13 @@ export const Route = createFileRoute("/dashboard/")({
 });
 
 function RouteComponent() {
+  const { session } = useRouteContext({
+    from: "__root__",
+  });
+
   return (
     <div className="flex flex-col min-h-screen gap-12">
-      <Card className="bg-dark-blue w-full rounded-lg md:rounded-full p-3 sm:p-4">
-        <CardContent className="p-0">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
-            <h3 className="text-xs sm:text-sm text-gray-400">Nivel 3</h3>
-            <Progress
-              value={75}
-              className="h-1.5 sm:h-2 md:h-3 bg-gray-700 w-full sm:flex-1"
-            />
-            <span className="text-gray-400 text-xs sm:text-sm">
-              75% completado
-            </span>
-          </div>
-        </CardContent>
-      </Card>
+      <LevelProgress user={session?.user as any} />
 
       <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-3 h-auto gap-4 sm:gap-6">
         {/* Chips Balance */}
@@ -44,7 +34,7 @@ function RouteComponent() {
               <div className="absolute inset-0 border-2 border-dashed border-white/30 rounded-full scale-110"></div>
             </div>
             <span className="text-4xl sm:text-6xl font-bold text-white">
-              2,000
+              {Intl.NumberFormat("en-US").format(session?.user.chips || 0)}
             </span>
           </div>
         </div>

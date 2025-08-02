@@ -48,7 +48,7 @@ export const getUserTasksWithStatus = authedProcedure
         tasksQuery = db.query.tasksTable.findMany({
           where: and(
             eq(tasksTable.active, true),
-            eq(tasksTable.validationType, input.validationType as any),
+            eq(tasksTable.validationMethod, input.validationType as any),
           ),
           orderBy: (tasks, { asc }) => [asc(tasks.name)],
         });
@@ -206,7 +206,7 @@ export const completeTask = authedProcedure
         .returning();
 
       // 5. Award chips if automatic validation
-      if (task.validationType === "automatic") {
+      if (task.validationMethod === "automatic") {
         await awardChipsForTask(
           userId,
           task.defaultChips,
@@ -219,10 +219,10 @@ export const completeTask = authedProcedure
       return {
         success: true,
         message:
-          task.validationType === "automatic"
+          task.validationMethod === "automatic"
             ? "Task completed and chips awarded"
             : "Task submitted for validation",
-        requiresValidation: task.validationType !== "automatic",
+        requiresValidation: task.validationMethod !== "automatic",
       };
     } catch (error) {
       console.error("Error completing task:", error);
