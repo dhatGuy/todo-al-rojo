@@ -1,4 +1,9 @@
-import { getUserTasksWithStatus } from "./task/task.router";
+import {
+  checkDailyLogin,
+  getDailyLoginStatus,
+  getDailyLoginStreak,
+  getUserTasksWithStatus,
+} from "./task/task.router";
 import { findPlanet, listPlanet } from "./test.router";
 
 export const router = {
@@ -8,5 +13,8 @@ export const router = {
   },
   tasks: {
     getAvailableTasks: getUserTasksWithStatus,
+    checkDailyLogin: checkDailyLogin,
+    getDailyLoginStatus: getDailyLoginStatus,
+    getDailyLoginStreak: getDailyLoginStreak,
   },
 };

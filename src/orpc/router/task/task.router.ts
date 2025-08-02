@@ -4,6 +4,8 @@ import { chipTransactionsTable } from "@/database/schema/chip-transactions.table
 import { tasksTable } from "@/database/schema/tasks.table";
 import { userTasksTable } from "@/database/schema/user-tasks.table";
 import { authedProcedure } from "@/orpc/server";
+import { DailyLoginService } from "@/services/daily-login.service";
+import { ORPCError } from "@orpc/client";
 import { and, eq, gte, sql } from "drizzle-orm";
 import z from "zod";
 
@@ -62,7 +64,7 @@ export const getUserTasksWithStatus = authedProcedure
 
       // Get user's completed tasks
       const userCompletedTasks = await db.query.userTasksTable.findMany({
-        where: eq(userTasksTable.userId, context.session.user.id),
+        where: eq(userTasksTable.userId, context.session.user.id!),
         with: {
           task: true,
         },
@@ -87,7 +89,7 @@ export const getUserTasksWithStatus = authedProcedure
 
           // Check if task can be completed now
           const frequencyCheck = await canCompleteTask(
-            context.session.user.id,
+            context.session.user.id!,
             task,
             db,
           );
@@ -151,7 +153,9 @@ export const getUserTasksWithStatus = authedProcedure
       return { success: true, tasks: tasksWithStatus };
     } catch (error) {
       console.error("Error getting user tasks:", error);
-      return { success: false, error: "Failed to load tasks" };
+      throw new ORPCError("INTERNAL_SERVER_ERROR", {
+        message: "Failed to load tasks",
+      });
     }
   });
 
@@ -165,7 +169,7 @@ export const completeTask = authedProcedure
   )
   .handler(async ({ context, input }) => {
     const { db } = context;
-    const userId = context.session.user.id;
+    const userId = context.session.user.id!;
 
     try {
       // 1. Get task definition
@@ -177,19 +181,25 @@ export const completeTask = authedProcedure
       });
 
       if (!task) {
-        return { success: false, message: "Task not found or inactive" };
+        throw new ORPCError("NOT_FOUND", {
+          message: "Task not found or inactive",
+        });
       }
 
       // 2. Check frequency limits
       const canComplete = await canCompleteTask(userId, task, db);
       if (!canComplete.allowed) {
-        return { success: false, message: canComplete.reason };
+        throw new ORPCError("BAD_REQUEST", {
+          message: canComplete.reason,
+        });
       }
 
       // 3. Check level requirement
-      const userLevel = context.session.user.level;
+      const userLevel = context.session.user.level!;
       if (userLevel < (task.levelRequirement || 1)) {
-        return { success: false, message: "Level requirement not met" };
+        throw new ORPCError("FORBIDDEN", {
+          message: "Level requirement not met",
+        });
       }
 
       // 4. Create user task record
@@ -226,7 +236,12 @@ export const completeTask = authedProcedure
       };
     } catch (error) {
       console.error("Error completing task:", error);
-      return { success: false, message: "Failed to complete task" };
+      if (error instanceof ORPCError) {
+        throw error;
+      }
+      throw new ORPCError("INTERNAL_SERVER_ERROR", {
+        message: "Failed to complete task",
+      });
     }
   });
 
@@ -358,6 +373,87 @@ async function awardChipsForTask(
     return { success: true };
   } catch (error) {
     console.error("Error awarding chips:", error);
-    return { success: false, error: "Failed to award chips" };
+    throw new ORPCError("INTERNAL_SERVER_ERROR", {
+      message: "Failed to award chips",
+    });
   }
 }
+
+/**
+ * Check and award daily login bonus
+ */
+export const checkDailyLogin = authedProcedure.handler(async ({ context }) => {
+  const { db } = context;
+  const userId = context.session.user.id!;
+
+  try {
+    const dailyLoginService = new DailyLoginService(db);
+    const result = await dailyLoginService.checkAndAwardDailyLogin(userId);
+
+    return {
+      success: result.success,
+      awarded: result.awarded,
+      chips: result.chips,
+      message: result.message,
+      alreadyCompleted: result.alreadyCompleted,
+    };
+  } catch (error) {
+    console.error("Error checking daily login:", error);
+    throw new ORPCError("INTERNAL_SERVER_ERROR", {
+      message: "Failed to check daily login",
+    });
+  }
+});
+
+/**
+ * Get user's daily login streak
+ */
+export const getDailyLoginStreak = authedProcedure.handler(
+  async ({ context }) => {
+    const { db } = context;
+    const userId = context.session.user.id!;
+
+    try {
+      const dailyLoginService = new DailyLoginService(db);
+      const streak = await dailyLoginService.getDailyLoginStreak(userId);
+
+      return {
+        success: true,
+        streak,
+      };
+    } catch (error) {
+      console.error("Error getting login streak:", error);
+      throw new ORPCError("INTERNAL_SERVER_ERROR", {
+        message: "Failed to get login streak",
+      });
+    }
+  },
+);
+
+/**
+ * Check if user has completed daily login today
+ */
+export const getDailyLoginStatus = authedProcedure.handler(
+  async ({ context }) => {
+    const { db } = context;
+    const userId = context.session.user.id!;
+
+    try {
+      const dailyLoginService = new DailyLoginService(db);
+      const completedToday =
+        await dailyLoginService.hasCompletedTodayLogin(userId);
+      const streak = await dailyLoginService.getDailyLoginStreak(userId);
+
+      return {
+        success: true,
+        completedToday,
+        streak,
+      };
+    } catch (error) {
+      console.error("Error getting daily login status:", error);
+      throw new ORPCError("INTERNAL_SERVER_ERROR", {
+        message: "Failed to get daily login status",
+      });
+    }
+  },
+);

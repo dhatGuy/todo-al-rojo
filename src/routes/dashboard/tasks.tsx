@@ -2,28 +2,29 @@ import PokerChip from "@/assets/icons/poker-chip";
 import { LevelProgress } from "@/components/level-progress";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { getUser } from "@/lib/auth.server";
 import { seo } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import { orpc } from "@/orpc/client";
-import { useQuery } from "@tanstack/react-query";
-import { createFileRoute, useRouteContext } from "@tanstack/react-router";
+import {
+  useMutation,
+  useQueryClient,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
+import {
+  createFileRoute,
+  useRouteContext,
+  useRouter,
+} from "@tanstack/react-router";
+import { toast } from "sonner";
 
 const queryOptions = orpc.tasks.getAvailableTasks.queryOptions({
   input: {},
 });
 
+const loginStatusQueryOptions = orpc.tasks.getDailyLoginStatus.queryOptions();
+
 export const Route = createFileRoute("/dashboard/tasks")({
   component: RouteComponent,
-  loader: async ({ context }) => {
-    await context.queryClient.ensureQueryData(queryOptions);
-    const session = await getUser();
-
-    return {
-      session,
-    };
-  },
   head: () => ({
     meta: [
       ...seo({
@@ -34,12 +35,44 @@ export const Route = createFileRoute("/dashboard/tasks")({
 });
 
 function RouteComponent() {
-  const { data } = useQuery(queryOptions);
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const { data } = useSuspenseQuery(queryOptions);
+  const { data: dailyLoginStatus } = useSuspenseQuery(loginStatusQueryOptions);
+
+  const dailyCheckMutation = useMutation(
+    orpc.tasks.checkDailyLogin.mutationOptions(),
+  );
+
+  const onCheckDailyLogin = async () => {
+    dailyCheckMutation.mutate(
+      {},
+      {
+        onSuccess: (data) => {
+          if (data.alreadyCompleted) {
+            toast.info("Daily login already completed", {
+              description: "Come back tomorrow for more rewards!",
+            });
+          } else {
+            toast.success("Daily login checked successfully", {
+              description: `You've earned ${data.chips} chips!`,
+            });
+          }
+        },
+        onError: (error) => {
+          toast.error("Error checking daily login");
+        },
+        onSettled: async () => {
+          await queryClient.invalidateQueries();
+          router.invalidate();
+        },
+      },
+    );
+  };
+
   const { session } = useRouteContext({
     from: "__root__",
   });
-
-  // console.log(data);
 
   return (
     <div className="flex flex-col min-h-screen gap-12">
@@ -85,28 +118,22 @@ function RouteComponent() {
               </div>
 
               <Button
-                // onClick={() => handleCompleteTask(tasks[0].id)}
-                disabled={tasks[0]?.completed}
-                variant={tasks[0]?.completed ? "secondary" : "primary"}
+                onClick={onCheckDailyLogin}
+                disabled={dailyLoginStatus?.completedToday}
+                variant={
+                  dailyLoginStatus?.completedToday ? "secondary" : "primary"
+                }
                 className={cn(
-                  tasks[0]?.completed
+                  dailyLoginStatus?.completedToday
                     ? "bg-gray-600 text-gray-300"
                     : "rojo-gradient text-black font-bold hover:opacity-80",
                   "text-md p-5 rounded-xl w-full sm:w-auto",
                 )}
                 size="sm"
               >
-                {tasks[0]?.completed ? "Terminado" : "Completo"}
+                {dailyLoginStatus?.completedToday ? "Terminado" : "Completo"}
               </Button>
             </div>
-
-            {tasks[0]?.hasInput && !tasks[0].completed && (
-              <Input
-                defaultValue={tasks[0].inputPlaceholder}
-                readOnly
-                className="border-gray-600 bg-[#11172f] py-6 rounded-xl text-white placeholder-gray-400"
-              />
-            )}
           </CardContent>
         </Card>
       </div>

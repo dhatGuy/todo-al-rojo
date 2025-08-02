@@ -48,7 +48,7 @@ export const userTable = pgTable("user", {
   updatedAt: timestamp("updated_at", { withTimezone: true, mode: "date" })
     .default(sql`(now() AT TIME ZONE 'utc'::text)`)
     .notNull()
-    .$onUpdate(() => sql`(now() AT TIME ZONE 'utc'::text)`),
+    .$onUpdate(() => new Date()),
 });
 
 export const usersRelations = relations(userTable, ({ one, many }) => ({

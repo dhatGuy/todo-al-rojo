@@ -1,15 +1,15 @@
-import { db } from "@/database/db";
+import { getDb } from "@/database/db";
 import { os } from "@orpc/server";
 
 export const dbProviderMiddleware = os
   .$context<{ env: Env }>()
   .middleware(async ({ context, next }) => {
-    const database = db(context.env.HYPERDRIVE.connectionString);
+    const db = getDb(context.env.HYPERDRIVE.connectionString);
 
     try {
       return next({
         context: {
-          db: database,
+          db,
         },
       });
     } finally {

@@ -3,7 +3,7 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { APIError } from "better-auth/api";
 import { customSession } from "better-auth/plugins";
 
-import { db } from "@/database/db";
+import { getDb } from "@/database/db";
 import { schema } from "@/database/schema";
 import { userTable } from "@/database/schema/auth-schema";
 import { referralsTable } from "@/database/schema/referrals.table";
@@ -13,7 +13,7 @@ import { generateUniqueReferralCode } from "./generateUniqueReferralCode";
 import { sendResetPasswordEmail } from "./resend";
 
 export const auth = (env: Env) => {
-  const database = db(env.HYPERDRIVE.connectionString);
+  const database = getDb(env.HYPERDRIVE.connectionString);
   return betterAuth({
     baseURL: env.BETTER_AUTH_URL,
     secret: env.BETTER_AUTH_SECRET,
@@ -56,7 +56,6 @@ export const auth = (env: Env) => {
         clientSecret: env.GOOGLE_CLIENT_SECRET,
         redirectURI: `${env.WEB_URL}/api/auth/callback/google`,
         mapProfileToUser: async (profile) => {
-          console.log(profile);
           return {
             email: profile.email,
             firstName: profile.name?.split(" ")[0],

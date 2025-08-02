@@ -23,7 +23,6 @@ const getORPCClient = createIsomorphicFn()
        * only include context that's safe to reuse globally.
        * For per-request context, use middleware context or pass a function as the initial context.
        */
-      // @ts-expect-error
       context: async () => {
         return {
           headers: getHeaders() as unknown as Headers,

@@ -15,8 +15,8 @@ const main = async () => {
   const data: (typeof userTable.$inferInsert)[] = [];
 
   await db.insert(userLevelsTable).values([
-    { level: 1, name: "Novato al Rojo", requiredXp: 0 },
-    { level: 3, name: "Estratega", requiredXp: 300 },
+    { level: 1, name: "Novato al Rojo", requiredChips: 0 },
+    { level: 3, name: "Estratega", requiredChips: 300 },
   ]);
 
   await db.insert(affiliatesTable).values([
