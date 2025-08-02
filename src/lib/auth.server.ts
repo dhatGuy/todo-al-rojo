@@ -10,5 +10,22 @@ export const getUser = createServerFn({ method: "GET" }).handler(async () => {
     headers: headers as unknown as Headers,
   });
 
-  return session;
+  if (!session) {
+    return null;
+  }
+
+  // Serialize the user object to avoid function serialization issues
+  return {
+    user: {
+      ...session.user,
+      level: session.user.level
+        ? {
+            name: session.user.level.name,
+            level: session.user.level.level,
+            requiredChips: session.user.level.requiredChips,
+          }
+        : undefined,
+    },
+    session: session.session,
+  };
 });
