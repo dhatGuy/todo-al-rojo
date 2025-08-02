@@ -23,7 +23,6 @@ export function LevelProgress({ user, className }: LevelProgressProps) {
     : 100; // If no next level, show 100%
 
   const displayPercentage = Math.round(progressPercentage);
-  console.log(progressPercentage);
 
   return (
     <Card

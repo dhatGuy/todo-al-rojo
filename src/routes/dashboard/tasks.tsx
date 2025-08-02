@@ -100,19 +100,14 @@ function RouteComponent() {
               <div className="flex items-center space-x-3">
                 <div>
                   <h3 className="text-white font-medium flex items-center space-x-2">
-                    <span>{tasks[0]?.title}</span>
-                    <span
-                      // variant="secondary"
-                      className="text-yellow-400"
-                    >
-                      +{tasks[0]?.chips} RC
-                    </span>
+                    <span>Inicio de sesión diario</span>
+                    <span className="text-yellow-400">+5 RC</span>
                     <div className="rounded-full flex items-center justify-center">
                       <PokerChip color="red" width={20} height={20} />
                     </div>
                   </h3>
                   <p className="text-gray-400 text-sm mt-1">
-                    {tasks[0]?.description}
+                    Iniciar sesión en la plataforma hoy
                   </p>
                 </div>
               </div>
@@ -194,49 +189,3 @@ function RouteComponent() {
     </div>
   );
 }
-
-const tasks = [
-  {
-    id: 1,
-    title: "💬 Daily Login",
-    description:
-      "Comparte tu link con amigos y gana Red Chips cuando depositen",
-    chips: 300,
-    type: "daily",
-    completed: true,
-    hasInput: false,
-  },
-  {
-    id: 2,
-    title: "💬 Invita y gana",
-    description:
-      "Comparte tu link con amigos y gana Red Chips cuando depositen",
-    chips: 300,
-    type: "referral",
-    completed: false,
-    hasInput: true,
-    inputPlaceholder: "https://todoalrojo.cl/invite/tuusuario",
-  },
-  {
-    id: 3,
-    title: "💬 Invita y gana",
-    description:
-      "Comparte tu link con amigos y gana Red Chips cuando depositen",
-    chips: 300,
-    type: "referral",
-    completed: false,
-    hasInput: true,
-    inputPlaceholder: "https://todoalrojo.cl/invite/tuusuario",
-  },
-  {
-    id: 4,
-    title: "💬 Invita y gana",
-    description:
-      "Comparte tu link con amigos y gana Red Chips cuando depositen",
-    chips: 300,
-    type: "referral",
-    completed: false,
-    hasInput: true,
-    inputPlaceholder: "https://todoalrojo.cl/invite/tuusuario",
-  },
-];
