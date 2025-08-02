@@ -13,8 +13,8 @@ export function LevelProgress({ user, className }: LevelProgressProps) {
   const progressPercentage = user.nextLevel?.requiredChips
     ? Math.min(
         Math.max(
-          (((user.level?.requiredChips ?? 0) - user.nextLevel.requiredChips) /
-            (user.nextLevel.requiredChips - user.nextLevel.requiredChips)) *
+          (((user?.chips ?? 0) - (user.level?.requiredChips ?? 0)) /
+            (user.nextLevel.requiredChips - (user.level?.requiredChips ?? 0))) *
             100,
           0,
         ),
@@ -23,6 +23,7 @@ export function LevelProgress({ user, className }: LevelProgressProps) {
     : 100; // If no next level, show 100%
 
   const displayPercentage = Math.round(progressPercentage);
+  console.log(progressPercentage);
 
   return (
     <Card
