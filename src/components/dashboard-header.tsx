@@ -71,7 +71,7 @@ export default function DashboardNavigation() {
                 <div className="size-6 md:size-12 rounded-full overflow-hidden">
                   <img
                     src={
-                      session.user.image ||
+                      session?.user.image ||
                       "https://picsum.photos/seed/picsum/200/300.webp"
                     }
                     alt={`${session?.user.firstName}`}
@@ -117,7 +117,7 @@ export default function DashboardNavigation() {
                           <div className="w-full h-full rounded-full overflow-hidden">
                             <img
                               src={
-                                session.user.image ||
+                                session?.user.image ||
                                 "https://picsum.photos/seed/picsum/200/300.webp"
                               }
                               alt={`${session?.user.firstName}'s Avatar`}
