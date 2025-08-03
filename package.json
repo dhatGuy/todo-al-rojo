@@ -6,7 +6,8 @@
     "dev": "vite dev",
     "build": "vite build && tsc --noEmit",
     "start": "node .output/server/index.mjs",
-    "deploy": "npm run build && wrangler deploy",
+    "deploy": "bun run build && wrangler deploy",
+    "preview": "npx wrangler --cwd .output dev",
     "cf-typegen": "wrangler types --env-interface Env"
   },
   "license": "MIT",
