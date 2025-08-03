@@ -114,7 +114,10 @@ function RouteComponent() {
 
               <Button
                 onClick={onCheckDailyLogin}
-                disabled={dailyLoginStatus?.completedToday}
+                disabled={
+                  dailyLoginStatus?.completedToday ||
+                  dailyCheckMutation.isPending
+                }
                 variant={
                   dailyLoginStatus?.completedToday ? "secondary" : "primary"
                 }
@@ -125,6 +128,7 @@ function RouteComponent() {
                   "text-md p-5 rounded-xl w-full sm:w-auto",
                 )}
                 size="sm"
+                loading={dailyCheckMutation.isPending}
               >
                 {dailyLoginStatus?.completedToday ? "Terminado" : "Completo"}
               </Button>

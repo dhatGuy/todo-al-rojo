@@ -23,9 +23,6 @@ export const Route = createFileRoute("/dashboard")({
 
     return { session };
   },
-  loader: async ({ context }) => ({
-    session: context.session,
-  }),
 });
 
 function RouteComponent() {

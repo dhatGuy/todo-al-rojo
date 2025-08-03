@@ -7,8 +7,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Route } from "@/routes/dashboard/route";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouteContext } from "@tanstack/react-router";
 import { Crown, Menu } from "lucide-react";
 
 const navigationItems: any[] = [
@@ -22,7 +21,9 @@ const navigationItems: any[] = [
 ];
 
 export default function DashboardNavigation() {
-  const { session } = Route.useLoaderData();
+  const { session } = useRouteContext({
+    from: "__root__",
+  });
 
   return (
     <nav className="text-white w-full overflow-hidden">
