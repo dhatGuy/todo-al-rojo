@@ -1,3 +1,4 @@
+import { DailyLoginTask } from "@/components/daily-login-task";
 import { LevelProgress } from "@/components/level-progress";
 import { seo } from "@/lib/seo";
 import { createFileRoute, useRouteContext } from "@tanstack/react-router";
@@ -45,7 +46,9 @@ function RouteComponent() {
             Tareas activas
           </h2>
           <div className="space-y-3 sm:space-y-4 overflow-y-auto">
-            {activeTasks.map((item) => (
+            <DailyLoginTask />
+
+            {/*{activeTasks.map((item) => (
               <div
                 key={item.title}
                 className="bg-[#101227] rounded-xl p-3 sm:p-4 flex items-center justify-between"
@@ -67,7 +70,7 @@ function RouteComponent() {
                   +{item.chips} RC
                 </div>
               </div>
-            ))}
+            ))}*/}
           </div>
         </div>
 
@@ -149,22 +152,3 @@ function RouteComponent() {
     </div>
   );
 }
-
-const activeTasks = [
-  {
-    id: 1,
-    title: "Deposita $10,000 CLP",
-    description: "Centurta",
-    chips: 100,
-    type: "deposit",
-    status: "active",
-  },
-  {
-    id: 2,
-    title: "Invita a 1 amigo",
-    description: "Climax",
-    chips: 300,
-    type: "referral",
-    status: "active",
-  },
-];
