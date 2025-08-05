@@ -75,7 +75,7 @@ export const getUserTasksWithStatus = authedProcedure
         activeTasks.map(async (task) => {
           // Find user completions for this task
           const completions = userCompletedTasks.filter(
-            (ut) => ut.taskId === task.id,
+            (ut) => ut.taskType === task.taskType,
           );
 
           // Determine completion status based on frequency
@@ -207,7 +207,7 @@ export const completeTask = authedProcedure
         .insert(userTasksTable)
         .values({
           userId,
-          taskId: task.id,
+          taskType: task.taskType,
           chipsRewarded: task.defaultChips,
           status: "completed",
           // meta metadata,
@@ -284,7 +284,7 @@ async function canCompleteTask(
     const existing = await db.query.userTasksTable.findFirst({
       where: and(
         eq(userTasksTable.userId, userId),
-        eq(userTasksTable.taskId, task.id),
+        eq(userTasksTable.taskType, task.taskType),
       ),
     });
 
@@ -304,7 +304,7 @@ async function canCompleteTask(
     const completions = await db.query.userTasksTable.findMany({
       where: and(
         eq(userTasksTable.userId, userId),
-        eq(userTasksTable.taskId, task.id),
+        eq(userTasksTable.taskType, task.taskType),
         gte(userTasksTable.createdAt, periodStart.toISOString()),
       ),
     });
@@ -351,14 +351,7 @@ async function awardChipsForTask(
     // Record chip transaction
     await db.insert(chipTransactionsTable).values({
       userId,
-      taskId:
-        (
-          await db.query.tasksTable.findFirst({
-            where: eq(tasksTable.taskType, taskType),
-          })
-        )?.id || null,
-      // userTaskId,
-      // chips,
+      taskType,
       amount: chips,
       transactionType: "earned",
       description: `Earned from ${taskType}`,
