@@ -7,9 +7,12 @@ import { getDb } from "@/database/db";
 import { schema } from "@/database/schema";
 import { userTable } from "@/database/schema/auth-schema";
 import { referralsTable } from "@/database/schema/referrals.table";
+import { tasksTable } from "@/database/schema/tasks.table";
 import { userLevelsTable } from "@/database/schema/user-levels.table";
+import { rewardUserChips } from "@/services/chip.services";
+import { generateReferralCode } from "@/services/referral.service";
 import { count, eq } from "drizzle-orm";
-import { generateUniqueReferralCode } from "./generateUniqueReferralCode";
+import { REFERRAL_COOKIE } from "./capture-ref-and-utm.server";
 import { sendResetPasswordEmail } from "./resend";
 
 export const auth = (env: Env) => {
@@ -83,11 +86,7 @@ export const auth = (env: Env) => {
               }
             }
 
-            const referralCode = await generateUniqueReferralCode(
-              6,
-              5,
-              database,
-            );
+            const referralCode = await generateReferralCode(database);
 
             return {
               data: {
@@ -97,14 +96,47 @@ export const auth = (env: Env) => {
             };
           },
           after: async (user, ctx) => {
-            const { ref, affiliate } = ctx?.query || {};
-            await database.insert(referralsTable).values({
-              referrerUserId: user.id,
-              referredUserId: ref,
-              // @ts-expect-error referral is present
-              referralCode: user?.referralCode,
-              affiliateId: affiliate,
+            const refCookieValue = ctx?.getCookie(REFERRAL_COOKIE);
+
+            const { affiliate } = ctx?.query || {};
+            const regTask = "register_web";
+            const task = await database.query.tasksTable.findFirst({
+              where: eq(tasksTable.taskType, regTask),
             });
+
+            if (task) {
+              await database.transaction(async (tx) => {
+                await rewardUserChips(tx, {
+                  amount: task.defaultChips,
+                  taskType: regTask,
+                  userId: user.id,
+                  description: "Welcome bonus",
+                });
+
+                if (refCookieValue) {
+                  const referrer = await tx.query.userTable.findFirst({
+                    where: eq(userTable.referralCode, refCookieValue),
+                  });
+
+                  if (referrer) {
+                    await tx.insert(referralsTable).values({
+                      referrerId: referrer.id,
+                      referredId: user.id,
+                      referralCode: referrer.referralCode,
+                      affiliateId: affiliate,
+                    });
+
+                    //  award the referrer
+                    await rewardUserChips(tx, {
+                      amount: task.defaultChips,
+                      taskType: "referral_signup",
+                      userId: referrer.id,
+                      description: "Referral signup bonus",
+                    });
+                  }
+                }
+              });
+            }
           },
         },
       },

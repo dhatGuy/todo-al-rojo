@@ -46,7 +46,7 @@ export class DailyLoginService {
     const todayCompletion = await this.db.query.userTasksTable.findFirst({
       where: and(
         eq(userTasksTable.userId, userId),
-        eq(userTasksTable.taskId, dailyLoginTask.id),
+        eq(userTasksTable.taskType, dailyLoginTask.taskType),
         gte(userTasksTable.createdAt, today.toISOString()),
       ),
     });
@@ -106,7 +106,7 @@ export class DailyLoginService {
       // 1. Create user task record
       await tx.insert(userTasksTable).values({
         userId,
-        taskId: task.id,
+        taskType: "daily_login",
         chipsRewarded: totalChips,
         status: "completed",
         completionDate: dayjs().toDate(),
@@ -137,7 +137,7 @@ export class DailyLoginService {
       // 3. Record chip transaction
       await tx.insert(chipTransactionsTable).values({
         userId,
-        taskId: task.id,
+        taskType: "daily_login",
         amount: totalChips,
         transactionType: "earned",
         description: `Daily login bonus (+${levelBonus} level bonus)`,
@@ -179,7 +179,7 @@ export class DailyLoginService {
       const completions = await this.db.query.userTasksTable.findMany({
         where: and(
           eq(userTasksTable.userId, userId),
-          eq(userTasksTable.taskId, dailyLoginTask.id),
+          eq(userTasksTable.taskType, dailyLoginTask.taskType),
         ),
         orderBy: (tasks, { desc }) => [desc(tasks.createdAt)],
       });
@@ -239,7 +239,7 @@ export class DailyLoginService {
       const todayCompletion = await this.db.query.userTasksTable.findFirst({
         where: and(
           eq(userTasksTable.userId, userId),
-          eq(userTasksTable.taskId, dailyLoginTask.id),
+          eq(userTasksTable.taskType, dailyLoginTask.taskType),
           gte(userTasksTable.createdAt, today.toISOString()),
         ),
       });

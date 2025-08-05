@@ -4,6 +4,7 @@ import {
   jsonb,
   pgEnum,
   pgTable,
+  text,
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
@@ -26,7 +27,7 @@ export const chipTransactionsTable = pgTable("chip_transactions", {
     .references(() => userTable.id, { onDelete: "cascade" }),
   transactionType: transactionTypeEnum("transaction_type").notNull(),
   amount: integer("amount").notNull(),
-  taskId: uuid("task_id").references(() => tasksTable.id, {
+  taskType: text("task_type").references(() => tasksTable.taskType, {
     onDelete: "set null",
   }),
   meta: jsonb("metadata").$type<{
@@ -48,8 +49,8 @@ export const chipTransactionsRelations = relations(
       references: [userTable.id],
     }),
     task: one(tasksTable, {
-      fields: [chipTransactionsTable.taskId],
-      references: [tasksTable.id],
+      fields: [chipTransactionsTable.taskType],
+      references: [tasksTable.taskType],
     }),
   }),
 );

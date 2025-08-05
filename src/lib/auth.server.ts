@@ -1,5 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
-import { getHeaders, setResponseStatus } from "@tanstack/react-start/server";
+import { getHeaders } from "@tanstack/react-start/server";
 import { auth } from "./auth";
 import { getBindings } from "./bindings";
 
@@ -11,7 +11,7 @@ export const getUser = createServerFn({ method: "GET" }).handler(async () => {
   });
 
   if (!session) {
-    setResponseStatus(401);
+    // setResponseStatus(401);
     return null;
   }
 

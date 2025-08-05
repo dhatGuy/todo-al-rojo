@@ -11,7 +11,6 @@ import { timestamps } from "../timestamps";
 import { affiliatesTable } from "./affiliates.table";
 import { userTable } from "./auth-schema";
 import { ftdTrackingTable } from "./ftd-tracking.table";
-import { referralsTable } from "./referrals.table";
 
 export const clickTrackingTable = pgTable("click_tracking", {
   id: uuid("id").primaryKey().defaultRandom(),
@@ -22,9 +21,9 @@ export const clickTrackingTable = pgTable("click_tracking", {
   referrerId: uuid("referrer_id").references(() => userTable.id, {
     onDelete: "set null",
   }),
-  referralCode: varchar("referral_code", { length: 50 }).references(
-    () => referralsTable.referralCode,
-  ),
+  // referralCode: varchar("referral_code", { length: 50 }).references(
+  //   () => referralsTable.referralCode,
+  // ),
   affiliateId: uuid("affiliate_id").references(() => affiliatesTable.id, {
     onDelete: "set null",
   }),
@@ -62,10 +61,10 @@ export const clickTrackingRelations = relations(
       references: [userTable.id],
       relationName: "referrerClicks",
     }),
-    referral: one(referralsTable, {
-      fields: [clickTrackingTable.referralCode],
-      references: [referralsTable.referralCode],
-    }),
+    // referral: one(referralsTable, {
+    //   fields: [clickTrackingTable.referralCode],
+    //   references: [referralsTable.referralCode],
+    // }),
     affiliate: one(affiliatesTable, {
       fields: [clickTrackingTable.affiliateId],
       references: [affiliatesTable.id],

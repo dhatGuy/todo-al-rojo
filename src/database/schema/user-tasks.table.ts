@@ -1,5 +1,12 @@
 import { relations } from "drizzle-orm";
-import { integer, pgEnum, pgTable, timestamp, uuid } from "drizzle-orm/pg-core";
+import {
+  integer,
+  pgEnum,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+} from "drizzle-orm/pg-core";
 import { timestamps } from "../timestamps";
 import { userTable } from "./auth-schema";
 import { tasksTable } from "./tasks.table";
@@ -15,9 +22,7 @@ export const userTasksTable = pgTable("user_tasks", {
   userId: uuid("user_id")
     .notNull()
     .references(() => userTable.id, { onDelete: "cascade" }),
-  taskId: uuid("task_id")
-    .notNull()
-    .references(() => tasksTable.id, { onDelete: "restrict" }),
+  taskType: text("task_type").references(() => tasksTable.taskType),
   status: taskStatusEnum("status").default("pending"),
   chipsRewarded: integer("chips_rewarded").default(0),
   completionDate: timestamp("completion_date"),
@@ -34,7 +39,7 @@ export const userTasksRelations = relations(userTasksTable, ({ one }) => ({
     references: [userTable.id],
   }),
   task: one(tasksTable, {
-    fields: [userTasksTable.taskId],
-    references: [tasksTable.id],
+    fields: [userTasksTable.taskType],
+    references: [tasksTable.taskType],
   }),
 }));

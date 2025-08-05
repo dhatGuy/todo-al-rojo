@@ -49,6 +49,7 @@
     "embla-carousel-react": "^8.6.0",
     "embla-carousel-wheel-gestures": "^8.0.2",
     "lucide-react": "^0.525.0",
+    "nanoid": "^5.1.5",
     "next-themes": "1.0.0-beta.0",
     "postgres": "^3.4.7",
     "react": "^19.1.1",

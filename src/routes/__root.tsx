@@ -8,17 +8,30 @@ import {
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 import { getUser } from "@/lib/auth.server";
+import { captureReferralAndUtm } from "@/lib/capture-ref-and-utm.server";
 import { seo } from "@/lib/seo";
 import { Providers } from "@/providers";
 import globalsCss from "@/styles/globals.css?url";
 import { QueryClient } from "@tanstack/react-query";
 import type { ReactNode } from "react";
+import z from "zod";
 
+const searchSchema = z.object({
+  ref: z.string().optional(),
+  utm_source: z.string().optional(),
+  utm_medium: z.string().optional(),
+  utm_campaign: z.string().optional(),
+  utm_term: z.string().optional(),
+});
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
   session: Awaited<ReturnType<typeof getUser>>;
 }>()({
-  beforeLoad: async () => {
+  validateSearch: searchSchema,
+  beforeLoad: async ({ search }) => {
+    if (Object.keys(search).length > 0) {
+      await captureReferralAndUtm({ data: search });
+    }
     const session = await getUser();
     return { session };
   },

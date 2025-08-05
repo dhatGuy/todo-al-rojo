@@ -132,7 +132,6 @@ function RouteComponent() {
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
-                  action="#"
                   className="grid grid-cols-6 gap-8 px-8"
                 >
                   <FormField
@@ -250,6 +249,7 @@ function RouteComponent() {
 
                   <div className="col-span-6 sm:flex flex-col sm:gap-4">
                     <Button
+                      type="submit"
                       loading={mutation.isPending}
                       className="w-full rojo-gradient font-bold h-12 rounded-lg text-gray-800"
                     >

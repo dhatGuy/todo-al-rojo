@@ -92,7 +92,7 @@ function RouteComponent() {
             type="button"
             className="bg-[#1e203a] backdrop-blur-lg rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center gap-3 sm:gap-4 text-white hover:bg-card-blue/90 hover:transform hover:-translate-y-1 transition-all duration-200"
           >
-            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-red-600 rounded-full flex items-center justify-center text-xl sm:text-2xl">
+            <div className="size-10 sm:size-12 bg-red-600 rounded-full flex items-center justify-center text-xl sm:text-2xl">
               🛍️
             </div>
             <span className="font-semibold text-sm sm:text-base text-center">

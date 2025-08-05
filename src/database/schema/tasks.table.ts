@@ -7,7 +7,6 @@ import {
   pgTable,
   text,
   uuid,
-  varchar,
 } from "drizzle-orm/pg-core";
 import { timestamps } from "../timestamps";
 import { chipTransactionsTable } from "./chip-transactions.table";
@@ -37,8 +36,8 @@ export const taskCategoryEnum = pgEnum("task_category", [
 
 export const tasksTable = pgTable("tasks", {
   id: uuid("id").primaryKey().defaultRandom(),
-  taskType: varchar("task_type", { length: 50 }).notNull().unique(), // e.g., 'daily_login', 'refer_friend'
-  name: varchar("name", { length: 100 }).notNull(),
+  taskType: text("task_type").notNull().unique(), // e.g., 'daily_login', 'refer_friend'
+  name: text("name").notNull(),
   description: text("description"),
   category: taskCategoryEnum("category"),
 
@@ -48,7 +47,7 @@ export const tasksTable = pgTable("tasks", {
     .notNull()
     .default("automatic"),
   maxCompletionsPerPeriod: integer("max_completions_per_period"), // e.g., 5 per day for messages
-  periodUnit: varchar("period_unit", { length: 20 }), // 'day', 'week', 'month'
+  periodUnit: text("period_unit"), // 'day', 'week', 'month'
   levelRequirement: integer("level_requirement").default(1),
   conditions: jsonb("conditions").$type<Record<string, any>>(), // JSON object for task conditions
   active: boolean("active").default(true),

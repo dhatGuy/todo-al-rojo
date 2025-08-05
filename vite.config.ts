@@ -15,7 +15,7 @@ export default defineConfig({
       customViteReactPlugin: true,
       target: "cloudflare-module",
     }),
-    tailwindcss(),
     viteReact(),
+    tailwindcss(),
   ],
 });

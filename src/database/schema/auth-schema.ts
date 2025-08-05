@@ -58,7 +58,7 @@ export const usersRelations = relations(userTable, ({ one, many }) => ({
   }),
   referral: one(referralsTable, {
     fields: [userTable.id],
-    references: [referralsTable.referrerUserId],
+    references: [referralsTable.referrerId],
   }),
   level: one(userLevelsTable, {
     fields: [userTable.level],
