@@ -5,15 +5,45 @@ import { TimePeriodFilter } from "@/components/ranking/TimePeriodFilter";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { orpc } from "@/orpc/client";
+import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { zodValidator } from "@tanstack/zod-adapter";
+import z from "zod";
+
+const searchSchema = z.object({
+  period: z.enum(["diario", "semanal", "mensual"]).optional(),
+});
+
+type SearchParams = z.infer<typeof searchSchema>;
 
 export const Route = createFileRoute("/ranking")({
+  validateSearch: zodValidator(searchSchema),
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const [activePeriod, setActivePeriod] = useState("Semanal");
+  const { period } = Route.useSearch();
+  const navigate = Route.useNavigate();
+
+  // Get top 3 performers for podium
+  const { data: topPerformers } = useQuery(
+    orpc.leaderboard.getTopPerformers.queryOptions({
+      input: {
+        limit: 3,
+        type: "chips",
+      },
+    }),
+  );
+
+  const onPeriodChange = (period: SearchParams["period"]) => {
+    if (!period) return;
+    navigate({
+      search: {
+        period,
+      },
+    });
+  };
 
   return (
     <div className="min-h-screen flex flex-col text-white">
@@ -47,73 +77,127 @@ function RouteComponent() {
               "mb-8 flex flex-col gap-4 md:grid md:grid-cols-3 md:gap-6",
             )}
           >
-            {leaderboardUsers.map((user, i) => {
-              // Set order: on mobile, 2nd user first, then 1st, then 3rd
-              // On md+, use default order
-              let orderClass = "";
-              if (i === 0) orderClass = "order-2 md:order-1";
-              else if (i === 1) orderClass = "order-1 md:order-2";
-              else if (i === 2) orderClass = "order-3 md:order-3";
-              return (
-                <Card
-                  key={user.name}
-                  className={cn(
-                    "overflow-hidden border-none shadow-lg",
-                    user.bgClass,
-                    "relative p-6",
-                    i === 1 ? "md:scale-110" : "md:scale-90",
-                    orderClass,
-                  )}
-                >
-                  <span
-                    className={cn(
-                      "absolute top-4 left-4 text-6xl font-bold opacity-70 md:text-7xl",
-                      user.textClass,
-                    )}
-                  >
-                    {user.rank}
-                  </span>
+            {topPerformers && topPerformers.length >= 3
+              ? // Reorder for mobile: 2nd, 1st, 3rd
+                [topPerformers[1], topPerformers[0], topPerformers[2]].map(
+                  (user, displayIndex) => {
+                    if (!user) return null;
 
-                  <div className="flex flex-col items-center pt-8">
-                    <div className="relative mb-4 grid w-full place-items-center">
-                      <img
-                        className="absolute h-28 w-28 object-cover [grid_area:1/1]"
-                        alt="crown"
-                        src={
-                          i === 0
-                            ? "/images/silver.png"
-                            : i === 1
-                              ? "/images/gold.png"
-                              : "/images/bronze.png"
-                        }
-                      ></img>
-                      <Avatar
+                    const actualRank = user.rank;
+                    let orderClass = "";
+                    if (displayIndex === 0)
+                      orderClass = "order-1 md:order-2"; // 2nd place
+                    else if (displayIndex === 1)
+                      orderClass = "order-2 md:order-1"; // 1st place
+                    else if (displayIndex === 2)
+                      orderClass = "order-3 md:order-3"; // 3rd place
+
+                    const getBgClass = (rank: number) => {
+                      if (rank === 1)
+                        return "bg-gradient-to-b from-yellow-300 to-yellow-400";
+                      if (rank === 2)
+                        return "bg-gradient-to-b from-gray-300 to-gray-400";
+                      if (rank === 3)
+                        return "bg-gradient-to-b from-amber-600 to-amber-700";
+                      return "bg-gradient-to-b from-gray-300 to-gray-400";
+                    };
+
+                    const getTextClass = (rank: number) => {
+                      if (rank === 1) return "text-yellow-300";
+                      if (rank === 2) return "text-gray-300";
+                      if (rank === 3) return "text-amber-600";
+                      return "text-gray-300";
+                    };
+
+                    const getRankText = (rank: number) => {
+                      if (rank === 1) return "1ST";
+                      if (rank === 2) return "2ND";
+                      if (rank === 3) return "3RD";
+                      return `${rank}TH`;
+                    };
+
+                    const getCrownImage = (rank: number) => {
+                      if (rank === 1) return "/images/gold.png";
+                      if (rank === 2) return "/images/silver.png";
+                      if (rank === 3) return "/images/bronze.png";
+                      return "/images/bronze.png";
+                    };
+
+                    return (
+                      <Card
+                        key={user.name}
                         className={cn(
-                          "h-[60px] w-[60px] rounded-full [grid_area:1/1]",
+                          "overflow-hidden border-none shadow-lg",
+                          getBgClass(actualRank),
+                          "relative p-6",
+                          actualRank === 1 ? "md:scale-110" : "md:scale-90",
+                          orderClass,
                         )}
                       >
-                        <AvatarImage src={user.image} />
-                      </Avatar>
-                    </div>
+                        <span
+                          className={cn(
+                            "absolute top-4 left-4 text-6xl font-bold opacity-70 md:text-7xl",
+                            getTextClass(actualRank),
+                          )}
+                        >
+                          {getRankText(actualRank)}
+                        </span>
 
-                    <h3 className="mb-1 text-xl font-bold text-black">
-                      {user.name}
-                    </h3>
+                        <div className="flex flex-col items-center pt-8">
+                          <div className="relative mb-4 grid w-full place-items-center">
+                            <img
+                              className="absolute h-28 w-28 object-cover [grid_area:1/1]"
+                              alt="crown"
+                              src={getCrownImage(actualRank)}
+                            />
+                            <Avatar
+                              className={cn(
+                                "h-[60px] w-[60px] rounded-full [grid_area:1/1]",
+                              )}
+                            >
+                              <AvatarImage
+                                src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user.name}`}
+                              />
+                            </Avatar>
+                          </div>
 
-                    <div className="flex items-center">
-                      <img
-                        className="mr-2 h-5 w-5 object-contain"
-                        src="/images/rj-chips.png"
-                        alt="points-icon"
-                      />
-                      <span className="font-semibold text-black">
-                        {user.points}
-                      </span>
+                          <h3 className="mb-1 text-xl font-bold text-black">
+                            {user.name}
+                          </h3>
+
+                          <div className="flex items-center">
+                            <img
+                              className="mr-2 h-5 w-5 object-contain"
+                              src="/images/rj-chips.png"
+                              alt="points-icon"
+                            />
+                            <span className="font-semibold text-black">
+                              {user.chips.toLocaleString()}
+                            </span>
+                          </div>
+                        </div>
+                      </Card>
+                    );
+                  },
+                )
+              : // Fallback loading state
+                Array.from({ length: 3 }).map((_, i) => (
+                  <Card
+                    key={i}
+                    className={cn(
+                      "overflow-hidden border-none shadow-lg",
+                      "bg-gradient-to-b from-gray-300 to-gray-400",
+                      "relative p-6 animate-pulse",
+                      i === 1 ? "md:scale-110" : "md:scale-90",
+                    )}
+                  >
+                    <div className="flex flex-col items-center pt-8">
+                      <div className="h-28 w-28 bg-gray-400 rounded-full mb-4"></div>
+                      <div className="h-6 w-24 bg-gray-400 rounded mb-2"></div>
+                      <div className="h-4 w-16 bg-gray-400 rounded"></div>
                     </div>
-                  </div>
-                </Card>
-              );
-            })}
+                  </Card>
+                ))}
           </div>
         </div>
       </div>
@@ -121,8 +205,8 @@ function RouteComponent() {
         <div className="max-w-7xl w-full mx-auto p-4 space-y-6">
           {/* Time Period Filter */}
           <TimePeriodFilter
-            activePeriod={activePeriod}
-            onPeriodChange={setActivePeriod}
+            activePeriod={period}
+            onPeriodChange={onPeriodChange}
           />
 
           {/* Ranking Table */}
@@ -134,30 +218,3 @@ function RouteComponent() {
     </div>
   );
 }
-
-const leaderboardUsers = [
-  {
-    rank: "2ND",
-    name: "Ruben Dias",
-    points: "1,600",
-    bgClass: "bg-gradient-to-b from-gray-300 to-gray-400",
-    textClass: "text-gray-300",
-    image: "https://picsum.photos/200",
-  },
-  {
-    rank: "1ST",
-    name: "Felipe Pastenes",
-    points: "2,000",
-    bgClass: "bg-gradient-to-b from-yellow-300 to-yellow-400",
-    textClass: "text-yellow-300",
-    image: "https://picsum.photos/200",
-  },
-  {
-    rank: "3RD",
-    name: "Thiago Silva",
-    points: "1,500",
-    bgClass: "bg-gradient-to-b from-amber-600 to-amber-700",
-    textClass: "text-amber-600",
-    image: "https://picsum.photos/200",
-  },
-];

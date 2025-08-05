@@ -1,4 +1,9 @@
 import {
+  getLeaderboard,
+  getTopPerformers,
+  getUserLeaderboardPosition,
+} from "./leaderboard.router";
+import {
   checkDailyLogin,
   getDailyLoginStatus,
   getDailyLoginStreak,
@@ -16,5 +21,10 @@ export const router = {
     checkDailyLogin: checkDailyLogin,
     getDailyLoginStatus: getDailyLoginStatus,
     getDailyLoginStreak: getDailyLoginStreak,
+  },
+  leaderboard: {
+    get: getLeaderboard,
+    getUserPosition: getUserLeaderboardPosition,
+    getTopPerformers: getTopPerformers,
   },
 };

@@ -2,20 +2,21 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { cn } from "@/lib/utils";
 
 interface TimePeriodFilterProps {
-  activePeriod: string;
-  onPeriodChange: (period: string) => void;
+  activePeriod?: "diario" | "semanal" | "mensual";
+  onPeriodChange: (period: "diario" | "semanal" | "mensual") => void;
 }
 
 export const TimePeriodFilter = ({
-  activePeriod,
+  activePeriod = "semanal",
   onPeriodChange,
 }: TimePeriodFilterProps) => {
-  const periods = ["Diario", "Semanal", "Mensual"];
+  const periods = ["diario", "semanal", "mensual"];
 
   return (
     <div className="flex justify-center mb-8 bg-white rounded-xl">
       <ToggleGroup
         type="single"
+        value={activePeriod}
         onValueChange={onPeriodChange}
         className="bg-transparent rounded-xl p-1 flex items-center justify-center"
       >
@@ -31,7 +32,7 @@ export const TimePeriodFilter = ({
                 : "text-gray-600 hover:text-gray-800",
             )}
           >
-            {period}
+            {period.charAt(0).toUpperCase() + period.slice(1)}
           </ToggleGroupItem>
         ))}
       </ToggleGroup>

@@ -21,3 +21,15 @@ export const requiredAuthMiddleware = os
       throw e;
     }
   });
+
+export const optionalAuthMiddleware = os
+  .$context<{ env: Env; headers: Headers }>()
+  .middleware(async ({ context, next }) => {
+    const session = await auth(context.env).api.getSession({
+      headers: context.headers,
+    });
+
+    return next({
+      context: { session },
+    });
+  });

@@ -1,5 +1,8 @@
 import { os } from "@orpc/server";
-import { requiredAuthMiddleware } from "./middlewares/auth";
+import {
+  optionalAuthMiddleware,
+  requiredAuthMiddleware,
+} from "./middlewares/auth";
 import { dbProviderMiddleware } from "./middlewares/db.middleware";
 import { envMiddleware } from "./middlewares/env.middleware";
 
