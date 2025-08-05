@@ -14,7 +14,7 @@ export const getLeaderboard = publicProcedure
   .use(optionalAuthMiddleware)
   .input(LeaderboardFiltersSchema)
   .handler(async ({ input, context }) => {
-    const { type, timeframe, page, limit } = input;
+    const { type, page, limit } = input;
     const { db, session } = context;
 
     const offset = (page - 1) * limit;
@@ -50,6 +50,7 @@ export const getLeaderboard = publicProcedure
         .select({
           userId: userTable.id,
           name: sql<string>`CONCAT(${userTable.firstName}, ' ', ${userTable.lastName})`,
+          image: userTable.image,
           chips: userTable.chips,
           level: userTable.level,
           levelName: userLevelsTable.name,
@@ -78,6 +79,7 @@ export const getLeaderboard = publicProcedure
             rank: sql<number>`rank_result.rank`,
             userId: sql<string>`rank_result.id`,
             name: sql<string>`rank_result.name`,
+            image: sql<string>`rank_result.image`,
             chips: sql<number>`rank_result.chips`,
             level: sql<number>`rank_result.level`,
             levelName: sql<string>`rank_result.level_name`,
@@ -90,6 +92,7 @@ export const getLeaderboard = publicProcedure
               CONCAT(u.first_name, ' ', u.last_name) as name,
               u.chips,
               u.level,
+              u.image,
               ul.name as level_name,
               u.earned_chips,
               ROW_NUMBER() OVER (ORDER BY u.${sql.raw(type === "level" ? "level" : type === "earned_chips" ? "earned_chips" : "chips")} DESC) as rank
@@ -108,6 +111,7 @@ export const getLeaderboard = publicProcedure
           rank: offset + index + 1,
           userId: entry.userId,
           name: entry.name,
+          image: entry.image,
           chips: entry.chips,
           level: entry.level,
           levelName: entry.levelName || `Level ${entry.level}`,
@@ -127,6 +131,7 @@ export const getLeaderboard = publicProcedure
               rank: currentUser.rank,
               userId: currentUser.userId,
               name: currentUser.name,
+              image: currentUser.image,
               chips: currentUser.chips,
               level: currentUser.level,
               levelName: currentUser.levelName || `Level ${currentUser.level}`,
@@ -226,6 +231,7 @@ export const getTopPerformers = publicProcedure
         .select({
           rank: sql<number>`ROW_NUMBER() OVER (ORDER BY ${orderByField})`,
           name: sql<string>`CONCAT(${userTable.firstName}, ' ', ${userTable.lastName})`,
+          image: userTable.image,
           chips: userTable.chips,
           level: userTable.level,
           levelName: userLevelsTable.name,
@@ -243,6 +249,7 @@ export const getTopPerformers = publicProcedure
       return topPerformers.map((performer, index) => ({
         rank: index + 1,
         name: performer.name,
+        image: performer.image,
         chips: performer.chips,
         level: performer.level,
         levelName: performer.levelName || `Level ${performer.level}`,

@@ -13,6 +13,7 @@ import z from "zod";
 
 const searchSchema = z.object({
   period: z.enum(["diario", "semanal", "mensual"]).optional(),
+  page: z.number().int().min(1).optional(),
 });
 
 type SearchParams = z.infer<typeof searchSchema>;
@@ -23,8 +24,22 @@ export const Route = createFileRoute("/ranking")({
 });
 
 function RouteComponent() {
-  const { period } = Route.useSearch();
+  const { period, page } = Route.useSearch();
   const navigate = Route.useNavigate();
+
+  // Convert period to timeframe for API
+  const getTimeframe = (period: string) => {
+    switch (period) {
+      case "diario":
+        return "weekly" as const;
+      case "semanal":
+        return "weekly" as const;
+      case "mensual":
+        return "monthly" as const;
+      default:
+        return "all_time" as const;
+    }
+  };
 
   // Get top 3 performers for podium
   const { data: topPerformers } = useQuery(
@@ -156,7 +171,10 @@ function RouteComponent() {
                               )}
                             >
                               <AvatarImage
-                                src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user.name}`}
+                                src={
+                                  user.image ||
+                                  `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.name}`
+                                }
                               />
                             </Avatar>
                           </div>
@@ -210,7 +228,15 @@ function RouteComponent() {
           />
 
           {/* Ranking Table */}
-          <RankingTable />
+          <RankingTable
+            timePeriod={period}
+            currentPage={page}
+            onPageChange={(newPage) => {
+              navigate({
+                search: { period, page: newPage },
+              });
+            }}
+          />
         </div>
       </div>
 

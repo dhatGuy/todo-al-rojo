@@ -16,7 +16,7 @@ export const TimePeriodFilter = ({
     <div className="flex justify-center mb-8 bg-white rounded-xl">
       <ToggleGroup
         type="single"
-        value={activePeriod}
+        value={activePeriod.toLowerCase()}
         onValueChange={onPeriodChange}
         className="bg-transparent rounded-xl p-1 flex items-center justify-center"
       >

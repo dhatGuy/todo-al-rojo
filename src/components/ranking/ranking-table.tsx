@@ -15,7 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { fetchData, type Person } from "@/lib/fetch-data";
+import { orpc } from "@/orpc/client";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import {
   createColumnHelper,
@@ -26,8 +26,30 @@ import {
 } from "@tanstack/react-table";
 import React from "react";
 
-export function RankingTable() {
-  const columnHelper = createColumnHelper<Person>();
+interface LeaderboardUser {
+  rank: number;
+  userId: string;
+  name: string;
+  image: string | null;
+  chips: number;
+  level: number;
+  levelName: string;
+  earnedChips: number;
+  isCurrentUser?: boolean;
+}
+
+interface RankingTableProps {
+  timePeriod?: string;
+  currentPage?: number;
+  onPageChange?: (page: number) => void;
+}
+
+export function RankingTable({
+  timePeriod = "semanal",
+  currentPage = 1,
+  onPageChange,
+}: RankingTableProps) {
+  const columnHelper = createColumnHelper<LeaderboardUser>();
 
   const columns = React.useMemo(
     () => [
@@ -41,30 +63,42 @@ export function RankingTable() {
         header: () => "#",
         footer: (props) => props.column.id,
       }),
-      columnHelper.accessor("user.avatar", {
+      columnHelper.accessor("name", {
         id: "avatar",
         header: () => "Avatar",
         footer: (props) => props.column.id,
         cell: (info) => (
           <Avatar className="mr-auto">
             <AvatarImage
-              src={info.getValue()}
-              alt={info.row.original.user.name}
+              src={
+                info.row.original.image ||
+                `https://api.dicebear.com/7.x/avataaars/svg?seed=${info.row.original.userId}`
+              }
+              alt={info.getValue()}
             />
             <AvatarFallback>
-              {info.row.original.user.name.charAt(0).toUpperCase()}
+              {info.getValue().charAt(0).toUpperCase()}
             </AvatarFallback>
           </Avatar>
         ),
       }),
-      columnHelper.accessor("user.name", {
+      columnHelper.accessor("name", {
         id: "user",
         header: () => "Usuario",
         footer: (props) => props.column.id,
-        cell: ({ getValue }) => (
+        cell: ({ getValue, row }) => (
           <div className="flex items-center justify-start gap-2">
             <div>
-              <div className="text-gray-300 text-lg">{getValue()}</div>
+              <div
+                className={`text-gray-300 text-lg ${row.original.isCurrentUser ? "font-semibold" : ""}`}
+              >
+                {getValue()}
+                {row.original.isCurrentUser && (
+                  <span className="ml-2 px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full">
+                    Tú
+                  </span>
+                )}
+              </div>
             </div>
           </div>
         ),
@@ -76,19 +110,23 @@ export function RankingTable() {
         cell: ({ getValue }) => (
           <div className="flex items-center justify-start gap-4">
             <img src="/images/rj-chips.png" alt="Chips" className="w-6 h-6" />
-            <p className="text-gray-300 text-lg">{getValue()}</p>
+            <p className="text-gray-300 text-lg">
+              {getValue().toLocaleString()}
+            </p>
           </div>
         ),
       }),
-      columnHelper.accessor("FTD", {
+      columnHelper.accessor("earnedChips", {
         id: "ftd",
         header: () => "FTDs",
         footer: (props) => props.column.id,
         cell: ({ getValue }) => (
-          <div className="text-left text-gray-300">{getValue()}</div>
+          <div className="text-left text-gray-300">
+            {Math.floor(getValue() / 200)}
+          </div>
         ),
       }),
-      columnHelper.accessor("insignia", {
+      columnHelper.accessor("levelName", {
         id: "insignia",
         header: () => "Insignias",
         footer: (props) => props.column.id,
@@ -101,31 +139,73 @@ export function RankingTable() {
   );
 
   const [pagination, setPagination] = React.useState<PaginationState>({
-    pageIndex: 0,
+    pageIndex: currentPage - 1,
     pageSize: 10,
   });
 
-  const dataQuery = useQuery({
-    queryKey: ["data", pagination],
-    queryFn: () => fetchData(pagination),
-    placeholderData: keepPreviousData, // don't have 0 rows flash while changing pages/loading next page
-  });
+  // Update pagination when currentPage changes
+  React.useEffect(() => {
+    setPagination((prev) => ({ ...prev, pageIndex: currentPage - 1 }));
+  }, [currentPage]);
+
+  // Convert time period to leaderboard type
+  const getLeaderboardType = (period: string) => {
+    switch (period) {
+      case "Diario":
+        return "chips" as const;
+      case "Semanal":
+        return "chips" as const;
+      case "Mensual":
+        return "chips" as const;
+      default:
+        return "chips" as const;
+    }
+  };
+
+  // Convert time period to timeframe
+  const getTimeframe = (period: string) => {
+    switch (period) {
+      case "Diario":
+        return "weekly" as const; // Using weekly as closest to daily
+      case "Semanal":
+        return "weekly" as const;
+      case "Mensual":
+        return "monthly" as const;
+      default:
+        return "all_time" as const;
+    }
+  };
+
+  const dataQuery = useQuery(
+    orpc.leaderboard.get.queryOptions({
+      input: {
+        type: getLeaderboardType(timePeriod),
+        timeframe: getTimeframe(timePeriod),
+        page: pagination.pageIndex + 1,
+        limit: pagination.pageSize,
+      },
+      placeholderData: keepPreviousData,
+    }),
+  );
 
   const defaultData = React.useMemo(() => [], []);
 
   const table = useReactTable({
-    data: dataQuery.data?.rows ?? defaultData,
+    data: dataQuery.data?.entries ?? defaultData,
     columns,
-    // pageCount: dataQuery.data?.pageCount ?? -1, //you can now pass in `rowCount` instead of pageCount and `pageCount` will be calculated internally (new in v8.13.0)
-    rowCount: dataQuery.data?.rowCount, // new in v8.13.0 - alternatively, just pass in `pageCount` directly
+    rowCount: dataQuery.data?.pagination.total,
     state: {
       pagination,
     },
-    onPaginationChange: setPagination,
+    onPaginationChange: (updater) => {
+      const newPagination =
+        typeof updater === "function" ? updater(pagination) : updater;
+      setPagination(newPagination);
+      onPageChange?.(newPagination.pageIndex + 1);
+    },
     getCoreRowModel: getCoreRowModel(),
-    manualPagination: true, //we're doing manual "server-side" pagination
-    // getPaginationRowModel: getPaginationRowModel(), // If only doing manual pagination, you don't need this
-    debugTable: true,
+    manualPagination: true,
+    debugTable: false,
   });
 
   return (
@@ -155,7 +235,10 @@ export function RankingTable() {
           <TableBody>
             {table.getRowModel().rows.map((row) => {
               return (
-                <TableRow key={row.id} className="border-[#282A49]">
+                <TableRow
+                  key={row.id}
+                  className={`border-[#282A49] ${row.original.isCurrentUser ? "bg-red-900/20" : ""}`}
+                >
                   {row.getVisibleCells().map((cell) => {
                     return (
                       <TableCell key={cell.id}>
@@ -202,17 +285,6 @@ export function RankingTable() {
 
               return (
                 <>
-                  {/* Previous button */}
-                  {/* <PaginationItem
-                    onClick={() =>
-                      table.setPageIndex(
-                        Math.max(0, table.getState().pagination.pageIndex - 1),
-                      )
-                    }
-                  >
-                    <PaginationPrevious>Previous</PaginationPrevious>
-                  </PaginationItem> */}
-
                   {/* Show first page if not in visible range */}
                   {startPage > 0 && (
                     <>
@@ -282,7 +354,6 @@ export function RankingTable() {
           </PaginationContent>
         </Pagination>
       </div>
-      {/* <pre>{JSON.stringify(pagination, null, 2)}</pre> */}
     </div>
   );
 }

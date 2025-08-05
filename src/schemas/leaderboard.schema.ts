@@ -6,7 +6,7 @@ export const LeaderboardTypeSchema = z.enum([
   "level",
   "earned_chips",
   "weekly_chips",
-  "monthly_chips"
+  "monthly_chips",
 ]);
 
 // Timeframe filter
@@ -30,6 +30,7 @@ export const LeaderboardEntrySchema = z.object({
   rank: z.number(),
   userId: z.string(),
   name: z.string(),
+  image: z.string().nullable(),
   chips: z.number(),
   level: z.number(),
   levelName: z.string(),
