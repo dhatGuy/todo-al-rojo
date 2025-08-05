@@ -26,7 +26,7 @@ export const loggerMiddleware = os
   .middleware(async ({ context, next, path }) => {
     const start = Date.now();
     const method = context.request.method;
-    const pathname = `/${path.join("/")}`;
+    const pathname = `/rpc/${path.join("/")}`;
 
     try {
       const result = await next({});

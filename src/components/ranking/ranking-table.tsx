@@ -70,14 +70,12 @@ export function RankingTable({
         cell: (info) => (
           <Avatar className="mr-auto">
             <AvatarImage
-              src={
-                info.row.original.image ||
-                `https://api.dicebear.com/7.x/avataaars/svg?seed=${info.row.original.userId}`
-              }
+              src={info.row.original.image || ""}
               alt={info.getValue()}
             />
-            <AvatarFallback>
+            <AvatarFallback className="text-black">
               {info.getValue().charAt(0).toUpperCase()}
+              {info.getValue().split(" ")[1].charAt(0).toUpperCase()}
             </AvatarFallback>
           </Avatar>
         ),
@@ -151,11 +149,11 @@ export function RankingTable({
   // Convert time period to leaderboard type
   const getLeaderboardType = (period: string) => {
     switch (period) {
-      case "Diario":
+      case "diario":
         return "chips" as const;
-      case "Semanal":
+      case "semanal":
         return "chips" as const;
-      case "Mensual":
+      case "mensual":
         return "chips" as const;
       default:
         return "chips" as const;
@@ -165,11 +163,11 @@ export function RankingTable({
   // Convert time period to timeframe
   const getTimeframe = (period: string) => {
     switch (period) {
-      case "Diario":
+      case "diario":
         return "weekly" as const; // Using weekly as closest to daily
-      case "Semanal":
+      case "semanal":
         return "weekly" as const;
-      case "Mensual":
+      case "mensual":
         return "monthly" as const;
       default:
         return "all_time" as const;
