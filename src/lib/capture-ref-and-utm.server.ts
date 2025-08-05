@@ -13,7 +13,7 @@ const COOKIE_OPTIONS = {
   secure: process.env.NODE_ENV === "production",
   sameSite: "lax",
   path: "/",
-};
+} as const;
 
 const searchSchema = z
   .object({
