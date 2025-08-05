@@ -16,6 +16,7 @@ async function handle({ request }: { request: Request }) {
     prefix: "/api/rpc",
     context: {
       headers,
+      request,
     },
   });
 

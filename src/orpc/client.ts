@@ -10,7 +10,7 @@ import type {
 import { createRouterClient } from "@orpc/server";
 import { createTanstackQueryUtils } from "@orpc/tanstack-query";
 import { createIsomorphicFn } from "@tanstack/react-start";
-import { getHeaders } from "@tanstack/react-start/server";
+import { getHeaders, getWebRequest } from "@tanstack/react-start/server";
 
 /**
  * This is part of the Optimize SSR setup.
@@ -30,6 +30,7 @@ const getORPCClient = createIsomorphicFn()
       context: async () => {
         return {
           headers: getHeaders() as unknown as Headers,
+          request: getWebRequest(),
           // env: getBindings(),
         };
       },
