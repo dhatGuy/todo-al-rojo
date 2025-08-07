@@ -1,3 +1,7 @@
+import { userEventPublisher } from "@/lib/event-pub";
+import z from "zod";
+import { authedProcedure } from "../server";
+import { onUserEvents } from "./event.router";
 import {
   getLeaderboard,
   getTopPerformers,
@@ -27,4 +31,19 @@ export const router = {
     getUserPosition: getUserLeaderboardPosition,
     getTopPerformers: getTopPerformers,
   },
+  events: {
+    onUserEvents,
+  },
+  sendNotification: authedProcedure
+    .input(z.object({ userId: z.string(), message: z.string() }))
+    .handler(({ context }) => {
+      userEventPublisher.publish(`user:${context.session.user.id}`, {
+        type: "level_up",
+        data: {
+          chips: 100,
+          levelName: "Level 1",
+          newLevel: 2,
+        },
+      });
+    }),
 };

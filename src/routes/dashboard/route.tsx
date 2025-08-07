@@ -1,5 +1,6 @@
 import DashboardNavigation from "@/components/dashboard-header";
 import { Footer } from "@/components/footer";
+import { RealTimeNotifications } from "@/components/real-time-notification";
 import {
   SidebarInset,
   SidebarProvider,
@@ -68,6 +69,7 @@ const Content = () => {
           (sidebarState.openMobile || sidebarState.open),
       })}
     >
+      <RealTimeNotifications />
       <Outlet />
     </div>
   );
