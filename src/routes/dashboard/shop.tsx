@@ -2,9 +2,8 @@ import PokerChip from "@/assets/icons/poker-chip";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { seo } from "@/lib/seo";
-import { orpc } from "@/orpc/client";
-import { useQuery } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { createFileRoute, useRouteContext } from "@tanstack/react-router";
 import { Gift } from "lucide-react";
 import { shopItemsQueryOptions } from "src/queries/shop.queries";
 
@@ -20,13 +19,8 @@ export const Route = createFileRoute("/dashboard/shop")({
 });
 
 function RouteComponent() {
-  const { data: rewards } = useQuery(shopItemsQueryOptions);
-
-  const { data: planets } = useQuery(
-    orpc.planet.list.queryOptions({
-      input: {},
-    }),
-  );
+  const { data: rewards } = useSuspenseQuery(shopItemsQueryOptions);
+  const { session } = useRouteContext({ from: "__root__" });
 
   return (
     <div className="space-y-6">
@@ -38,7 +32,9 @@ function RouteComponent() {
             <div className="rounded-full flex items-center justify-center">
               <PokerChip color="red" width={32} height={32} />
             </div>
-            <span className="text-white font-bold text-3xl">3000</span>
+            <span className="text-white font-bold text-3xl">
+              {Intl.NumberFormat().format(session?.user.chips || 0)}
+            </span>
           </div>
         </CardContent>
       </Card>
@@ -74,7 +70,7 @@ function RouteComponent() {
 
               <Button
                 // onClick={() => handleRedeem(reward)}
-                // disabled={userChips < reward.chips}
+                disabled={(session?.user.chips ?? 0) < reward.chipCost}
                 className="p-6 rojo-gradient text-black font-bold hover:opacity-80 disabled:opacity-50"
               >
                 Canjear
@@ -86,34 +82,3 @@ function RouteComponent() {
     </div>
   );
 }
-
-const rewards = [
-  {
-    id: 1,
-    title: "Free Bet $3,000",
-    description: "Deposito mínimo $3,000/últimos 7 días",
-    chips: 500,
-    chipText: "500 fichas",
-  },
-  {
-    id: 2,
-    title: "Free Bet $10,000",
-    description: "Nivel 6 o superior",
-    chips: 1300,
-    chipText: "1300 fichas",
-  },
-  {
-    id: 3,
-    title: "Free Bet $3,000",
-    description: "Deposito mínimo $3,000/últimos 7 días",
-    chips: 500,
-    chipText: "500 fichas",
-  },
-  {
-    id: 4,
-    title: "Free Bet $10,000",
-    description: "Nivel 6 o superior",
-    chips: 1300,
-    chipText: "1300 fichas",
-  },
-];

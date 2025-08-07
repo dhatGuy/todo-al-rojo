@@ -141,11 +141,11 @@ function RouteComponent() {
         {/* Total FTDs and Commission */}
         <div className="md:col-span-2 h-fit bg-dark-blue backdrop-blur-lg border border-white/10 rounded-2xl p-4 sm:p-6 flex flex-col sm:flex-row justify-between items-center hover:transform hover:-translate-y-1 transition-all duration-200">
           <div className="text-gray-400 text-sm sm:text-lg mb-2 sm:mb-0">
-            Total FTDs: <span className="text-white font-semibold">5</span>
+            Total FTDs: <span className="text-white font-semibold">0</span>
           </div>
           <div className="text-gray-400 text-sm sm:text-lg">
             Comisión generada:{" "}
-            <span className="text-white font-semibold">$25,000</span>
+            <span className="text-white font-semibold">$0</span>
           </div>
         </div>
       </div>
